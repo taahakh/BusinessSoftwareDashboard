@@ -4,7 +4,7 @@ public class Sales extends KPI{
     private int unitsRemaining;
 
     public Sales(String identifier) {
-        super(identifier);
+        super(identifier, "Sales");
     }
 
     public int getSales() {
@@ -35,4 +35,5 @@ public class Sales extends KPI{
     String provideKeyMetric() {
         return null;
     }
+
 }

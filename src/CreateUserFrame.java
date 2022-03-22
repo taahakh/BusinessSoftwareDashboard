@@ -43,7 +43,7 @@ public class CreateUserFrame extends Frame {
                     if(Login.createUserInterface(username, password, n)){
                         System.out.println("Successfukl");
                         closeFrame();
-                        new DashboardFrame().setVisible(true);
+                        new BusinessFrame().setVisible(true);
                     } else {
                         notif.setText("We couldn't create a user. Try again");
                     }
