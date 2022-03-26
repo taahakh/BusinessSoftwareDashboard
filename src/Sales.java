@@ -36,4 +36,9 @@ public class Sales extends KPI{
         return null;
     }
 
+    @Override
+    KPI returnSameClass() {
+        return new Sales("");
+    }
+
 }

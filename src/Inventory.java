@@ -8,4 +8,9 @@ public class Inventory extends KPI{
     String provideKeyMetric() {
         return null;
     }
+
+    @Override
+    KPI returnSameClass() {
+        return new Inventory("");
+    }
 }

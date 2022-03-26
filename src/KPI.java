@@ -5,5 +5,6 @@ public abstract class KPI extends KPIStruct {
     }
 
     abstract String provideKeyMetric();
+    abstract KPI returnSameClass();
 
 }

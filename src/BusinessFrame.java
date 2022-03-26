@@ -10,16 +10,25 @@ public class BusinessFrame extends Frame {
                 new Sales(""),
                 new Inventory(""),
         });
-        System.out.println(KPIStruct.getList());
         return KPIStruct.getList();
     }
 
-    private KPIStruct findKpi(String className){
-        ArrayList<KPIStruct> list = availableKpis();
+    public KPI createKpiObject(String type) {
+        switch (type){
+            case "Sales":
+                return new Sales("");
+            case "Inventory":
+                return new Inventory("");
+            default:
+                break;
+        }
+        return new DefaultKPI();
+    }
+
+    private KPIStruct findKpi(ArrayList<KPIStruct> list, String className){
         for(KPIStruct x : list){
             if(x.getClassName().equals(className)){
-//                return x.returnNewKPI();
-                System.out.println(x.returnNewKPI());
+                return x.returnNewKPI();
             }
         }
         return new KPIStruct("","");
@@ -50,12 +59,19 @@ public class BusinessFrame extends Frame {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ArrayList<KPIStruct> items;
+                ArrayList<KPI> items = new ArrayList<KPI>(boxes.length);
                 for(Checkbox box: boxes){
                     if(box.getState()){
-                        findKpi(box.getLabel());
+                        System.out.println(box.getLabel());
+                        items.add(createKpiObject(box.getLabel()));
                     }
                 }
+
+                for(KPIStruct x: items){
+                    System.out.println("Added to list: "+x.getClassName());
+                }
+
+                System.out.println(items.size());
             }
         });
 
