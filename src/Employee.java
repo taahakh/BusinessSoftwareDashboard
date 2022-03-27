@@ -1,8 +1,9 @@
 import java.util.ArrayList;
 
 enum Identifier {
-    // This is not the employee hierarchy.
+    // This is not the employee hierarchy exactly.
     // This is about who can access the KPI and users of the business
+    // You can customise employee heirarchy but these enums set which user certain rights to parts of the software
     // Editor just has read/write access to KPI's
     // Role has assignment controls on roles for users
     // User has Manager and add/delete users
