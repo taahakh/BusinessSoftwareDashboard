@@ -80,6 +80,7 @@ public class Login {
             return false;
         }
         usr.setName(name);
+        usr.saveUser();
         setLoggedIn(usr);
         return true;
     }
@@ -119,8 +120,16 @@ public class Login {
         return loggedIn;
     }
 
-    //    public static void deleteUser(String username){
-//        File fObj = new File(fileLocation+username+".txt");
-//        fObj.delete();
-//    }
+    public static <T extends Serializable> void saveObjects(T obj, String name) {
+        try {
+            FileOutputStream fs = new FileOutputStream(fileLocation + name + ".txt");
+            ObjectOutputStream os = new ObjectOutputStream(fs);
+            os.writeObject(obj);
+            os.flush();
+            os.close();
+            fs.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
 }

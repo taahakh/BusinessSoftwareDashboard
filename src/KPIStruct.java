@@ -1,4 +1,6 @@
-public class KPIStruct {
+import java.io.Serializable;
+
+public class KPIStruct implements Serializable {
     private final String indicator;
     private final String className;
 

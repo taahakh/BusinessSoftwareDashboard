@@ -12,6 +12,7 @@ public class AdminType extends EmployeeLadder{
 
     @Override
     public String showInfoMetric() {
-        return null;
+        return "Type: ADMIN" +
+                "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR";
     }
 }

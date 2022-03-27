@@ -1,4 +1,6 @@
-public class Sales extends KPI{
+import java.io.Serializable;
+
+public class Sales extends KPI implements Serializable {
 
     private int sales;
     private int unitsRemaining;

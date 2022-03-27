@@ -42,12 +42,15 @@ public class BusinessFrame extends Frame {
                         items.add(Settings.createKpiObject(box.getLabel()));
                     }
                 }
-                Employee em = new Employee("Main", new AdminType());
+                Admin em = new Admin("Main");
                 ArrayList<Employee> aem = new ArrayList<Employee>();
                 aem.add(em);
                 Business main = Business.createBusiness("temp", items, aem);
                 em.setBusiness(main);
                 Login.getLoggedIn().addEmployee(em);
+                Login.saveObjects(main, "bus"); // business save
+                Login.saveObjects(em, "em"); // Employee save
+                Login.getLoggedIn().saveUser(); // user save
                 closeFrame();
                 new DashboardFrame().setVisible(true);
             }

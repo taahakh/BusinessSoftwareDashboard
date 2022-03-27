@@ -1,0 +1,9 @@
+when logging in - create another window which makes you choose which business you want to go in
+new option for creating user. create option for where you are not part of a business
+doesnt go to dashboard. have to wait for business admin to add user to the business
+
+Add boxes and labels for the business stuff. e.g the name etc
+Check create user, login, and business stuff
+
+an area for admin and also every one else
+admin has

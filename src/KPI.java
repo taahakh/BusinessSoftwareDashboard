@@ -1,4 +1,6 @@
-public abstract class KPI extends KPIStruct {
+import java.io.Serializable;
+
+public abstract class KPI extends KPIStruct implements Serializable {
 
     public KPI(String indicator, String className) {
         super(indicator, className);

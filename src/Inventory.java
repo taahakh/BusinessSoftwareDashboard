@@ -1,4 +1,6 @@
-public class Inventory extends KPI{
+import java.io.Serializable;
+
+public class Inventory extends KPI implements Serializable {
 
     public Inventory(String indicator){
         super(indicator, "Inventory");

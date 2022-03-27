@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 
 enum Identifier {
@@ -17,14 +18,12 @@ enum Identifier {
     VIEWER
 }
 
-public class Employee implements EmployeeRules{
+public abstract class Employee implements EmployeeRules, Serializable {
 
     private Business business; // Which business they belong to. Each employee is tied to one business
     private String title; // Job title
     // Business position. Classes inherit EmployeeLadder and can access certain features regarding access to KPI's, creating/deleting users etc. At each rank, certain kpi's can be viewed and certain access rights can be shown
     private EmployeeLadder rank;
-    // which KPI's the employee has no matter what the EmployeeLadder shows what KPI's they have access to
-    private ArrayList<KPI> viewingList = new ArrayList<KPI>();
 
     public Employee() {}
 
@@ -47,5 +46,13 @@ public class Employee implements EmployeeRules{
 
     public void setBusiness(Business business) {
         this.business = business;
+    }
+
+    public void save() {
+        Login.saveObjects(this, "ok");
+    }
+
+    public Business getBusiness() {
+        return business;
     }
 }

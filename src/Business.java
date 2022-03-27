@@ -22,4 +22,8 @@ public class Business implements Serializable {
         current = temp;
         return current;
     }
+
+    public String getName(){
+        return name;
+    }
 }
