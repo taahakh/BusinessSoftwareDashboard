@@ -31,11 +31,20 @@ public class Employee implements EmployeeRules{
         this.rank = type;
     }
 
+    public Employee(String title, EmployeeLadder type){
+        this.title = title;
+        this.rank = type;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
 
     public String getTitle(){
         return this.title;
+    }
+
+    public void setBusiness(Business business) {
+        this.business = business;
     }
 }

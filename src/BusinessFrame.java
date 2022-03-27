@@ -7,6 +7,10 @@ public class BusinessFrame extends Frame {
 
     public ArrayList<KPI> items = new ArrayList<KPI>();
 
+    public void closeFrame(){
+        this.dispose();
+    }
+
     public BusinessFrame(){
 
         String[] list = Settings.availableKpis;
@@ -38,12 +42,14 @@ public class BusinessFrame extends Frame {
                         items.add(Settings.createKpiObject(box.getLabel()));
                     }
                 }
-
-                for(KPIStruct x: items){
-                    System.out.println("Added to list: "+x.getClassName());
-                }
-
-                System.out.println(items.size());
+                Employee em = new Employee("Main", new AdminType());
+                ArrayList<Employee> aem = new ArrayList<Employee>();
+                aem.add(em);
+                Business main = Business.createBusiness("temp", items, aem);
+                em.setBusiness(main);
+                Login.getLoggedIn().addEmployee(em);
+                closeFrame();
+                new DashboardFrame().setVisible(true);
             }
         });
 

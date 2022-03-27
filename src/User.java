@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class User implements Serializable {
 
@@ -6,7 +7,7 @@ public class User implements Serializable {
     private String password;
 
     private String name; // Name identification
-    private Employee[] employee; // Account access to businesses
+    private ArrayList<Employee> employee; // Account access to businesses
 
     public User(String username, String password) {
         this.username= username;
@@ -27,7 +28,7 @@ public class User implements Serializable {
         Login.userSave(this);
     }
 
-    public Employee[] getEmployee() {
+    public ArrayList<Employee> getEmployee() {
         return employee;
     }
 
@@ -43,5 +44,8 @@ public class User implements Serializable {
         return this.name;
     }
 
+    public void addEmployee(Employee employee){
+        this.employee.add(employee);
+    }
 
 }
