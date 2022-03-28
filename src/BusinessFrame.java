@@ -17,6 +17,14 @@ public class BusinessFrame extends Frame {
 
         Panel layout;
         Button submit;
+        Label name, error;
+        TextField nameInput;
+
+        name = new Label("Enter name for the company");
+        error = new Label();
+
+        nameInput = new TextField();
+
         Checkbox [] boxes = new Checkbox[list.length];
         int boxCounter = 0;
 
@@ -36,27 +44,42 @@ public class BusinessFrame extends Frame {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(nameInput.getText().isEmpty()){
+                    error.setText("The business name box cannot be empty");
+                    return;
+                }
+
                 for(Checkbox box: boxes){
                     if(box.getState()){
                         System.out.println(box.getLabel());
                         items.add(Settings.createKpiObject(box.getLabel()));
                     }
                 }
-                Admin em = new Admin("Main");
+
+                Admin em = new Admin(nameInput.getText());
                 ArrayList<Employee> aem = new ArrayList<Employee>();
                 aem.add(em);
-                Business main = Business.createBusiness("temp", items, aem);
+                Business main = Business.createBusiness(nameInput.getText(), items, aem);
                 em.setBusiness(main);
+
                 Login.getLoggedIn().addEmployee(em);
-                Login.saveObjects(main, "bus"); // business save
-                Login.saveObjects(em, "em"); // Employee save
-                Login.getLoggedIn().saveUser(); // user save
+                Login.saveObjects(main, Settings.BUS_FILENAME);   // business save
+                Login.saveObjects(em, Settings.EM_FILENAME);      // Employee save
+                Login.getLoggedIn().saveUser();         // user save
+
+                Settings.setEmployee(em); // Setting global variables
+                Settings.setBusiness(main);
+
                 closeFrame();
                 new DashboardFrame().setVisible(true);
             }
         });
 
         layout.add(submit);
+        layout.add(name);
+        layout.add(nameInput);
+        layout.add(error);
+
         this.add(layout);
 
         this.addWindowListener(new WindowCloser());

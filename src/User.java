@@ -36,6 +36,22 @@ public class User implements Serializable {
         return employee;
     }
 
+    public void removeEmployee(Employee em) {
+        employee.remove(em);
+    }
+
+    public Employee removeEmployeeWithBusiness(Business bus) {
+        Employee temp = null;
+        for(Employee emp: employee){
+            if(emp.getBusiness() == bus){
+                temp = emp;
+                employee.remove(emp);
+                return temp;
+            }
+        }
+        return temp;
+    }
+
     public String getUsername(){
         return this.username;
     }
@@ -50,6 +66,26 @@ public class User implements Serializable {
 
     public void addEmployee(Employee employee){
         this.employee.add(employee);
+    }
+
+    public boolean addEmployeeSafely(Employee em, String businessName){
+//        boolean exists = false;
+        for(Employee x: employee) {
+            System.out.println("x: " + x.whatType());
+            System.out.println("em: " + em.whatType());
+
+            System.out.println("xName: " + x.getBusiness().getName());
+            System.out.println("businessName: " + businessName);
+            if(x.whatType().equals(em.whatType()) && x.getBusiness().getName().equals(businessName)){
+//                exists = true;
+                System.out.println("Exists");
+                return false;
+            }
+        }
+
+        employee.add(em);
+
+        return true;
     }
 
 }

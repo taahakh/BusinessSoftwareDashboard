@@ -3,8 +3,12 @@ public class Analyst extends Employee{
         super(new AnalystType());
     }
 
+    @Override
+    String whatType() {
+        return "analyst";
+    }
+
     public Analyst(String title) {
-        super(new AnalystType());
-        setTitle(title);
+        super(title, new AnalystType());
     }
 }

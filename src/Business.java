@@ -3,8 +3,9 @@ import java.util.ArrayList;
 
 public class Business implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     public static ArrayList<Business> business = new ArrayList<Business>();
-    public static Business current;
+//    public static Business current;
 
     private String name; // name of the business
     private ArrayList<KPI> indicators; // all kpi's that belong to that business
@@ -19,11 +20,27 @@ public class Business implements Serializable {
     public static Business createBusiness(String name, ArrayList<KPI> indicators, ArrayList<Employee> employees) {
         Business temp = new Business(name, indicators, employees);
         business.add(temp);
-        current = temp;
-        return current;
+        Settings.setBusiness(temp);
+        return Settings.getBusiness();
     }
 
     public String getName(){
         return name;
+    }
+
+    public void addEmployee(Employee em) {
+        employees.add(em);
+    }
+
+    public void removeEmployee(Employee em) {
+        employees.remove(em);
+    }
+
+    public void save(){
+        Login.saveObjects(this, Settings.BUS_FILENAME);
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

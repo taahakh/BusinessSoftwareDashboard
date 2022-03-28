@@ -7,7 +7,6 @@ public class LoginFrame extends Frame {
     public void closeFrame(){
         this.dispose();
     }
-    public Employee chosen;
 
     public LoginFrame(){
         Panel layout;
@@ -81,7 +80,6 @@ public class LoginFrame extends Frame {
             @Override
             public void windowClosed(WindowEvent e) {
                 super.windowClosed(e);
-                Business.current = chosen.getBusiness();
                 p.closeFrame();
                 closeFrame();
                 new DashboardFrame().setVisible(true);
@@ -102,7 +100,7 @@ public class LoginFrame extends Frame {
         });
         p.add(text);
         p.add(button);
-
+        p.addWindowListener(new WindowCloser());
         p.launch();
     }
 
@@ -118,7 +116,10 @@ public class LoginFrame extends Frame {
                     String employee = ((Button) e.getSource()).getLabel();
                     for(Employee x : em) {
                         if(x.getTitle().equals(employee)){
-                            chosen = x;
+                            System.out.println("x stat:" + x);
+                            System.out.println("x-bus stat:" + x.getBusiness());
+                            Settings.setEmployee(x);
+                            Settings.setBusiness(x.getBusiness());
                             p.closeFrame();
                             return;
                         }
@@ -129,6 +130,8 @@ public class LoginFrame extends Frame {
             p.add(buttons[i]);
             i++;
         }
+
+        p.addWindowListener(new WindowCloser());
 
         p.launch();
         return p;

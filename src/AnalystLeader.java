@@ -11,4 +11,9 @@ public class AnalystLeader extends Employee {
         ));
     }
 
+    @Override
+    String whatType() {
+        return "analystleader";
+    }
+
 }

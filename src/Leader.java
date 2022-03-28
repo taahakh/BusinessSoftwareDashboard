@@ -4,5 +4,10 @@ public class Leader extends Employee {
         super();
     }
 
+    @Override
+    String whatType() {
+        return "leader";
+    }
+
 
 }

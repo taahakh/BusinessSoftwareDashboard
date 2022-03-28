@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class AnalystType extends EmployeeLadder{
 
     public AnalystType() {
@@ -11,6 +13,18 @@ public class AnalystType extends EmployeeLadder{
 
     public AnalystType(Identifier[] access) {
         super(access);
+    }
+
+    @Override
+    public Panel showRights() {
+        Panel p = basicPanel();
+        p.add(new TextField("hello"));
+        return p;
+    }
+
+    @Override
+    Panel showKpis() {
+        return null;
     }
 
     @Override

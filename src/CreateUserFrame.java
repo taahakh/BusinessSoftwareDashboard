@@ -13,7 +13,7 @@ public class CreateUserFrame extends Frame {
         Panel layout;
         TextField usr, pwd, name;
         Label u, p, n, notif;
-        Button submit;
+        Button submit, business, leave;
 
         this.setLayout(new FlowLayout());
         layout = new Panel();
@@ -30,6 +30,8 @@ public class CreateUserFrame extends Frame {
         notif = new Label("");
 
         submit = new Button("Submit");
+        business = new Button("Create business");
+        leave = new Button("Leave");
 
         submit.addActionListener(new ActionListener() {
             @Override
@@ -42,14 +44,37 @@ public class CreateUserFrame extends Frame {
                 } else {
                     if(Login.createUserInterface(username, password, n)){
                         System.out.println("Successfukl");
-                        closeFrame();
-                        new BusinessFrame().setVisible(true);
+                        Popup p = new Popup();
+                        p.add(business);
+                        p.add(leave);
+
+                        leave.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                p.closeFrame();
+                                closeFrame();
+                                new LoginFrame().setVisible(true);
+                            }
+                        });
+
+                        business.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                p.closeFrame();
+                                closeFrame();
+                                new BusinessFrame().setVisible(true);
+                            }
+                        });
+
+                        p.launch();
                     } else {
                         notif.setText("We couldn't create a user. Try again");
                     }
                 }
             }
         });
+
+
 
         layout.add(u);
         layout.add(usr);

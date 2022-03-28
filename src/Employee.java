@@ -49,10 +49,18 @@ public abstract class Employee implements EmployeeRules, Serializable {
     }
 
     public void save() {
-        Login.saveObjects(this, "ok");
+        Login.saveObjects(this, "bus");
     }
 
     public Business getBusiness() {
         return business;
     }
+
+    public EmployeeLadder getLadder(){
+        return rank;
+    }
+
+    abstract String whatType();
+
+
 }

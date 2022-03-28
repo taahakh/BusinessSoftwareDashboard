@@ -1,9 +1,10 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.awt.*;
 
 public abstract class EmployeeLadder implements Ladder, Serializable {
     private Identifier[] access;
-    protected ArrayList<KPI> levelList = new ArrayList<KPI>();
+    private ArrayList<KPI> levelList = new ArrayList<KPI>();
 
     public EmployeeLadder(Identifier[] access){
         this.access = access;
@@ -20,4 +21,20 @@ public abstract class EmployeeLadder implements Ladder, Serializable {
     public void setAccess(Identifier[] access) {
         this.access = access;
     }
+
+    public Panel basicPanel() {
+        Panel layout = new Panel();
+        layout = new Panel();
+        layout.setLayout(new GridLayout(0,1));
+        layout.setVisible(true);
+        return layout;
+    }
+
+    public ArrayList<KPI> getLevelList() {
+        return levelList;
+    }
+
+    abstract Panel showRights();
+
+    abstract Panel showKpis();
 }

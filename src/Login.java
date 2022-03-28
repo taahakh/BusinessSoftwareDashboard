@@ -7,6 +7,7 @@ public class Login {
     private final static String fileLocation = "/Users/taaha/Documents/savedata/";
     private final static String userTable = fileLocation + "data.csv";
     private static User loggedIn;
+    private static ArrayList<Employee> tempEmployee;
 
     private static ArrayList<String[]> readUserTable() throws IOException {
         final int tempLen = 2;
@@ -37,6 +38,16 @@ public class Login {
         return table;
     }
 
+    public static boolean checkUserExists(String username) throws IOException {
+        ArrayList<String[]> list = readUserTable();
+        for(String[] x: list){
+            if(x[0].equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static Boolean authenticate(String username, String password){
         ArrayList<String[]> table = null;
         try {
@@ -48,12 +59,14 @@ public class Login {
             if(x[0].equals(username)){
                 if(x[1].equals(password)){
                     setLoggedIn(loadUser(username, password));
+                    tempEmployee = loggedIn.getEmployee();
                     return true;
                 }
             }
         }
         return false;
     }
+
 
     public static User createUser(String username, String password){
         User temp = null;
@@ -131,5 +144,21 @@ public class Login {
         } catch (IOException e) {
             System.out.println(e);
         }
+    }
+
+    //  Unsafe method. Bypasses any authentication processes where needed
+    public static <T extends Serializable> Object loadObject(String name) {
+        Object obj = null;
+        try {
+            FileInputStream fs = new FileInputStream(fileLocation + name + ".txt");
+            ObjectInputStream os = new ObjectInputStream(fs);
+            obj = os.readObject();
+            os.close();
+            fs.close();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println(e);
+        }
+
+        return obj;
     }
 }
