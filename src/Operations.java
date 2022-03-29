@@ -109,24 +109,36 @@ public class Operations {
         // if we don't find an employee what that certain type, we cannot assign
         // there must be a user of that type in order to carry out operations on
         Business bus = Settings.getBusiness();
-        EmployeeLadder em = null;
+        EmployeeLadder el = null;
+        Employee em = null;
         for(Employee x : bus.getEmployees()){
+            System.out.println("Employee type: " + x.whatType());
             if(x.whatType().equals(type)){
-                em = x.getLadder();
+                System.out.println("accepted");
+                el = x.getLadder();
+                em = Settings.castEmployees(x, type);
                 break;
             }
         }
 
-        if(em == null){
+        if(el == null){
             return false;
         }
 
-        if(em.hasKPI(kpi, kpiName)){
+        if(el.hasKPI(kpi, kpiName)){
             return false;
         }
 
-        em.add(Settings.createKpiObject(kpiName, kpi));
+        KPI k = Settings.createKpiObject(kpiName, kpi);
+        em.getLadder().add(k);
+        System.out.println(em.whatType());
+        System.out.println(em.getLadder().getLevelList());
+        bus.addKPI(k);
+//        bus.save();
+        em.save();
+//        el.add(Settings.createKpiObject(kpiName, kpi));
         Settings.save();
+        System.out.println("here");
 
         return true;
     }

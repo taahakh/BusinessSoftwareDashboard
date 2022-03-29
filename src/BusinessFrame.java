@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class BusinessFrame extends Frame {
 
-    public ArrayList<KPI> items = new ArrayList<KPI>();
+    private ArrayList<KPI> items = new ArrayList<KPI>();
 
     public void closeFrame(){
         this.dispose();

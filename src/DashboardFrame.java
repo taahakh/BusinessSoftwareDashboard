@@ -22,9 +22,14 @@ public class DashboardFrame extends Frame {
 
         area = new Label(em.getLadder().showInfoMetric());
 
-        System.out.println("Business sattus: " + Settings.getBusiness().getName());
+        System.out.println("Business sattus: " + Settings.getBusiness().getKPIList());
+        System.out.println("Business type: " + Settings.getEmployee().whatType());
+        System.out.println("Business type: " + Settings.getEmployee().getBusiness().getKPIList());
+        System.out.println(Settings.getEmployee().getLadder().getLevelList());
 //        System.out.println("Business sattus: " + Settings.getBusiness().getName());
-
+//        Settings.getBusiness().setName("WHAT");
+        System.out.println(Settings.getBusiness().getName());
+        Settings.save();
         layout.add(area);
 
         this.add(layout);

@@ -126,10 +126,31 @@ public class SettingsFrame extends Frame {
 
     public Panel rolePanel() {
         Panel p = new Panel();
-//        System.out.println(Settings.getBusiness().getKPIList());
-        for(KPI x : Settings.getBusiness().getKPIList()) {
-            System.out.println(x.getIndicatorName());
-        }
+        Button submit;
+        Label kpi, kpiName;
+        TextField kpiTF, kpiNameTF;
+
+        kpi = new Label("KPI Type");
+        kpiName = new Label("Name");
+
+        kpiTF = new TextField();
+        kpiNameTF = new TextField();
+
+        submit = new Button("Submit");
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//                Operations.addKPItoBusiness("munch", "Sales");
+//                Operations.assignKPItoType("analyst", kpiTF.getText(), kpiNameTF.getText());
+            }
+        });
+
+        p.add(kpi);
+        p.add(kpiTF);
+        p.add(kpiName);
+        p.add(kpiNameTF);
+        p.add(submit);
+
         return p;
     }
 }

@@ -118,8 +118,8 @@ public class LoginFrame extends Frame {
                         if(x.getTitle().equals(employee)){
                             System.out.println("x stat:" + x);
                             System.out.println("x-bus stat:" + x.getBusiness());
-                            Settings.setEmployee(x);
-                            Settings.setBusiness(x.getBusiness());
+                            Settings.setEmployee(Settings.castEmployees(x, employee));
+                            Settings.setBusiness((Business) x.getBusiness());
                             p.closeFrame();
                             return;
                         }

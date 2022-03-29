@@ -31,7 +31,8 @@ public class Settings {
             default:
                 break;
         }
-        return new DefaultKPI();
+        throw new RuntimeException();
+//        return new DefaultKPI();
     }
 
     public static Employee castEmployees(Employee em, String type) {

@@ -2,13 +2,52 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+class LoginExceptions extends RuntimeException {
+    public LoginExceptions(String msg) {
+        super(msg);
+    }
+}
+
 public class Login {
+
+    private static ArrayList<User> users;
 
     private final static String fileLocation = "/Users/taaha/Documents/savedata/";
     private final static String userTable = fileLocation + "data.csv";
+    private final static String userObject = fileLocation + "users.txt";
     private static User loggedIn;
     private static ArrayList<Employee> tempEmployee;
 
+    private static ArrayList<User> readUserObject() throws IOException {
+        Login usr = (Login) loadObject(userObject);
+        return usr.users;
+    }
+
+    public static Boolean authenticate(Login login, String username, String password){
+        for(User x: login.users){
+            if(x.getUsername().equals(username) && x.confirmPassword(password)){
+                setLoggedIn(x);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static User createUser(String username, String password) {
+        return new User(username, password);
+    }
+
+    public static User loadUser(String username) throws IOException {
+        for (User x: readUserObject()){
+            if(x.getUsername().equals(username)){
+                return x;
+            }
+        }
+
+        throw new RuntimeException();
+    }
+
+//    ------------------------------------------------------------------
     private static ArrayList<String[]> readUserTable() throws IOException {
         final int tempLen = 2;
         BufferedReader reader = new BufferedReader(new FileReader(userTable));
@@ -38,9 +77,9 @@ public class Login {
         return table;
     }
 
-    private static boolean checkFileExists() {
-        return new File(userTable).exists();
-    }
+//    private static boolean checkFileExists() {
+//        return new File(userTable).exists();
+//    }
 
     public static boolean checkUserExists(String username) throws IOException {
         ArrayList<String[]> list = readUserTable();
@@ -72,39 +111,63 @@ public class Login {
     }
 
 
-    public static User createUser(String username, String password){
-        User temp = null;
-        try {
-            FileWriter fw = new FileWriter(userTable, true);
-            fw.append("\n");
-            fw.append(username);
-            fw.append(",");
-            fw.append(password);
-            fw.flush();
-            fw.close();
-            temp = new User(username, password);
-            userSave(temp);
-        } catch (IOException e) {
-            System.out.println(e);
-            return temp;
-        }
-        return temp;
-    }
+//    public static User createUser(String username, String password){
+//        User temp = null;
+//        try {
+//            FileWriter fw = new FileWriter(userTable, true);
+//            fw.append("\n");
+//            fw.append(username);
+//            fw.append(",");
+//            fw.append(password);
+//            fw.flush();
+//            fw.close();
+//            temp = new User(username, password);
+//            userSave(temp);
+//        } catch (IOException e) {
+//            System.out.println(e);
+//            return temp;
+//        }
+//        return temp;
+//    }
+
+//    public static boolean createUserInterface(String username, String password, String name){
+//        User usr = createUser(username, password);
+//        if(usr == null){
+//            return false;
+//        }
+//        usr.setName(name);
+//        usr.saveUser();
+//        setLoggedIn(usr);
+//        return true;
+//    }
 
     public static boolean createUserInterface(String username, String password, String name){
         User usr = createUser(username, password);
-        if(usr == null){
-            return false;
-        }
+//        if(usr == null){
+//            return false;
+//        }
         usr.setName(name);
         usr.saveUser();
         setLoggedIn(usr);
         return true;
     }
 
+//    public static void userSave(User usr){
+//        try {
+//            FileOutputStream fs = new FileOutputStream(fileLocation + usr.getUsername() + ".txt");
+//            ObjectOutputStream os = new ObjectOutputStream(fs);
+//            os.writeObject(usr);
+//            os.flush();
+//            os.close();
+//            fs.close();
+//        } catch (IOException e) {
+//            System.out.println(e);
+//        }
+//    }
+
     public static void userSave(User usr){
         try {
-            FileOutputStream fs = new FileOutputStream(fileLocation + usr.getUsername() + ".txt");
+            FileOutputStream fs = new FileOutputStream(fileLocation + ".txt");
             ObjectOutputStream os = new ObjectOutputStream(fs);
             os.writeObject(usr);
             os.flush();
@@ -117,7 +180,7 @@ public class Login {
 
     private static User loadUser(String username, String password){
         try {
-            FileInputStream fs = new FileInputStream(fileLocation+ username+".txt");
+            FileInputStream fs = new FileInputStream(fileLocation +".txt");
             ObjectInputStream os = new ObjectInputStream(fs);
             User usr = (User) os.readObject();
             return usr;

@@ -64,11 +64,15 @@ public abstract class Employee implements EmployeeRules, Serializable {
 
     public Button[] showKPIButtons() {
         if(rank.has(Identifier.VIEWER)){
+            System.out.println("view");
             if(rank.has(Identifier.EDITOR)){
+                System.out.println("view, edit");
                 return Operations.generateKPIButtons(rank.getLevelList(), true);
             }
             return Operations.generateKPIButtons(rank.getLevelList(), false);
         }
+        System.out.println("no");
+
         throw new RuntimeException();
     }
 
