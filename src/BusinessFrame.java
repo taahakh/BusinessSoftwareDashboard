@@ -26,7 +26,9 @@ public class BusinessFrame extends Frame {
         nameInput = new TextField();
 
         Checkbox [] boxes = new Checkbox[list.length];
-        int boxCounter = 0;
+        TextField [] fields = new TextField[list.length];
+
+        int counter = 0;
 
         this.setLayout(new FlowLayout());
         layout = new Panel();
@@ -35,9 +37,13 @@ public class BusinessFrame extends Frame {
 
         for(String x: list){
             Checkbox box = new Checkbox(x);
-            boxes[boxCounter] = box;
-            boxCounter++;
+            TextField tf = new TextField();
+            tf.setName(x);
+            boxes[counter] = box;
+            fields[counter] = tf;
+            counter++;
             layout.add(box);
+            layout.add(tf);
         }
 
         submit = new Button("Submit");
@@ -50,15 +56,30 @@ public class BusinessFrame extends Frame {
                 }
 
                 for(Checkbox box: boxes){
+                    // Looking for selected boxed
                     if(box.getState()){
-                        System.out.println(box.getLabel());
-                        items.add(Settings.createKpiObject(box.getLabel()));
+                        // checking for fields
+                        for(TextField tf : fields){
+                            // if the fields name is related to the box
+                            if(tf.getName().equals(box.getLabel())){
+                                // if the name is not empty then we can add it
+                                if(!(tf.getText().isEmpty())){
+                                    items.add(Settings.createKpiObject(tf.getText(), box.getLabel()));
+                                } else {
+                                    // boxes cannot be empty
+                                    error.setText("The kpi name boxes cannot be empty");
+                                    return;
+                                }
+                            }
+                        }
+//                        items.add(Settings.createKpiObject("", box.getLabel()));
                     }
                 }
 
                 Admin em = new Admin(nameInput.getText());
                 ArrayList<Employee> aem = new ArrayList<Employee>();
                 aem.add(em);
+                em.getLadder().setLevelList(items);
                 Business main = Business.createBusiness(nameInput.getText(), items, aem);
                 em.setBusiness(main);
 

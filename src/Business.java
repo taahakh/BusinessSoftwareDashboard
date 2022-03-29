@@ -43,4 +43,29 @@ public class Business implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+    public void addKPI(KPI kpi) {
+        indicators.add(kpi);
+    }
+
+    public boolean kpiExists(String indicator, String type) {
+        for(KPI x : indicators){
+            if(x.getIndicatorName().equals(indicator) && x.getClassName().equals(type)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean kpiExists(KPI indicator) {
+        return indicator.equals(indicator);
+    }
+
+    public ArrayList<Employee> getEmployees(){
+        return employees;
+    }
+
+    public ArrayList<KPI> getKPIList() {
+        return indicators;
+    }
 }

@@ -1,3 +1,9 @@
+import java.awt.*;
+
+/* Tracks all the global variables for the user, business and employee class
+*  These methods automatically generate KPI's, employees etc. It is up to the
+*  developer to add their inclusion of their types of KPI's, employees etc.
+* */
 public class Settings {
 
     private static Employee employee;
@@ -16,12 +22,12 @@ public class Settings {
             "Sales", "Inventory",
     };
 
-    public static KPI createKpiObject(String type) {
+    public static KPI createKpiObject(String name, String type) {
         switch (type){
             case "Sales":
-                return new Sales("");
+                return new Sales(name);
             case "Inventory":
-                return new Inventory("");
+                return new Inventory(name);
             default:
                 break;
         }
@@ -55,4 +61,5 @@ public class Settings {
     public static void setBusiness(Business b){
         business = b;
     }
+
 }

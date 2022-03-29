@@ -8,6 +8,7 @@ public abstract class EmployeeLadder implements Ladder, Serializable {
 
     public EmployeeLadder(Identifier[] access){
         this.access = access;
+        this.levelList = new ArrayList<KPI>();
     }
 
     public Identifier[] getAccess() {
@@ -22,16 +23,30 @@ public abstract class EmployeeLadder implements Ladder, Serializable {
         this.access = access;
     }
 
-    public Panel basicPanel() {
-        Panel layout = new Panel();
-        layout = new Panel();
-        layout.setLayout(new GridLayout(0,1));
-        layout.setVisible(true);
-        return layout;
-    }
-
     public ArrayList<KPI> getLevelList() {
         return levelList;
+    }
+
+    public void setLevelList(ArrayList<KPI> levelList) {
+        this.levelList = levelList;
+    }
+
+    public boolean has(Identifier iden) {
+        for(Identifier x : access) {
+            if(x.equals(iden)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasKPI(String type, String name) {
+        for(KPI x: levelList) {
+            if(x.getClassName().equals(type) && x.getIndicatorName().equals(name)){
+                return true;
+            }
+        }
+        return false;
     }
 
     abstract Panel showRights();

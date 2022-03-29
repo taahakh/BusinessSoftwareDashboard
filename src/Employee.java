@@ -1,5 +1,5 @@
+import java.awt.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 
 enum Identifier {
     // This is not the employee hierarchy exactly.
@@ -11,9 +11,11 @@ enum Identifier {
     // Admin has Leader and has rights to delete the business
     // Viewer has access just to read KPI
 
-    ADMIN,
-    USER,
-    ROLE,
+    // Users, permissions and KPI
+    ADMIN, // has everything below and more e.g. delete business
+    USER, // add/remove users
+    ROLE, // assign kpis for each role
+    // Viewing and Editing KPI
     EDITOR,
     VIEWER
 }
@@ -49,7 +51,7 @@ public abstract class Employee implements EmployeeRules, Serializable {
     }
 
     public void save() {
-        Login.saveObjects(this, "bus");
+        Login.saveObjects(this, Settings.BUS_FILENAME);
     }
 
     public Business getBusiness() {
@@ -58,6 +60,20 @@ public abstract class Employee implements EmployeeRules, Serializable {
 
     public EmployeeLadder getLadder(){
         return rank;
+    }
+
+    public Button[] showKPIButtons() {
+        if(rank.has(Identifier.VIEWER)){
+            if(rank.has(Identifier.EDITOR)){
+                return Operations.generateKPIButtons(rank.getLevelList(), true);
+            }
+            return Operations.generateKPIButtons(rank.getLevelList(), false);
+        }
+        throw new RuntimeException();
+    }
+
+    public Button showSettingsButton(){
+        return Operations.generateSettingsButton(rank.getAccess());
     }
 
     abstract String whatType();

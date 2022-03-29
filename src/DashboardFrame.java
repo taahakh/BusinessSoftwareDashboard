@@ -23,12 +23,17 @@ public class DashboardFrame extends Frame {
         area = new Label(em.getLadder().showInfoMetric());
 
         System.out.println("Business sattus: " + Settings.getBusiness().getName());
+//        System.out.println("Business sattus: " + Settings.getBusiness().getName());
 
         layout.add(area);
 
         this.add(layout);
-//        this.add(em.getLadder().showRights());
-//        this.add(em.getLadder().showKpis());
+        // Settings
+        this.add(em.showSettingsButton());
+        // Key performance indicators
+        for(Button x: em.showKPIButtons()) {
+            this.add(x);
+        }
 
         this.addWindowListener(new WindowCloser());
         this.setSize(700,700);

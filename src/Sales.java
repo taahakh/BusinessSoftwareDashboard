@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.Serializable;
 
 public class Sales extends KPI implements Serializable {
@@ -41,6 +42,13 @@ public class Sales extends KPI implements Serializable {
     @Override
     KPI returnSameClass() {
         return new Sales("");
+    }
+
+    @Override
+    Panel showKpi(boolean editable) {
+        Panel p = Panels.basicPanel();
+        p.add(new Label("Sales"));
+        return p;
     }
 
 }

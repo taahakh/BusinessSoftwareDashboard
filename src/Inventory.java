@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.Serializable;
 
 public class Inventory extends KPI implements Serializable {
@@ -14,5 +15,10 @@ public class Inventory extends KPI implements Serializable {
     @Override
     KPI returnSameClass() {
         return new Inventory("");
+    }
+
+    @Override
+    Panel showKpi(boolean editable) {
+        return Panels.basicPanel();
     }
 }

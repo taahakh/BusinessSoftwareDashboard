@@ -92,7 +92,7 @@ public class SettingsFrame extends Frame {
                     success.setText("These boxes cannot be empty");
                     return;
                 }
-                if(AdminOperations.addUser(addTF.getText(), typeTF.getText())){
+                if(Operations.addUser(addTF.getText(), typeTF.getText())){
                     success.setText("Operation successfull");
                 } else {
                     success.setText("Error finding user or couldnt add type");
@@ -103,7 +103,7 @@ public class SettingsFrame extends Frame {
         removeB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(AdminOperations.removeUser(removeTF.getText())){
+                if(Operations.removeUser(removeTF.getText())){
                     success.setText("Remove successfull");
                 } else {
                     success.setText("Remove failed :(");
@@ -126,6 +126,10 @@ public class SettingsFrame extends Frame {
 
     public Panel rolePanel() {
         Panel p = new Panel();
+//        System.out.println(Settings.getBusiness().getKPIList());
+        for(KPI x : Settings.getBusiness().getKPIList()) {
+            System.out.println(x.getIndicatorName());
+        }
         return p;
     }
 }

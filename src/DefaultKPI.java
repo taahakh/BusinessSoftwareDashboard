@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class DefaultKPI extends KPI{
 
     public DefaultKPI(){
@@ -11,6 +13,11 @@ public class DefaultKPI extends KPI{
 
     @Override
     KPI returnSameClass() {
+        return null;
+    }
+
+    @Override
+    Panel showKpi(boolean editable) {
         return null;
     }
 }

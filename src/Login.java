@@ -38,6 +38,10 @@ public class Login {
         return table;
     }
 
+    private static boolean checkFileExists() {
+        return new File(userTable).exists();
+    }
+
     public static boolean checkUserExists(String username) throws IOException {
         ArrayList<String[]> list = readUserTable();
         for(String[] x: list){

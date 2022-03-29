@@ -43,13 +43,15 @@ public class User implements Serializable {
     public Employee removeEmployeeWithBusiness(Business bus) {
         Employee temp = null;
         for(Employee emp: employee){
-            if(emp.getBusiness() == bus){
+            if(emp.getBusiness().getName().equals(bus.getName())){
+                System.out.println("remove success");
                 temp = emp;
                 employee.remove(emp);
                 return temp;
             }
         }
         return temp;
+//        throw new RuntimeException();
     }
 
     public String getUsername(){
@@ -68,17 +70,13 @@ public class User implements Serializable {
         this.employee.add(employee);
     }
 
+    // Check if the user is already added to the business
+    // We check if the business name matches and their rank matches
+    // NOTE: we can add multiple ranks for each business. It is safe
+    // but not intended.
     public boolean addEmployeeSafely(Employee em, String businessName){
-//        boolean exists = false;
         for(Employee x: employee) {
-            System.out.println("x: " + x.whatType());
-            System.out.println("em: " + em.whatType());
-
-            System.out.println("xName: " + x.getBusiness().getName());
-            System.out.println("businessName: " + businessName);
             if(x.whatType().equals(em.whatType()) && x.getBusiness().getName().equals(businessName)){
-//                exists = true;
-                System.out.println("Exists");
                 return false;
             }
         }

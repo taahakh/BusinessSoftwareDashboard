@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.Serializable;
 
 public abstract class KPI extends KPIStruct implements Serializable {
@@ -8,5 +9,6 @@ public abstract class KPI extends KPIStruct implements Serializable {
 
     abstract String provideKeyMetric();
     abstract KPI returnSameClass();
+    abstract Panel showKpi(boolean editable);
 
 }

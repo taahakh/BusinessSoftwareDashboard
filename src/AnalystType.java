@@ -17,14 +17,15 @@ public class AnalystType extends EmployeeLadder{
 
     @Override
     public Panel showRights() {
-        Panel p = basicPanel();
-        p.add(new TextField("hello"));
+        Panel p = Panels.basicPanel();
+        p.add(new Label("hello"));
         return p;
     }
 
     @Override
-    Panel showKpis() {
-        return null;
+    public Panel showKpis() {
+        Panel p = Panels.basicPanel();
+        return p;
     }
 
     @Override
