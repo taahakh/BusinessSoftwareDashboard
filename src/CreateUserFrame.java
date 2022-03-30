@@ -1,3 +1,5 @@
+import com.oracle.tools.packager.Log;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,6 +55,7 @@ public class CreateUserFrame extends Frame {
                             public void actionPerformed(ActionEvent e) {
                                 p.closeFrame();
                                 closeFrame();
+                                Login.resetLoggedIn();
                                 new LoginFrame().setVisible(true);
                             }
                         });

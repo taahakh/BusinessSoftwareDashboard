@@ -10,26 +10,44 @@ class LoginExceptions extends RuntimeException {
 
 public class Login {
 
-    private static ArrayList<User> users;
+    private static ArrayList<User> users = new ArrayList<User>(3);
 
     private final static String fileLocation = "/Users/taaha/Documents/savedata/";
-    private final static String userTable = fileLocation + "data.csv";
-    private final static String userObject = fileLocation + "users.txt";
+//    private final static String userTable = fileLocation + "data.csv";
+//    private final static String userObject = fileLocation + "users.txt";
     private static User loggedIn;
     private static ArrayList<Employee> tempEmployee;
 
+//    private static ArrayList<User> loadUserObject() {
+//
+//    }
+
     private static ArrayList<User> readUserObject() throws IOException {
-        Login usr = (Login) loadObject(userObject);
-        return usr.users;
+        if(users.size() == 0){
+            ArrayList<User> usr = (ArrayList<User>) loadObject(Settings.USER_FILENAME);
+            users = usr;
+        }
+        for (User x:  users){
+            System.out.println(x.getUsername());
+        }
+        return users;
     }
 
-    public static Boolean authenticate(Login login, String username, String password){
-        for(User x: login.users){
+    public static Boolean authenticate(String username, String password){
+
+        try {
+            users = readUserObject();
+        }catch (IOException e) {
+            System.out.println(e);
+        }
+
+        for(User x: users){
             if(x.getUsername().equals(username) && x.confirmPassword(password)){
                 setLoggedIn(x);
                 return true;
             }
         }
+
         return false;
     }
 
@@ -37,78 +55,97 @@ public class Login {
         return new User(username, password);
     }
 
-    public static User loadUser(String username) throws IOException {
-        for (User x: readUserObject()){
-            if(x.getUsername().equals(username)){
-                return x;
+    public static User loadUser(String username)  {
+        try {
+            for (User x: readUserObject()){
+                if(x.getUsername().equals(username)){
+                    System.out.println("1: "+ x);
+                    return x;
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         throw new RuntimeException();
     }
 
-//    ------------------------------------------------------------------
-    private static ArrayList<String[]> readUserTable() throws IOException {
-        final int tempLen = 2;
-        BufferedReader reader = new BufferedReader(new FileReader(userTable));
-        ArrayList<String[]> table = new ArrayList<String[]>();
-        while (true) {
-            String line = reader.readLine();
-            if(line == null) {
-                break;
-            }
-
-            Scanner sc = new Scanner(line);
-            sc.useDelimiter(",");
-
-            String[] temp = new String[tempLen];
-            int counter = 0;
-
-            while(sc.hasNext()){
-                temp[counter]= sc.next();
-                counter++;
-            }
-
-            table.add(temp);
-
-        }
-
-        reader.close();
-        return table;
-    }
-
-//    private static boolean checkFileExists() {
-//        return new File(userTable).exists();
-//    }
-
-    public static boolean checkUserExists(String username) throws IOException {
-        ArrayList<String[]> list = readUserTable();
-        for(String[] x: list){
-            if(x[0].equals(username)){
+    public static boolean checkUserExists(String username){
+        for(User x: users){
+            if(x.getUsername().equals(username)){
                 return true;
             }
         }
         return false;
     }
 
-    public static Boolean authenticate(String username, String password){
-        ArrayList<String[]> table = null;
-        try {
-          table = readUserTable();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
-        for(String[] x: table){
-            if(x[0].equals(username)){
-                if(x[1].equals(password)){
-                    setLoggedIn(loadUser(username, password));
-                    tempEmployee = loggedIn.getEmployee();
-                    return true;
-                }
-            }
-        }
-        return false;
+    public static void addUser(User usr) {
+        users.add(usr);
+        userSave(usr);
     }
+
+//    ------------------------------------------------------------------
+//    private static ArrayList<String[]> readUserTable() throws IOException {
+//        final int tempLen = 2;
+//        BufferedReader reader = new BufferedReader(new FileReader(userTable));
+//        ArrayList<String[]> table = new ArrayList<String[]>();
+//        while (true) {
+//            String line = reader.readLine();
+//            if(line == null) {
+//                break;
+//            }
+//
+//            Scanner sc = new Scanner(line);
+//            sc.useDelimiter(",");
+//
+//            String[] temp = new String[tempLen];
+//            int counter = 0;
+//
+//            while(sc.hasNext()){
+//                temp[counter]= sc.next();
+//                counter++;
+//            }
+//
+//            table.add(temp);
+//
+//        }
+//
+//        reader.close();
+//        return table;
+//    }
+
+//    private static boolean checkFileExists() {
+//        return new File(userTable).exists();
+//    }
+
+//    public static boolean checkUserExists(String username) throws IOException {
+//        ArrayList<String[]> list = readUserTable();
+//        for(String[] x: list){
+//            if(x[0].equals(username)){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+//    public static Boolean authenticate(String username, String password){
+//        ArrayList<String[]> table = null;
+//        try {
+//          table = readUserTable();
+//        } catch (IOException e) {
+//            System.out.println(e);
+//        }
+//        for(String[] x: table){
+//            if(x[0].equals(username)){
+//                if(x[1].equals(password)){
+//                    setLoggedIn(loadUser(username, password));
+//                    tempEmployee = loggedIn.getEmployee();
+//                    return true;
+//                }
+//            }
+//        }
+//        return false;
+//    }
 
 
 //    public static User createUser(String username, String password){
@@ -147,9 +184,14 @@ public class Login {
 //            return false;
 //        }
         usr.setName(name);
-        usr.saveUser();
+        addUser(usr);
+//        usr.saveUser();
         setLoggedIn(usr);
         return true;
+    }
+
+    public static void resetLoggedIn(){
+        Login.loggedIn = null;
     }
 
 //    public static void userSave(User usr){
@@ -167,9 +209,10 @@ public class Login {
 
     public static void userSave(User usr){
         try {
-            FileOutputStream fs = new FileOutputStream(fileLocation + ".txt");
+            FileOutputStream fs = new FileOutputStream(fileLocation+Settings.USER_FILENAME);
             ObjectOutputStream os = new ObjectOutputStream(fs);
-            os.writeObject(usr);
+//            os.writeObject(usr);
+            os.writeObject(users);
             os.flush();
             os.close();
             fs.close();
@@ -178,19 +221,20 @@ public class Login {
         }
     }
 
-    private static User loadUser(String username, String password){
-        try {
-            FileInputStream fs = new FileInputStream(fileLocation +".txt");
-            ObjectInputStream os = new ObjectInputStream(fs);
-            User usr = (User) os.readObject();
-            return usr;
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e);
-            System.out.println("User was found in directory - recreating class");
-            userSave(new User(username, password));
-        }
-        return new User("","");
-    }
+//    private static User loadUser(String username, String password){
+//        try {
+//            FileInputStream fs = new FileInputStream(fileLocation +".txt");
+//            ObjectInputStream os = new ObjectInputStream(fs);
+//            User usr = (User) os.readObject();
+//            return usr;
+//        } catch (IOException | ClassNotFoundException e) {
+//            System.out.println(e);
+//            System.out.println("User was found in directory - recreating class");
+//            userSave(new User(username, password));
+//        }
+//        return new User("","");
+//    }
+
 
     public static void setLoggedIn(User loggedIn) {
         Login.loggedIn = loggedIn;
@@ -202,7 +246,7 @@ public class Login {
 
     public static <T extends Serializable> void saveObjects(T obj, String name) {
         try {
-            FileOutputStream fs = new FileOutputStream(fileLocation + name + ".txt");
+            FileOutputStream fs = new FileOutputStream(fileLocation + name);
             ObjectOutputStream os = new ObjectOutputStream(fs);
             os.writeObject(obj);
             os.flush();
@@ -217,7 +261,7 @@ public class Login {
     public static <T extends Serializable> Object loadObject(String name) {
         Object obj = null;
         try {
-            FileInputStream fs = new FileInputStream(fileLocation + name + ".txt");
+            FileInputStream fs = new FileInputStream(fileLocation + name);
             ObjectInputStream os = new ObjectInputStream(fs);
             obj = os.readObject();
             os.close();

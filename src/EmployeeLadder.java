@@ -4,7 +4,7 @@ import java.awt.*;
 
 public abstract class EmployeeLadder implements Ladder, Serializable {
     private Identifier[] access;
-    private ArrayList<KPI> levelList = new ArrayList<KPI>();
+    private ArrayList<KPI> levelList;
 
     public EmployeeLadder(Identifier[] access){
         this.access = access;

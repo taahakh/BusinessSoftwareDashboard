@@ -3,7 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Set;
 
 public class Operations {
 
@@ -24,7 +23,8 @@ public class Operations {
     public static boolean addUser(String username, String type) {
         boolean exists = checkUserExists(username);
         if(exists){
-            User usr = (User) Login.loadObject(username);
+            User usr = Login.loadUser(username);
+//            System.out.println("2: "+ usr);
             Employee em = assignEmployee(Settings.getEmployee().getTitle(), type);
             em.setBusiness(Settings.getBusiness());
             if(usr.addEmployeeSafely(em, Settings.getEmployee().getTitle())){
@@ -32,6 +32,8 @@ public class Operations {
                 Settings.save();
                 usr.saveUser();
             }
+//            System.out.println("3: "+ usr.getEmployee());
+//            System.out.println("4: " + Login.loadUser(username));
             return true;
         }
         return false;
@@ -61,14 +63,15 @@ public class Operations {
     }
 
     private static boolean checkUserExists(String username) {
-        boolean exists = false;
-        try{
-            exists = Login.checkUserExists(username);
-        } catch (IOException e) {
-            System.out.println(e);
-            return false;
-        }
-        return exists;
+//        boolean exists = false;
+//        try{
+//            exists = Login.checkUserExists(username);
+//        } catch (IOException e) {
+//            System.out.println(e);
+//            return false;
+//        }
+//        return exists;
+        return Login.checkUserExists(username);
     }
 
     // Generates buttons for KPI list
@@ -134,7 +137,7 @@ public class Operations {
         System.out.println(em.whatType());
         System.out.println(em.getLadder().getLevelList());
         bus.addKPI(k);
-//        bus.save();
+        bus.save();
         em.save();
 //        el.add(Settings.createKpiObject(kpiName, kpi));
         Settings.save();

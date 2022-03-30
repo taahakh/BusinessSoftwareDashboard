@@ -9,12 +9,15 @@ public class Settings {
     private static Employee employee;
     private static Business business;
 
-    public final static String EM_FILENAME = "em";
-    public final static String BUS_FILENAME = "bus";
+    public final static String EM_FILENAME = "em.txt";
+    public final static String BUS_FILENAME = "bus.txt";
+    public final static String USER_FILENAME = "user.txt";
 
     public static void save(){
-        employee.save();
-        business.save();
+//        employee.save();
+//        business.save();
+        Login.saveObjects(employee, EM_FILENAME);
+        Login.saveObjects(business, BUS_FILENAME);
         Login.userSave(Login.getLoggedIn());
     }
 

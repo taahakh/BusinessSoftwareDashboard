@@ -74,6 +74,7 @@ public class LoginFrame extends Frame {
         User user = Login.getLoggedIn();
         if(user.getEmployee().size() == 0) {
             showNoEmployee();
+            System.out.println(user.getEmployee());
         }
         Popup p = showEmployee(user.getEmployee());
         p.addWindowListener(new WindowAdapter() {

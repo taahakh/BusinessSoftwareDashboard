@@ -141,7 +141,7 @@ public class SettingsFrame extends Frame {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                Operations.addKPItoBusiness("munch", "Sales");
-//                Operations.assignKPItoType("analyst", kpiTF.getText(), kpiNameTF.getText());
+                Operations.assignKPItoType("analyst", kpiTF.getText(), kpiNameTF.getText());
             }
         });
 
