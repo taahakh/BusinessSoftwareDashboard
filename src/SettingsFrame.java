@@ -127,24 +127,28 @@ public class SettingsFrame extends Frame {
     public Panel rolePanel() {
         Panel p = new Panel();
         Button submit;
-        Label kpi, kpiName;
-        TextField kpiTF, kpiNameTF;
+        Label kpi, kpiName, role;
+        TextField kpiTF, kpiNameTF, roleTF;
 
         kpi = new Label("KPI Type");
         kpiName = new Label("Name");
+        role = new Label("Role");
 
         kpiTF = new TextField();
         kpiNameTF = new TextField();
+        roleTF = new TextField();
 
         submit = new Button("Submit");
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 //                Operations.addKPItoBusiness("munch", "Sales");
-                Operations.assignKPItoType("analyst", kpiTF.getText(), kpiNameTF.getText());
+                Operations.assignKPItoType(roleTF.getText(), kpiTF.getText(), kpiNameTF.getText());
             }
         });
 
+        p.add(role);
+        p.add(roleTF);
         p.add(kpi);
         p.add(kpiTF);
         p.add(kpiName);
