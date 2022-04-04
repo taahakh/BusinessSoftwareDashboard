@@ -1,24 +1,41 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Business implements Serializable {
 
     private static final long serialVersionUID = 1L;
     public static ArrayList<Business> business = new ArrayList<Business>();
-//    public static Business current;
 
     private String name; // name of the business
     private ArrayList<KPI> indicators; // all kpi's that belong to that business
     private ArrayList<Employee> employees; // all employees that the business has
+    private HashMap<EmployeeLadder, ArrayList<KPI>> ladderKpis;
+
+    public Business(String name) {
+        this.name = name;
+        this.indicators = new ArrayList<KPI>();
+        this.employees = new ArrayList<Employee>();
+        this.ladderKpis = new HashMap<EmployeeLadder, ArrayList<KPI>>();
+    }
 
     public Business(String name, ArrayList<KPI> indicators, ArrayList<Employee> employees) {
         this.name = name;
         this.indicators = indicators;
         this.employees = employees;
+        this.ladderKpis = new HashMap<EmployeeLadder, ArrayList<KPI>>();
     }
 
     public static Business createBusiness(String name, ArrayList<KPI> indicators, ArrayList<Employee> employees) {
         Business temp = new Business(name, indicators, employees);
+        business.add(temp);
+        Settings.setBusiness(temp);
+        return Settings.getBusiness();
+    }
+
+    public static Business createBusiness(String name) {
+        Business temp = new Business(name);
         business.add(temp);
         Settings.setBusiness(temp);
         return Settings.getBusiness();
@@ -67,5 +84,30 @@ public class Business implements Serializable {
 
     public ArrayList<KPI> getKPIList() {
         return indicators;
+    }
+
+    public Map<EmployeeLadder, ArrayList<KPI>> getLadderKpis() {
+        return ladderKpis;
+    }
+
+    public void setLadderKpis(HashMap <EmployeeLadder, ArrayList<KPI>> ladderKpis) {
+        this.ladderKpis = ladderKpis;
+    }
+
+    public ArrayList<KPI> comapreTo(EmployeeLadder type) {
+        for(EmployeeLadder k: ladderKpis.keySet()){
+            if(type.compareTo(k)){
+                return ladderKpis.get(k);
+            }
+        }
+
+        throw new RuntimeException("okkkkk");
+    }
+
+    public ArrayList<KPI> getTotalKpis() {
+        return comapreTo(new AdminType());
+    }
+    public void linkLadderList(EmployeeLadder e, ArrayList<KPI> k) {
+        ladderKpis.put(e,k);
     }
 }

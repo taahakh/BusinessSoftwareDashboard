@@ -1,5 +1,3 @@
-import com.oracle.tools.packager.Log;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

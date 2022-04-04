@@ -4,32 +4,32 @@ import java.awt.*;
 
 public abstract class EmployeeLadder implements Ladder, Serializable {
     private Identifier[] access;
-    private ArrayList<KPI> levelList;
+//    private ArrayList<KPI> levelList;
 
     public EmployeeLadder(Identifier[] access){
         this.access = access;
-        this.levelList = new ArrayList<KPI>();
+//        this.levelList = new ArrayList<KPI>();
     }
 
     public Identifier[] getAccess() {
         return access;
     }
 
-    public void add(KPI indicator) {
-        this.levelList.add(indicator);
-    }
+//    public void add(KPI indicator) {
+//        this.levelList.add(indicator);
+//    }
 
     public void setAccess(Identifier[] access) {
         this.access = access;
     }
 
-    public ArrayList<KPI> getLevelList() {
-        return levelList;
-    }
+//    public ArrayList<KPI> getLevelList() {
+//        return levelList;
+//    }
 
-    public void setLevelList(ArrayList<KPI> levelList) {
-        this.levelList = levelList;
-    }
+//    public void setLevelList(ArrayList<KPI> levelList) {
+//        this.levelList = levelList;
+//    }
 
     public boolean has(Identifier iden) {
         for(Identifier x : access) {
@@ -40,14 +40,16 @@ public abstract class EmployeeLadder implements Ladder, Serializable {
         return false;
     }
 
-    public boolean hasKPI(String type, String name) {
-        for(KPI x: levelList) {
-            if(x.getClassName().equals(type) && x.getIndicatorName().equals(name)){
-                return true;
-            }
-        }
-        return false;
-    }
+//    public boolean hasKPI(String type, String name) {
+//        for(KPI x: levelList) {
+//            if(x.getClassName().equals(type) && x.getIndicatorName().equals(name)){
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
+
+    abstract boolean compareTo(Object obj);
 
     abstract Panel showRights();
 

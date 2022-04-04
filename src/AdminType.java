@@ -1,7 +1,4 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class AdminType extends EmployeeLadder{
 
@@ -19,6 +16,14 @@ public class AdminType extends EmployeeLadder{
     public String showInfoMetric() {
         return "Type: ADMIN\n" +
                 "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR";
+    }
+
+    @Override
+    boolean compareTo(Object obj) {
+        if(obj instanceof AdminType){
+            return true;
+        }
+        return false;
     }
 
     @Override

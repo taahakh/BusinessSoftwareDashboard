@@ -29,7 +29,8 @@ public class User implements Serializable {
     }
 
     public void saveUser(){
-        Login.userSave(this);
+//        Login.userSave(this);
+        Settings.save();
     }
 
     public ArrayList<Employee> getEmployee() {

@@ -12,8 +12,21 @@ public class AnalystLeader extends Employee {
     }
 
     @Override
+    boolean compareTo(Object obj) {
+        if(obj instanceof AnalystLeader) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     String whatType() {
         return "analystleader";
+    }
+
+    @Override
+    String whatRank() {
+        return "analyst";
     }
 
 }

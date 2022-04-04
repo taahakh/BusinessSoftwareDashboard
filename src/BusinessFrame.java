@@ -76,21 +76,44 @@ public class BusinessFrame extends Frame {
                     }
                 }
 
-                Admin em = new Admin(nameInput.getText());
-                ArrayList<Employee> aem = new ArrayList<Employee>();
-                aem.add(em);
-                em.getLadder().setLevelList(items);
-                Business main = Business.createBusiness(nameInput.getText(), items, aem);
-                em.setBusiness(main);
+                User usr = Login.getLoggedIn();
 
-                Login.getLoggedIn().addEmployee(em);
-                Login.saveObjects(main, Settings.BUS_FILENAME);   // business save
-                Login.saveObjects(em, Settings.EM_FILENAME);      // Employee save
+                // Lets create the business first
+                Business b = Business.createBusiness(nameInput.getText());
+                // Lets create the new Employee of type Admin
+                Admin a = new Admin(nameInput.getText());
+                // He himself is an employee of the business so we add him to the business
+                b.addEmployee(a);
+                // Lets add business to admin
+                a.setBusiness(b);
+                // Lets link the type of admin to the list of KPI's
+                b.linkLadderList(new AdminType(), items);
+                // Lets now link the employee to the user
+                usr.addEmployee(a);
+
+//                // Every new user that creates a business will be of admin type
+//                Admin em = new Admin(nameInput.getText());
+//                // He himself is an employee of the business so an employee list is needed
+//                ArrayList<Employee> aem = new ArrayList<Employee>();
+//                aem.add(em);
+//                em.getLadder().setLevelList(items);
+//                // We create the business object and assign name, kpi, employee values
+//                Business main = Business.createBusiness(nameInput.getText(), items, aem);
+//                em.setBusiness(main);
+
+//                Login.getLoggedIn().addEmployee(em);
+//                Login.saveObjects(main, Settings.BUS_FILENAME);   // business save
+//                Login.saveObjects(em, Settings.EM_FILENAME);      // Employee save
+//                Login.getLoggedIn().saveUser();         // user save
+
+//                Login.getLoggedIn().addEmployee(em);
+                Login.saveObjects(b, Settings.BUS_FILENAME);   // business save
+                Login.saveObjects(a, Settings.EM_FILENAME);      // Employee save
                 Login.getLoggedIn().saveUser();         // user save
 
-                Settings.setEmployee(em); // Setting global variables
-                Settings.setBusiness(main);
-
+                Settings.setEmployee(a); // Setting global variables
+                Settings.setBusiness(b);
+                Settings.save();
                 closeFrame();
                 new DashboardFrame().setVisible(true);
             }

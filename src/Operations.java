@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class Operations {
 
@@ -24,7 +25,6 @@ public class Operations {
         boolean exists = checkUserExists(username);
         if(exists){
             User usr = Login.loadUser(username);
-//            System.out.println("2: "+ usr);
             Employee em = assignEmployee(Settings.getEmployee().getTitle(), type);
             em.setBusiness(Settings.getBusiness());
             if(usr.addEmployeeSafely(em, Settings.getEmployee().getTitle())){
@@ -32,8 +32,6 @@ public class Operations {
                 Settings.save();
                 usr.saveUser();
             }
-//            System.out.println("3: "+ usr.getEmployee());
-//            System.out.println("4: " + Login.loadUser(username));
             return true;
         }
         return false;
@@ -80,7 +78,7 @@ public class Operations {
         int counter =0;
         System.out.println(kpis);
         for(KPI x: kpis){
-            Button button = new Button(x.getClassName());
+            Button button = new Button(x.getClassName()+": "+x.getIndicatorName());
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -111,37 +109,43 @@ public class Operations {
         // we can access the list for that class and append it there for all users
         // if we don't find an employee what that certain type, we cannot assign
         // there must be a user of that type in order to carry out operations on
-        Business bus = Settings.getBusiness();
-        EmployeeLadder el = null;
-        Employee em = null;
-        for(Employee x : bus.getEmployees()){
-            System.out.println("Employee type: " + x.whatType());
-            if(x.whatType().equals(type)){
-                System.out.println("accepted");
-                el = x.getLadder();
-                em = Settings.castEmployees(x, type);
-                break;
-            }
-        }
 
-        if(el == null){
-            return false;
-        }
+//        Business bus = Settings.getBusiness();
+//        EmployeeLadder el = null;
+//        Employee em = null;
+//        for(Employee x : bus.getEmployees()){
+//            System.out.println("Employee type: " + x.whatType());
+//            if(x.whatType().equals(type)){
+//                System.out.println("accepted");
+//                el = x.getLadder();
+//                em = Settings.castEmployees(x, type);
+//                break;
+//            }
+//        }
+//
+//        if(el == null){
+//            return false;
+//        }
+//
+//        if(el.hasKPI(kpi, kpiName)){
+//            return false;
+//        }
+//
+//        KPI k = Settings.createKpiObject(kpiName, kpi);
+//        em.getLadder().add(k);
+//        System.out.println(em.whatType());
+//        System.out.println(em.getLadder().getLevelList());
+//        bus.addKPI(k);
+//        bus.save();
+////        em.save();
+////        el.add(Settings.createKpiObject(kpiName, kpi));
+//        Settings.save();
+//        System.out.println("here");
 
-        if(el.hasKPI(kpi, kpiName)){
-            return false;
-        }
-
-        KPI k = Settings.createKpiObject(kpiName, kpi);
-        em.getLadder().add(k);
-        System.out.println(em.whatType());
-        System.out.println(em.getLadder().getLevelList());
-        bus.addKPI(k);
-        bus.save();
-        em.save();
-//        el.add(Settings.createKpiObject(kpiName, kpi));
-        Settings.save();
-        System.out.println("here");
+        Business b = Settings.getBusiness();
+        EmployeeLadder el = Settings.getType(type);
+        Map map = b.getLadderKpis();
+        System.out.println(map.get(el));
 
         return true;
     }

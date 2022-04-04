@@ -50,9 +50,9 @@ public abstract class Employee implements EmployeeRules, Serializable {
         this.business = business;
     }
 
-    public void save() {
-        Login.saveObjects(this, Settings.BUS_FILENAME);
-    }
+//    public void save() {
+//        Login.saveObjects(this, Settings.BUS_FILENAME);
+//    }
 
     public Business getBusiness() {
         return business;
@@ -62,25 +62,28 @@ public abstract class Employee implements EmployeeRules, Serializable {
         return rank;
     }
 
-    public Button[] showKPIButtons() {
-        if(rank.has(Identifier.VIEWER)){
-            System.out.println("view");
-            if(rank.has(Identifier.EDITOR)){
-                System.out.println("view, edit");
-                return Operations.generateKPIButtons(rank.getLevelList(), true);
-            }
-            return Operations.generateKPIButtons(rank.getLevelList(), false);
-        }
-        System.out.println("no");
-
-        throw new RuntimeException();
-    }
+//    public Button[] showKPIButtons() {
+//        if(rank.has(Identifier.VIEWER)){
+//            System.out.println("view");
+//            if(rank.has(Identifier.EDITOR)){
+//                System.out.println("view, edit");
+//                return Operations.generateKPIButtons(rank.getLevelList(), true);
+//            }
+//            return Operations.generateKPIButtons(rank.getLevelList(), false);
+//        }
+//        System.out.println("no");
+//
+//        throw new RuntimeException();
+//    }
 
     public Button showSettingsButton(){
         return Operations.generateSettingsButton(rank.getAccess());
     }
 
+    abstract boolean compareTo(Object obj);
+
     abstract String whatType();
 
+    abstract String whatRank();
 
 }

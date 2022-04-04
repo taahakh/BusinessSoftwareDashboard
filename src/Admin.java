@@ -5,7 +5,21 @@ public class Admin extends Employee{
     }
 
     @Override
+    boolean compareTo(Object obj) {
+        if(obj instanceof Admin) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     String whatType() {
         return "admin";
     }
+
+    @Override
+    String whatRank() {
+        return "admin";
+    }
+
 }

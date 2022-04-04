@@ -14,11 +14,13 @@ public class Settings {
     public final static String USER_FILENAME = "user.txt";
 
     public static void save(){
-//        employee.save();
-//        business.save();
         Login.saveObjects(employee, EM_FILENAME);
         Login.saveObjects(business, BUS_FILENAME);
-        Login.userSave(Login.getLoggedIn());
+        Login.userSave();
+    }
+
+    public static void launchSettings() {
+
     }
 
     public static String [] availableKpis = new String[]{
@@ -48,6 +50,18 @@ public class Settings {
                 return (AnalystLeader) em;
         }
         return em;
+    }
+
+    public static EmployeeLadder getType(String type) {
+        switch (type){
+            case "admin":
+                return new AdminType();
+            case "analyst":
+                return new AnalystType();
+//            case "default":
+        }
+        throw new RuntimeException("ok");
+//        return em;
     }
 
     public static Employee getEmployee(){

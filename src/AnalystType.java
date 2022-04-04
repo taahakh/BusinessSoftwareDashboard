@@ -16,6 +16,14 @@ public class AnalystType extends EmployeeLadder{
     }
 
     @Override
+    boolean compareTo(Object obj) {
+        if (obj instanceof AnalystType){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public Panel showRights() {
         Panel p = Panels.basicPanel();
         p.add(new Label("hello"));
