@@ -30,6 +30,7 @@ public class DashboardFrame extends Frame {
         System.out.println("Business list: " + Settings.getBusiness().getTotalKpis());
         System.out.println("Business name: "+ Settings.getBusiness().getName());
         Settings.save();
+        Settings.getBusiness().printLinks();
 
         System.out.println("-------------------");
 
@@ -45,9 +46,9 @@ public class DashboardFrame extends Frame {
         // Settings
         this.add(em.showSettingsButton());
         // Key performance indicators
-//        for(Button x: em.showKPIButtons()) {
-//            this.add(x);
-//        }
+        for(Button x: em.showKPIButtons()) {
+            this.add(x);
+        }
 
         this.addWindowListener(new WindowCloser());
         this.setSize(700,700);

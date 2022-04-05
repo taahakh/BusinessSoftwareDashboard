@@ -1,5 +1,6 @@
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,7 +108,67 @@ public class Business implements Serializable {
     public ArrayList<KPI> getTotalKpis() {
         return comapreTo(new AdminType());
     }
+
     public void linkLadderList(EmployeeLadder e, ArrayList<KPI> k) {
         ladderKpis.put(e,k);
+    }
+
+    public boolean hasLadderLink(EmployeeLadder e) {
+        for (EmployeeLadder x: ladderKpis.keySet()){
+            if(e.compareTo(x)){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void addKpiToList(EmployeeLadder e, KPI k) {
+        if(hasLadderLink(e) == true) {
+            appendKPI(e,k);
+        } else {
+            // no ladders exists so we need to create a new link
+            ArrayList<KPI> list = new ArrayList<KPI>();
+            list.add(k);
+            linkLadderList(e, list);
+        }
+        Settings.save();
+    }
+
+    public boolean appendKPI (EmployeeLadder e, KPI k) {
+        // checks for any ladders that exists
+        for (EmployeeLadder x: ladderKpis.keySet()){
+            if(e.compareTo(x)){
+                return append(ladderKpis.get(x), k);
+            }
+        }
+
+        return false;
+    }
+
+    public boolean append(ArrayList<KPI> list, KPI k) {
+        for (KPI x: list) {
+            if(x.getIndicatorName().equals(k.getIndicatorName())){
+                return false;
+            }
+        }
+        list.add(k);
+        return true;
+    }
+
+    public void printLinks() {
+        for(EmployeeLadder x: ladderKpis.keySet()){
+            System.out.println("Ladder: " + x + " List: " + ladderKpis.get(x));
+        }
+    }
+
+    public ArrayList<KPI> getKPILadderList(EmployeeLadder e) {
+        for (EmployeeLadder x: ladderKpis.keySet()) {
+            if(x.compareTo(e)){
+                return ladderKpis.get(x);
+            }
+        }
+
+        throw new RuntimeException("OH NO");
     }
 }

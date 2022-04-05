@@ -144,9 +144,19 @@ public class Operations {
 
         Business b = Settings.getBusiness();
         EmployeeLadder el = Settings.getType(type);
-        Map map = b.getLadderKpis();
-        System.out.println(map.get(el));
-
+        System.out.println(type);
+        System.out.println(kpi);
+        System.out.println(kpiName);
+        System.out.println(el);
+//        Map<EmployeeLadder, ArrayList<KPI>> map = b.getLadderKpis();
+//        for (EmployeeLadder x: map.keySet()) {
+//            if(x.compareTo(el)){
+//                System.out.println(true+" it does exist");
+//            }
+//        }
+        b.addKpiToList(el, Settings.createKpiObject(kpiName, kpi));
+        b.printLinks();
+        System.out.println();
         return true;
     }
 

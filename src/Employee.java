@@ -62,19 +62,22 @@ public abstract class Employee implements EmployeeRules, Serializable {
         return rank;
     }
 
-//    public Button[] showKPIButtons() {
-//        if(rank.has(Identifier.VIEWER)){
-//            System.out.println("view");
-//            if(rank.has(Identifier.EDITOR)){
-//                System.out.println("view, edit");
+    public Button[] showKPIButtons() {
+        if(rank.has(Identifier.VIEWER)){
+            System.out.println("view");
+            if(rank.has(Identifier.EDITOR)){
+                System.out.println("view, edit");
 //                return Operations.generateKPIButtons(rank.getLevelList(), true);
-//            }
+                return Operations.generateKPIButtons(business.getKPILadderList(rank), true);
+            }
 //            return Operations.generateKPIButtons(rank.getLevelList(), false);
-//        }
-//        System.out.println("no");
-//
-//        throw new RuntimeException();
-//    }
+            return Operations.generateKPIButtons(business.getKPILadderList(rank), false);
+
+        }
+        System.out.println("no");
+
+        throw new RuntimeException();
+    }
 
     public Button showSettingsButton(){
         return Operations.generateSettingsButton(rank.getAccess());
