@@ -87,4 +87,12 @@ public class User implements Serializable {
         return true;
     }
 
+    public Boolean deleteEmployee(Business b) {
+        for(Employee e: employee){
+            if(e.getBusiness().equals(b)){
+                return employee.remove(e);
+            }
+        }
+        return false;
+    }
 }

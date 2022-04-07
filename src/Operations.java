@@ -61,14 +61,6 @@ public class Operations {
     }
 
     private static boolean checkUserExists(String username) {
-//        boolean exists = false;
-//        try{
-//            exists = Login.checkUserExists(username);
-//        } catch (IOException e) {
-//            System.out.println(e);
-//            return false;
-//        }
-//        return exists;
         return Login.checkUserExists(username);
     }
 
@@ -110,64 +102,43 @@ public class Operations {
         // if we don't find an employee what that certain type, we cannot assign
         // there must be a user of that type in order to carry out operations on
 
-//        Business bus = Settings.getBusiness();
-//        EmployeeLadder el = null;
-//        Employee em = null;
-//        for(Employee x : bus.getEmployees()){
-//            System.out.println("Employee type: " + x.whatType());
-//            if(x.whatType().equals(type)){
-//                System.out.println("accepted");
-//                el = x.getLadder();
-//                em = Settings.castEmployees(x, type);
-//                break;
-//            }
-//        }
-//
-//        if(el == null){
-//            return false;
-//        }
-//
-//        if(el.hasKPI(kpi, kpiName)){
-//            return false;
-//        }
-//
-//        KPI k = Settings.createKpiObject(kpiName, kpi);
-//        em.getLadder().add(k);
-//        System.out.println(em.whatType());
-//        System.out.println(em.getLadder().getLevelList());
-//        bus.addKPI(k);
-//        bus.save();
-////        em.save();
-////        el.add(Settings.createKpiObject(kpiName, kpi));
-//        Settings.save();
-//        System.out.println("here");
-
         Business b = Settings.getBusiness();
         EmployeeLadder el = Settings.getType(type);
-        System.out.println(type);
-        System.out.println(kpi);
-        System.out.println(kpiName);
-        System.out.println(el);
-//        Map<EmployeeLadder, ArrayList<KPI>> map = b.getLadderKpis();
-//        for (EmployeeLadder x: map.keySet()) {
-//            if(x.compareTo(el)){
-//                System.out.println(true+" it does exist");
-//            }
-//        }
         b.addKpiToList(el, Settings.createKpiObject(kpiName, kpi));
         b.printLinks();
         System.out.println();
         return true;
     }
 
-    public static boolean addKPItoBusiness(String name, String type) {
-        Business bus = Settings.getBusiness();
-        if(bus.kpiExists(name, type)) {
-            return false;
+    public static void removeKPI(String kpi, String kpiName) {
+        Business b = Settings.getBusiness();
+        b.removeKPI(kpi, kpiName);
+    }
+
+    // We need to delete on references of the business obj
+    // Employees are the ones with references
+    public static void deleteBusiness() {
+        // Deleting business from employees
+        Business b = Settings.getBusiness();
+//        for(Employee e: b.getEmployees()){
+//            e.setBusiness(null);
+//        }
+//        // Deleting employee from user
+//        User usr = Login.getLoggedIn();
+//        usr.getEmployee().remove(Settings.getEmployee());
+        for(User u : Login.userList()){
+//            for(Employee e: u.getEmployee()){
+//                if(e.getBusiness().equals(b)){
+//                    u.deleteEmployee(b);
+//                }
+//            }
+
+            if(u.deleteEmployee(b)){
+                System.out.println("Deleting");
+            }
         }
-        bus.addKPI(Settings.createKpiObject(name, type));
+
         Settings.save();
-        return true;
     }
 
 }

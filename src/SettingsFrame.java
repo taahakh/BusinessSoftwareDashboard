@@ -1,3 +1,5 @@
+import javafx.scene.layout.Pane;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -153,6 +155,58 @@ public class SettingsFrame extends Frame {
         p.add(kpiTF);
         p.add(kpiName);
         p.add(kpiNameTF);
+        p.add(submit);
+        p.add(removeKpiPanel());
+        p.add(deleteBusiness());
+
+        return p;
+    }
+
+    public Panel removeKpiPanel() {
+        Panel p = new Panel();
+
+        Button submit;
+        Label kpi, kpiName;
+        TextField kpiTF, kpiNameTF;
+
+        kpi = new Label("KPI to delete: ");
+        kpiName = new Label("KPI name to delete");
+
+        kpiTF = new TextField();
+        kpiNameTF = new TextField();
+
+        submit = new Button("Delete KPI");
+
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Operations.removeKPI(kpiTF.getText(), kpiNameTF.getText());
+
+            }
+        });
+
+        p.add(kpi);
+        p.add(kpiTF);
+        p.add(kpiName);
+        p.add(kpiNameTF);
+        p.add(submit);
+
+        return p;
+    }
+
+    public Panel deleteBusiness() {
+        Panel p = new Panel();
+
+        Button submit = new Button("Delete business?");
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Operations.deleteBusiness();
+                dispose();
+                new LoginFrame().setVisible(true);
+            }
+        });
+
         p.add(submit);
 
         return p;

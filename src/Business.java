@@ -1,8 +1,5 @@
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Business implements Serializable {
 
@@ -10,20 +7,17 @@ public class Business implements Serializable {
     public static ArrayList<Business> business = new ArrayList<Business>();
 
     private String name; // name of the business
-    private ArrayList<KPI> indicators; // all kpi's that belong to that business
     private ArrayList<Employee> employees; // all employees that the business has
     private HashMap<EmployeeLadder, ArrayList<KPI>> ladderKpis;
 
     public Business(String name) {
         this.name = name;
-        this.indicators = new ArrayList<KPI>();
         this.employees = new ArrayList<Employee>();
         this.ladderKpis = new HashMap<EmployeeLadder, ArrayList<KPI>>();
     }
 
     public Business(String name, ArrayList<KPI> indicators, ArrayList<Employee> employees) {
         this.name = name;
-        this.indicators = indicators;
         this.employees = employees;
         this.ladderKpis = new HashMap<EmployeeLadder, ArrayList<KPI>>();
     }
@@ -62,29 +56,8 @@ public class Business implements Serializable {
         this.name = name;
     }
 
-    public void addKPI(KPI kpi) {
-        indicators.add(kpi);
-    }
-
-    public boolean kpiExists(String indicator, String type) {
-        for(KPI x : indicators){
-            if(x.getIndicatorName().equals(indicator) && x.getClassName().equals(type)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean kpiExists(KPI indicator) {
-        return indicator.equals(indicator);
-    }
-
     public ArrayList<Employee> getEmployees(){
         return employees;
-    }
-
-    public ArrayList<KPI> getKPIList() {
-        return indicators;
     }
 
     public Map<EmployeeLadder, ArrayList<KPI>> getLadderKpis() {
@@ -95,7 +68,7 @@ public class Business implements Serializable {
         this.ladderKpis = ladderKpis;
     }
 
-    public ArrayList<KPI> comapreTo(EmployeeLadder type) {
+    public ArrayList<KPI> compareTo(EmployeeLadder type) {
         for(EmployeeLadder k: ladderKpis.keySet()){
             if(type.compareTo(k)){
                 return ladderKpis.get(k);
@@ -105,8 +78,10 @@ public class Business implements Serializable {
         throw new RuntimeException("okkkkk");
     }
 
+
+
     public ArrayList<KPI> getTotalKpis() {
-        return comapreTo(new AdminType());
+        return compareTo(new AdminType());
     }
 
     public void linkLadderList(EmployeeLadder e, ArrayList<KPI> k) {
@@ -124,6 +99,7 @@ public class Business implements Serializable {
     }
 
     public void addKpiToList(EmployeeLadder e, KPI k) {
+        // Linking employee rank with KPI
         if(hasLadderLink(e) == true) {
             appendKPI(e,k);
         } else {
@@ -132,10 +108,12 @@ public class Business implements Serializable {
             list.add(k);
             linkLadderList(e, list);
         }
+        // We link admin employee with all kpis
+        appendKPI(new AdminType(), k);
         Settings.save();
     }
 
-    public boolean appendKPI (EmployeeLadder e, KPI k) {
+    private boolean appendKPI (EmployeeLadder e, KPI k) {
         // checks for any ladders that exists
         for (EmployeeLadder x: ladderKpis.keySet()){
             if(e.compareTo(x)){
@@ -146,7 +124,7 @@ public class Business implements Serializable {
         return false;
     }
 
-    public boolean append(ArrayList<KPI> list, KPI k) {
+    private boolean append(ArrayList<KPI> list, KPI k) {
         for (KPI x: list) {
             if(x.getIndicatorName().equals(k.getIndicatorName())){
                 return false;
@@ -171,4 +149,35 @@ public class Business implements Serializable {
 
         throw new RuntimeException("OH NO");
     }
+
+    public ArrayList<KPI> returnLadderKPI(EmployeeLadder ladder) {
+        ArrayList<KPI> temp = null;
+        for (EmployeeLadder e : ladderKpis.keySet()) {
+            if(e.compareTo(ladder)){
+                return ladderKpis.get(e);
+            }
+        }
+        return temp;
+    }
+
+    public void removeKPI(String kpi, String kpiName) {
+        KPI temp = null;
+        ArrayList<KPI> list = returnLadderKPI(new AdminType());
+        for (KPI k : list) {
+            if(k.getIndicatorName().equals(kpiName) && k.getClassName().equals(kpi)){
+                temp = k;
+                list.remove(k);
+                break;
+            }
+        }
+
+        for (EmployeeLadder e : ladderKpis.keySet()){
+            ladderKpis.get(e).remove(temp);
+        }
+
+        printLinks();
+
+        Settings.save();
+    }
+
 }

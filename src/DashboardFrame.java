@@ -3,9 +3,9 @@ import java.util.Set;
 
 public class DashboardFrame extends Frame {
 
-    public void closeFrame(){
-        this.dispose();
-    }
+//    public void closeFrame(){
+//        this.dispose();
+//    }
 
     public DashboardFrame() {
         User user = Login.getLoggedIn();
@@ -23,20 +23,13 @@ public class DashboardFrame extends Frame {
 
         area = new Label(em.getLadder().showInfoMetric());
 
-//        System.out.println("Business sattus: " + Settings.getBusiness().getKPIList());
-//        System.out.println("Business type: " + Settings.getEmployee().whatType());
-//        System.out.println("Business type: " + Settings.getEmployee().getBusiness().getKPIList());
-//        System.out.println(Settings.getEmployee().getLadder().getLevelList());
         System.out.println("Business list: " + Settings.getBusiness().getTotalKpis());
         System.out.println("Business name: "+ Settings.getBusiness().getName());
-        Settings.save();
+//        Settings.save();
         Settings.getBusiness().printLinks();
 
         System.out.println("-------------------");
-
-        for (Employee e: Settings.getBusiness().getEmployees()){
-//            System.out.println(e.getTitle()+ " " + e.getLadder().getLevelList());
-        }
+        System.out.println(Settings.getBusiness().getEmployees().toString());
 
         System.out.println("-------------------");
 

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 public class BusinessFrame extends Frame {
 
-    private ArrayList<KPI> items = new ArrayList<KPI>();
-
     public void closeFrame(){
         this.dispose();
     }
@@ -55,6 +53,8 @@ public class BusinessFrame extends Frame {
                     return;
                 }
 
+                ArrayList<KPI> items = new ArrayList<KPI>();
+
                 for(Checkbox box: boxes){
                     // Looking for selected boxed
                     if(box.getState()){
@@ -91,25 +91,6 @@ public class BusinessFrame extends Frame {
                 // Lets now link the employee to the user
                 usr.addEmployee(a);
 
-//                // Every new user that creates a business will be of admin type
-//                Admin em = new Admin(nameInput.getText());
-//                // He himself is an employee of the business so an employee list is needed
-//                ArrayList<Employee> aem = new ArrayList<Employee>();
-//                aem.add(em);
-//                em.getLadder().setLevelList(items);
-//                // We create the business object and assign name, kpi, employee values
-//                Business main = Business.createBusiness(nameInput.getText(), items, aem);
-//                em.setBusiness(main);
-
-//                Login.getLoggedIn().addEmployee(em);
-//                Login.saveObjects(main, Settings.BUS_FILENAME);   // business save
-//                Login.saveObjects(em, Settings.EM_FILENAME);      // Employee save
-//                Login.getLoggedIn().saveUser();         // user save
-
-//                Login.getLoggedIn().addEmployee(em);
-                Login.saveObjects(b, Settings.BUS_FILENAME);   // business save
-                Login.saveObjects(a, Settings.EM_FILENAME);      // Employee save
-                Login.getLoggedIn().saveUser();         // user save
 
                 Settings.setEmployee(a); // Setting global variables
                 Settings.setBusiness(b);

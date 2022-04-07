@@ -15,6 +15,10 @@ public class Login {
     private final static String fileLocation = "/Users/taaha/Documents/savedata/";
     private static User loggedIn;
 
+    public static ArrayList<User> userList(){
+        return users;
+    }
+
     private static ArrayList<User> readUserObject() throws IOException {
 
         File f = new File(fileLocation+Settings.USER_FILENAME);
