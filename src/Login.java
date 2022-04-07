@@ -31,6 +31,7 @@ public class Login {
             ArrayList<User> usr = (ArrayList<User>) loadObject(Settings.USER_FILENAME);
             users = usr;
         }
+
         for (User x:  users){
             System.out.println(x.getUsername());
         }
