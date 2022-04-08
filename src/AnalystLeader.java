@@ -1,7 +1,7 @@
 public class AnalystLeader extends Employee {
 
-    public AnalystLeader(){
-        super(new AnalystType(
+    public AnalystLeader(String title){
+        super(title, new AnalystType(
                 new Identifier[]{
                         Identifier.VIEWER,
                         Identifier.EDITOR,

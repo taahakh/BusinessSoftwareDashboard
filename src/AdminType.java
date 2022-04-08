@@ -42,8 +42,8 @@ public class AdminType extends EmployeeLadder{
     }
 
     @Override
-    public Panel showKpis() {
-        Panel p = Panels.basicPanel();
+    public Frame showKpis() {
+        Frame f = Panels.basicWindow();
 //        ArrayList<KPI> list = getLevelList();
 //        System.out.println(list.size());
 //        for(KPI a : list) {
@@ -56,6 +56,8 @@ public class AdminType extends EmployeeLadder{
 //            p.add(buttons[counter]);
 //        }
 
-        return p;
+//        return p;
+
+        return f;
     }
 }

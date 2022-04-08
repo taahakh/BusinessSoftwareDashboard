@@ -5,19 +5,14 @@ enum Identifier {
     // This is not the employee hierarchy exactly.
     // This is about who can access the KPI and users of the business
     // You can customise employee heirarchy but these enums set which user certain rights to parts of the software
-    // Editor just has read/write access to KPI's
-    // Role has assignment controls on roles for users
-    // User has Manager and add/delete users
-    // Admin has Leader and has rights to delete the business
-    // Viewer has access just to read KPI
 
     // Users, permissions and KPI
-    ADMIN, // has everything below and more e.g. delete business
-    USER, // add/remove users
+    ADMIN, // delete business, change business name
+    USER, // add/remove users : note: you cannot delete admin user if you are not admin nor add
     ROLE, // assign kpis for each role
     // Viewing and Editing KPI
-    EDITOR,
-    VIEWER
+    EDITOR, // can edit and update values
+    VIEWER // view essential information
 }
 
 public abstract class Employee implements EmployeeRules, Serializable {
@@ -50,10 +45,6 @@ public abstract class Employee implements EmployeeRules, Serializable {
         this.business = business;
     }
 
-//    public void save() {
-//        Login.saveObjects(this, Settings.BUS_FILENAME);
-//    }
-
     public Business getBusiness() {
         return business;
     }
@@ -70,7 +61,6 @@ public abstract class Employee implements EmployeeRules, Serializable {
                 return Operations.generateKPIButtons(business.getKPILadderList(rank), true);
             }
             return Operations.generateKPIButtons(business.getKPILadderList(rank), false);
-
         }
 
         throw new RuntimeException();
@@ -78,6 +68,20 @@ public abstract class Employee implements EmployeeRules, Serializable {
 
     public Button showSettingsButton(){
         return Operations.generateSettingsButton(rank.getAccess());
+    }
+
+    public boolean hasIdentifier(Identifier iden) {
+        for (Identifier i : getIdentifiers()) {
+            if(iden == i){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public Identifier[] getIdentifiers() {
+        return rank.getAccess();
     }
 
     abstract boolean compareTo(Object obj);

@@ -31,9 +31,9 @@ public class AnalystType extends EmployeeLadder{
     }
 
     @Override
-    public Panel showKpis() {
-        Panel p = Panels.basicPanel();
-        return p;
+    public Frame showKpis() {
+        Frame f = Panels.basicWindow();
+        return f;
     }
 
     @Override

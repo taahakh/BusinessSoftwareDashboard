@@ -18,7 +18,7 @@ public class Inventory extends KPI implements Serializable {
     }
 
     @Override
-    Panel showKpi(boolean editable) {
-        return Panels.basicPanel();
+    Frame showKpi(boolean editable) {
+        return Panels.basicWindow();
     }
 }

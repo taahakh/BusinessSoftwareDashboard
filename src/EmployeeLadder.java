@@ -30,5 +30,5 @@ public abstract class EmployeeLadder implements Ladder, Serializable {
 
     abstract Panel showRights();
 
-    abstract Panel showKpis();
+    abstract Frame showKpis();
 }

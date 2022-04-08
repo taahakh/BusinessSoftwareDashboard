@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 class LoginExceptions extends RuntimeException {
     public LoginExceptions(String msg) {
@@ -17,6 +16,16 @@ public class Login {
 
     public static ArrayList<User> userList(){
         return users;
+    }
+
+    public static User getUser(String username) {
+        User temp = null;
+        for (User usr: users) {
+            if(usr.getUsername().equals(username)){
+                return usr;
+            }
+        }
+        return temp;
     }
 
     private static ArrayList<User> readUserObject() throws IOException {

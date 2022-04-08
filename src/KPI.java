@@ -9,6 +9,6 @@ public abstract class KPI extends KPIStruct implements Serializable {
 
     abstract String provideKeyMetric();
     abstract KPI returnSameClass();
-    abstract Panel showKpi(boolean editable);
+    abstract Frame showKpi(boolean editable);
 
 }

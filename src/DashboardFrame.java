@@ -30,7 +30,9 @@ public class DashboardFrame extends Frame {
 
         System.out.println("-------------------");
         System.out.println(Settings.getBusiness().getEmployees().toString());
-
+        /*for (Employee e : Settings.getBusiness().getEmployees()) {
+//            System.out.println(e.());
+        }*/
         System.out.println("-------------------");
 
         layout.add(area);

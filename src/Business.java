@@ -78,8 +78,6 @@ public class Business implements Serializable {
         throw new RuntimeException("okkkkk");
     }
 
-
-
     public ArrayList<KPI> getTotalKpis() {
         return compareTo(new AdminType());
     }
@@ -147,7 +145,8 @@ public class Business implements Serializable {
             }
         }
 
-        throw new RuntimeException("OH NO");
+        return new ArrayList<KPI>();
+//        throw new RuntimeException("OH NO");
     }
 
     public ArrayList<KPI> returnLadderKPI(EmployeeLadder ladder) {

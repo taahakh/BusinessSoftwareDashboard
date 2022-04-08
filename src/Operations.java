@@ -14,51 +14,53 @@ public class Operations {
             case "analyst":
                 return new Analyst(username);
             case  "analystleader":
-                return new AnalystLeader();
+                return new AnalystLeader(username);
         }
 
         return new DefaultEmployee();
     }
 
-    // username, title, rank, business
     public static boolean addUser(String username, String type) {
-        boolean exists = checkUserExists(username);
-        if(exists){
-            User usr = Login.loadUser(username);
-            Employee em = assignEmployee(Settings.getEmployee().getTitle(), type);
+        if(checkUserExists(username)){
+            Employee e = Settings.getEmployee();
+            // Loading in user
+            User usr = Login.getUser(username);
+            // Creating a new employee
+            Employee em = assignEmployee(e.getTitle(), type);
+            // Linking employee with business
             em.setBusiness(Settings.getBusiness());
-            if(usr.addEmployeeSafely(em, Settings.getEmployee().getTitle())){
-                Settings.getBusiness().addEmployee(em);
+            // Linking employee to user
+            if(usr.addEmployeeSafely(em, e.getTitle())) {
+                Business b = Settings.getBusiness();
+                // Linking business with employee
+                b.addEmployee(em);
                 Settings.save();
-                usr.saveUser();
+//                usr.saveUser();
+                return true;
             }
-            return true;
         }
         return false;
     }
 
     //  Removing user from the business
     public static boolean removeUser(String username){
-        boolean exists = checkUserExists(username);
         // Deletes all instances of the employee and user connecting to the business
-        if(exists){
-            User usr = (User) Login.loadObject(username);
-            Employee bus = usr.removeEmployeeWithBusiness(Settings.getBusiness()); // user
-            if(bus == null) {
-                return false;
-            }
-            Settings.getBusiness().removeEmployee(bus); // business
-            Settings.save();
-            usr.saveUser();
-            return true;
-        }
+        if(checkUserExists(username)){
+            User usr = Login.getUser(username);
+            Business b = Settings.getBusiness();
+            // Deleting employee from user - Lets return employee
+            Employee em = usr.removeEmployeeWithBusiness(b);
+            // Deleting employee from business
+            b.removeEmployee(em);
 
+            Settings.save();
+
+            return true;
+
+        }
         return false;
     }
 
-    public static void changeRank(String username, Identifier[] iden) {
-        boolean exists = checkUserExists(username);
-    }
 
     private static boolean checkUserExists(String username) {
         return Login.checkUserExists(username);
@@ -103,13 +105,20 @@ public class Operations {
         // there must be a user of that type in order to carry out operations on
 
         Business b = Settings.getBusiness();
+        Employee e = Settings.getEmployee();
         EmployeeLadder el = Settings.getType(type);
+        // We want people who do not have the admin rank not to change/give admin permissions
+        if(el.has(Identifier.ADMIN)){
+            if(!(e.hasIdentifier(Identifier.ADMIN))){
+                return false;
+            }
+        }
         b.addKpiToList(el, Settings.createKpiObject(kpiName, kpi));
         b.printLinks();
-        System.out.println();
         return true;
     }
 
+    // removes kpi COMPLETELY from all ranks
     public static void removeKPI(String kpi, String kpiName) {
         Business b = Settings.getBusiness();
         b.removeKPI(kpi, kpiName);
@@ -120,22 +129,8 @@ public class Operations {
     public static void deleteBusiness() {
         // Deleting business from employees
         Business b = Settings.getBusiness();
-//        for(Employee e: b.getEmployees()){
-//            e.setBusiness(null);
-//        }
-//        // Deleting employee from user
-//        User usr = Login.getLoggedIn();
-//        usr.getEmployee().remove(Settings.getEmployee());
         for(User u : Login.userList()){
-//            for(Employee e: u.getEmployee()){
-//                if(e.getBusiness().equals(b)){
-//                    u.deleteEmployee(b);
-//                }
-//            }
-
-            if(u.deleteEmployee(b)){
-                System.out.println("Deleting");
-            }
+            u.deleteEmployee(b);
         }
 
         Settings.save();

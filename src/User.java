@@ -37,7 +37,7 @@ public class User implements Serializable {
         return employee;
     }
 
-    public void removeEmployee(Employee em) {
+    public void deleteEmployee(Employee em) {
         employee.remove(em);
     }
 

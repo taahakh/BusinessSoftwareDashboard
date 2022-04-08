@@ -6,10 +6,11 @@ public class Admin extends Employee{
 
     @Override
     boolean compareTo(Object obj) {
-        if(obj instanceof Admin) {
-            return true;
-        }
-        return false;
+//        if(obj instanceof Admin) {
+//            return true;
+//        }
+//        return false;
+        return obj instanceof Admin;
     }
 
     @Override

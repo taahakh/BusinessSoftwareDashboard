@@ -17,7 +17,7 @@ public class DefaultKPI extends KPI{
     }
 
     @Override
-    Panel showKpi(boolean editable) {
+    Frame showKpi(boolean editable) {
         return null;
     }
 }

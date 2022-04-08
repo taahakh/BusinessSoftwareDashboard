@@ -45,10 +45,9 @@ public class Sales extends KPI implements Serializable {
     }
 
     @Override
-    Panel showKpi(boolean editable) {
-        Panel p = Panels.basicPanel();
-        p.add(new Label("Sales"));
-        return p;
+    Frame showKpi(boolean editable) {
+        Frame f = Panels.basicWindow();
+        return f;
     }
 
 }
