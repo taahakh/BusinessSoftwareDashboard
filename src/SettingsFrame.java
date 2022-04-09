@@ -1,82 +1,90 @@
-import javafx.scene.layout.Pane;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class SettingsFrame extends Frame {
 
-    public SettingsFrame(Identifier[] identifiers){
+    private final Dimension textFieldDimensions = new Dimension(100, 30);
+
+    public SettingsFrame(Identifier[] identifiers) {
         Panel layout;
 
-        this.setLayout(new FlowLayout());
         layout = new Panel();
-        layout.setLayout(new GridLayout(0,1));
         layout.setVisible(true);
 
-        layout.add(getCustomPanel(identifiers));
+        getCustomPanel(identifiers, layout);
         this.add(layout);
 
         this.addWindowListener(new WindowCloser());
-        this.setSize(500,500);
+        this.setSize(990, 400);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
     }
 
-    public Panel getCustomPanel(Identifier[] identifiers){
-        Panel p = new Panel();
-
-        for (Identifier i: identifiers){
-            switch (i){
-                case EDITOR:
-                    p.add(editorPanel());
-                    break;
-                case VIEWER:
-                    p.add(viewerPanel());
-                    break;
+    public void getCustomPanel(Identifier[] identifiers, Panel p) {
+        Button temp;
+        for (Identifier i : identifiers) {
+            switch (i) {
                 case USER:
-                    p.add(userPanel());
+                    temp = new Button("USERS");
+                    temp.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            userPanel().setVisible(true);
+                        }
+                    });
+                    p.add(temp);
                     break;
                 case ADMIN:
-                    p.add(adminPanel());
+                    temp = new Button("ADMIN");
+                    temp.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            adminPanel().setVisible(true);
+                        }
+                    });
+                    p.add(temp);
                     break;
                 case ROLE:
-                    p.add(rolePanel());
+                    temp = new Button("ROLES");
+                    temp.addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            rolePanel().setVisible(true);
+                        }
+                    });
+                    p.add(temp);
                     break;
                 default:
                     break;
             }
         }
 
-        return p;
     }
 
-    public Panel editorPanel() {
-        Panel p = new Panel();
-        return p;
-    }
+    //----------------------------------------------------------------------------
+    public Frame userPanel() {
+        //        final String a,r,t,ab,rb,empty,suc,err,rs,rf;
+//        a = "Add user to business";
+//        r = "Remove user from business";
+//        t = "Enter user type";
+//        ab = "Add user";
+//        rb = "Remove user";
+//        empty = "These boxes cannot be empty";
+//        suc = "Operation successful";
+//        err = "Error finding user or couldn't add type";
+//        rs = "Remove successful";
+//        rf = "Remove failed :(";
 
-    public Panel viewerPanel() {
-        Panel p = new Panel();
-        return p;
-    }
-
-    public Panel userPanel() {
-        Panel p = new Panel();
-        return p;
-    }
-
-    public Panel adminPanel() {
-        Panel p = new Panel();
-        p.setLayout(new FlowLayout());
+        Frame p = Panels.basicWindow();
 
         Label add, remove, success, type;
         TextField addTF, removeTF, typeTF;
         Button addB, removeB;
 
         add = new Label("Add user to business");
-        remove = new Label("Remove user from businesss");
+        remove = new Label("Remove user from business");
         type = new Label("Enter user type");
         success = new Label("");
 
@@ -90,14 +98,14 @@ public class SettingsFrame extends Frame {
         addB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(typeTF.getText().isEmpty() || addTF.getText().isEmpty()){
+                if (typeTF.getText().isEmpty() || addTF.getText().isEmpty()) {
                     success.setText("These boxes cannot be empty");
                     return;
                 }
-                if(Operations.addUser(addTF.getText(), typeTF.getText())){
-                    success.setText("Operation successfull");
+                if (Operations.addUser(addTF.getText(), typeTF.getText())) {
+                    success.setText("Operation successful");
                 } else {
-                    success.setText("Error finding user or couldnt add type");
+                    success.setText("Error finding user or couldn't add type");
                 }
             }
         });
@@ -105,13 +113,17 @@ public class SettingsFrame extends Frame {
         removeB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(Operations.removeUser(removeTF.getText())){
-                    success.setText("Remove successfull");
+                if (Operations.removeUser(removeTF.getText())) {
+                    success.setText("Remove successful");
                 } else {
                     success.setText("Remove failed :(");
                 }
             }
         });
+
+        addTF.setPreferredSize(textFieldDimensions);
+        removeTF.setPreferredSize(textFieldDimensions);
+        typeTF.setPreferredSize(textFieldDimensions);
 
         p.add(add);
         p.add(addTF);
@@ -122,12 +134,57 @@ public class SettingsFrame extends Frame {
         p.add(removeTF);
         p.add(removeB);
         p.add(success);
+        return p;
+    }
+
+    public Frame adminPanel() {
+
+        Frame p = Panels.basicWindow();
+
+        Label rename, success;
+        TextField renameTF;
+        Button submit;
+
+        rename = new Label("Rename business?");
+
+        renameTF = new TextField();
+        success = new Label("");
+
+        submit = new Button("Rename");
+
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(renameTF.getText().isEmpty()){
+                    success.setText("Cannot be empty");
+                } else {
+                    Operations.renameBusiness(renameTF.getText());
+                    success.setText("Rename successful");
+                }
+            }
+        });
+
+        renameTF.setPreferredSize(textFieldDimensions);
+
+        p.add(rename);
+        p.add(renameTF);
+        p.add(submit);
+        p.add(success);
+
+        p.add(deleteBusiness());
 
         return p;
     }
 
-    public Panel rolePanel() {
-        Panel p = new Panel();
+    public Frame rolePanel() {
+
+//        final String kt = "KPI Type";
+//        final String n = "Name";
+//        final String r = "Role";
+//        final String s = "Submit";
+
+        Frame p = Panels.basicWindow();
+
         Button submit;
         Label kpi, kpiName, role;
         TextField kpiTF, kpiNameTF, roleTF;
@@ -144,10 +201,13 @@ public class SettingsFrame extends Frame {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                Operations.addKPItoBusiness("munch", "Sales");
                 Operations.assignKPItoType(roleTF.getText(), kpiTF.getText(), kpiNameTF.getText());
             }
         });
+
+        kpiTF.setPreferredSize(textFieldDimensions);
+        kpiNameTF.setPreferredSize(textFieldDimensions);
+        roleTF.setPreferredSize(textFieldDimensions);
 
         p.add(role);
         p.add(roleTF);
@@ -157,13 +217,13 @@ public class SettingsFrame extends Frame {
         p.add(kpiNameTF);
         p.add(submit);
         p.add(removeKpiPanel());
-        p.add(deleteBusiness());
 
         return p;
     }
 
+    //----------------------------------------------------------------------------
     public Panel removeKpiPanel() {
-        Panel p = new Panel();
+        Panel p = Panels.basicPanel();
 
         Button submit;
         Label kpi, kpiName;
@@ -185,6 +245,9 @@ public class SettingsFrame extends Frame {
             }
         });
 
+        kpiTF.setPreferredSize(textFieldDimensions);
+        kpiNameTF.setPreferredSize(textFieldDimensions);
+
         p.add(kpi);
         p.add(kpiTF);
         p.add(kpiName);
@@ -195,7 +258,7 @@ public class SettingsFrame extends Frame {
     }
 
     public Panel deleteBusiness() {
-        Panel p = new Panel();
+        Panel p = Panels.basicPanel();
 
         Button submit = new Button("Delete business?");
         submit.addActionListener(new ActionListener() {
@@ -211,4 +274,6 @@ public class SettingsFrame extends Frame {
 
         return p;
     }
+
 }
+

@@ -1,11 +1,9 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Set;
 
 public class DashboardFrame extends Frame {
-
-//    public void closeFrame(){
-//        this.dispose();
-//    }
 
     public DashboardFrame() {
         User user = Login.getLoggedIn();
@@ -13,8 +11,28 @@ public class DashboardFrame extends Frame {
         Employee em = Settings.getEmployee();
 
         Panel layout;
+        Button logout, refresh;
         Button[] buttons;
         Label area;
+
+        logout = new Button("Logout");
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Settings.logout();
+                dispose();
+                new LoginFrame().setVisible(true);
+            }
+        });
+
+        refresh = new Button("refresh");
+        refresh.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                new DashboardFrame().setVisible(true);
+            }
+        });
 
         this.setLayout(new FlowLayout());
         layout = new Panel();
@@ -44,6 +62,8 @@ public class DashboardFrame extends Frame {
         for(Button x: em.showKPIButtons()) {
             this.add(x);
         }
+        this.add(logout);
+        this.add(refresh);
 
         this.addWindowListener(new WindowCloser());
         this.setSize(700,700);

@@ -1,9 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Operations {
 
@@ -133,6 +131,12 @@ public class Operations {
             u.deleteEmployee(b);
         }
 
+        Settings.save();
+    }
+
+    public static void renameBusiness(String name) {
+        Business b = Settings.getBusiness();
+        b.setName(name);
         Settings.save();
     }
 

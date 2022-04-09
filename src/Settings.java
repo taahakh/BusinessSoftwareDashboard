@@ -19,8 +19,11 @@ public class Settings {
         Login.userSave();
     }
 
-    public static void launchSettings() {
-
+    public static void logout() {
+        Settings.save();
+        employee = null;
+        business = null;
+        Login.resetLoggedIn();
     }
 
     public static String [] availableKpis = new String[]{

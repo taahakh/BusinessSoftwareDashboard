@@ -110,17 +110,19 @@ public class LoginFrame extends Frame {
         Button[] buttons = new Button[em.size()];
         int i = 0;
         for (Employee x: em){
-            Button b = new Button(x.getTitle());
+            Button b = new Button(x.getBusiness().getName() + ": "+ x.getTitle());
+            b.setName(x.getTitle());
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    String employee = ((Button) e.getSource()).getLabel();
+                    String employee = ((Button) e.getSource()).getName();
                     for(Employee x : em) {
                         if(x.getTitle().equals(employee)){
                             System.out.println("x stat:" + x);
                             System.out.println("x-bus stat:" + x.getBusiness());
                             Settings.setEmployee(Settings.castEmployees(x, employee));
-                            Settings.setBusiness((Business) x.getBusiness());
+//                            Settings.setBusiness((Business) x.getBusiness());
+                            Settings.setBusiness(x.getBusiness());
                             p.closeFrame();
                             return;
                         }

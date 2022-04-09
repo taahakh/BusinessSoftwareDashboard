@@ -9,10 +9,11 @@ class LoginExceptions extends RuntimeException {
 
 public class Login {
 
+    private static User loggedIn;
+
     private static ArrayList<User> users = new ArrayList<User>(3);
 
     private final static String fileLocation = "/Users/taaha/Documents/savedata/";
-    private static User loggedIn;
 
     public static ArrayList<User> userList(){
         return users;
@@ -164,4 +165,5 @@ public class Login {
 
         return obj;
     }
+
 }
