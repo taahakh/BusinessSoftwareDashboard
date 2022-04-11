@@ -43,14 +43,10 @@ public class DashboardFrame extends Frame {
 
         System.out.println("Business list: " + Settings.getBusiness().getTotalKpis());
         System.out.println("Business name: "+ Settings.getBusiness().getName());
-//        Settings.save();
         Settings.getBusiness().printLinks();
 
         System.out.println("-------------------");
         System.out.println(Settings.getBusiness().getEmployees().toString());
-        /*for (Employee e : Settings.getBusiness().getEmployees()) {
-//            System.out.println(e.());
-        }*/
         System.out.println("-------------------");
 
         layout.add(area);

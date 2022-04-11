@@ -21,6 +21,11 @@ public class Analyst extends Employee{
         return "analyst";
     }
 
+    @Override
+    String description() {
+        return "null";
+    }
+
     public Analyst(String title) {
         super(title, new AnalystType());
     }

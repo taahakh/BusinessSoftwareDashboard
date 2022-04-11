@@ -7,6 +7,11 @@ public class DefaultKPI extends KPI{
     }
 
     @Override
+    String description() {
+        return "default";
+    }
+
+    @Override
     String provideKeyMetric() {
         return null;
     }

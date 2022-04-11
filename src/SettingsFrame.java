@@ -32,6 +32,7 @@ public class SettingsFrame extends Frame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             userPanel().setVisible(true);
+                            dispose();
                         }
                     });
                     p.add(temp);
@@ -42,6 +43,7 @@ public class SettingsFrame extends Frame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             adminPanel().setVisible(true);
+                            dispose();
                         }
                     });
                     p.add(temp);
@@ -52,6 +54,7 @@ public class SettingsFrame extends Frame {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             rolePanel().setVisible(true);
+                            dispose();
                         }
                     });
                     p.add(temp);
@@ -133,7 +136,10 @@ public class SettingsFrame extends Frame {
         p.add(remove);
         p.add(removeTF);
         p.add(removeB);
+        p.add(Operations.displayEmployeeTypes());
         p.add(success);
+
+
         return p;
     }
 
@@ -187,6 +193,7 @@ public class SettingsFrame extends Frame {
 
         Button submit;
         Label kpi, kpiName, role;
+        Label success = new Label("");
         TextField kpiTF, kpiNameTF, roleTF;
 
         kpi = new Label("KPI Type");
@@ -201,7 +208,11 @@ public class SettingsFrame extends Frame {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Operations.assignKPItoType(roleTF.getText(), kpiTF.getText(), kpiNameTF.getText());
+                if(Operations.assignKPItoType(roleTF.getText(), kpiTF.getText(), kpiNameTF.getText())){
+                    success.setText("Assignment successful");
+                } else {
+                    success.setText("Assignment Failed");
+                }
             }
         });
 
@@ -216,13 +227,16 @@ public class SettingsFrame extends Frame {
         p.add(kpiName);
         p.add(kpiNameTF);
         p.add(submit);
-        p.add(removeKpiPanel());
+        p.add(removeKpiPanel(success));
+        p.add(Operations.displayEmployeeRank());
+        p.add(Operations.displayKPIs());
+        p.add(success);
 
         return p;
     }
 
     //----------------------------------------------------------------------------
-    public Panel removeKpiPanel() {
+    public Panel removeKpiPanel(Label success) {
         Panel p = Panels.basicPanel();
 
         Button submit;
@@ -240,7 +254,11 @@ public class SettingsFrame extends Frame {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Operations.removeKPI(kpiTF.getText(), kpiNameTF.getText());
+                if(Operations.removeKPI(kpiTF.getText(), kpiNameTF.getText())){
+                    success.setText("Removal successful");
+                } else {
+                    success.setText("Removal failed");
+                }
 
             }
         });
@@ -264,9 +282,32 @@ public class SettingsFrame extends Frame {
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Operations.deleteBusiness();
-                dispose();
-                new LoginFrame().setVisible(true);
+                Popup pop = new Popup();
+                Button yes, no;
+                Label text = new Label("Are you sure you want to delete this business?");
+
+                yes = new Button("yes");
+                yes.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Operations.deleteBusiness();
+                        pop.dispose();
+                        new LoginFrame().setVisible(true);
+                    }
+                });
+
+                no = new Button("no");
+                no.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        pop.dispose();
+                    }
+                });
+
+                pop.add(text);
+                pop.add(yes);
+                pop.add(no);
+                pop.launch();
             }
         });
 

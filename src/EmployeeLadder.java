@@ -28,6 +28,8 @@ public abstract class EmployeeLadder implements Ladder, Serializable {
 
     abstract boolean compareTo(Object obj);
 
+    abstract String description();
+
     abstract Panel showRights();
 
     abstract Frame showKpis();

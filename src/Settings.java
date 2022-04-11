@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Locale;
 
 /* Tracks all the global variables for the user, business and employee class
 *  These methods automatically generate KPI's, employees etc. It is up to the
@@ -26,15 +27,23 @@ public class Settings {
         Login.resetLoggedIn();
     }
 
-    public static String [] availableKpis = new String[]{
+    public static final String [] availableKpis = new String[]{
             "Sales", "Inventory",
     };
 
+    public static final String [] availableEmployees = new String[] {
+            "Admin", "Analyst", "AnalystLeader",
+    };
+
+    public static final String [] availableRanks = new String[] {
+            "Admin", "Analyst",
+    };
+
     public static KPI createKpiObject(String name, String type) {
-        switch (type){
-            case "Sales":
+        switch (type.toLowerCase()){
+            case "sales":
                 return new Sales(name);
-            case "Inventory":
+            case "inventory":
                 return new Inventory(name);
             default:
                 break;
@@ -44,7 +53,7 @@ public class Settings {
     }
 
     public static Employee castEmployees(Employee em, String type) {
-        switch (type){
+        switch (type.toLowerCase()){
             case "admin":
                 return (Admin) em;
             case "analyst":
@@ -55,16 +64,27 @@ public class Settings {
         return em;
     }
 
+    public static Employee getEmployee(String type) {
+        switch (type.toLowerCase()){
+            case "admin":
+                return new Admin("");
+            case "analyst":
+                return new Analyst();
+            case "analystleader":
+                return new AnalystLeader("");
+        }
+
+        return null;
+    }
+
     public static EmployeeLadder getType(String type) {
-        switch (type){
+        switch (type.toLowerCase()){
             case "admin":
                 return new AdminType();
             case "analyst":
                 return new AnalystType();
-//            case "default":
         }
-        throw new RuntimeException("ok");
-//        return em;
+        return null;
     }
 
     public static Employee getEmployee(){

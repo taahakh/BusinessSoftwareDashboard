@@ -6,12 +6,12 @@ import java.util.ArrayList;
 public class Operations {
 
     private static Employee assignEmployee(String username, String type) {
-        switch (type){
+        switch (type) {
             case "admin":
                 return new Admin(username);
             case "analyst":
                 return new Analyst(username);
-            case  "analystleader":
+            case "analystleader":
                 return new AnalystLeader(username);
         }
 
@@ -19,7 +19,7 @@ public class Operations {
     }
 
     public static boolean addUser(String username, String type) {
-        if(checkUserExists(username)){
+        if (checkUserExists(username)) {
             Employee e = Settings.getEmployee();
             // Loading in user
             User usr = Login.getUser(username);
@@ -28,7 +28,7 @@ public class Operations {
             // Linking employee with business
             em.setBusiness(Settings.getBusiness());
             // Linking employee to user
-            if(usr.addEmployeeSafely(em, e.getTitle())) {
+            if (usr.addEmployeeSafely(em, e.getTitle())) {
                 Business b = Settings.getBusiness();
                 // Linking business with employee
                 b.addEmployee(em);
@@ -41,9 +41,9 @@ public class Operations {
     }
 
     //  Removing user from the business
-    public static boolean removeUser(String username){
+    public static boolean removeUser(String username) {
         // Deletes all instances of the employee and user connecting to the business
-        if(checkUserExists(username)){
+        if (checkUserExists(username)) {
             User usr = Login.getUser(username);
             Business b = Settings.getBusiness();
             // Deleting employee from user - Lets return employee
@@ -65,12 +65,12 @@ public class Operations {
     }
 
     // Generates buttons for KPI list
-    public static Button[] generateKPIButtons(ArrayList<KPI> kpis, boolean editable){
+    public static Button[] generateKPIButtons(ArrayList<KPI> kpis, boolean editable) {
         Button[] buttons = new Button[kpis.size()];
-        int counter =0;
+        int counter = 0;
         System.out.println(kpis);
-        for(KPI x: kpis){
-            Button button = new Button(x.getClassName()+": "+x.getIndicatorName());
+        for (KPI x : kpis) {
+            Button button = new Button(x.getClassName() + ": " + x.getIndicatorName());
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -105,9 +105,12 @@ public class Operations {
         Business b = Settings.getBusiness();
         Employee e = Settings.getEmployee();
         EmployeeLadder el = Settings.getType(type);
+        if (el == null) {
+            return false;
+        }
         // We want people who do not have the admin rank not to change/give admin permissions
-        if(el.has(Identifier.ADMIN)){
-            if(!(e.hasIdentifier(Identifier.ADMIN))){
+        if (el.has(Identifier.ADMIN)) {
+            if (!(e.hasIdentifier(Identifier.ADMIN))) {
                 return false;
             }
         }
@@ -117,9 +120,9 @@ public class Operations {
     }
 
     // removes kpi COMPLETELY from all ranks
-    public static void removeKPI(String kpi, String kpiName) {
+    public static boolean removeKPI(String kpi, String kpiName) {
         Business b = Settings.getBusiness();
-        b.removeKPI(kpi, kpiName);
+        return b.removeKPI(kpi, kpiName);
     }
 
     // We need to delete on references of the business obj
@@ -127,7 +130,7 @@ public class Operations {
     public static void deleteBusiness() {
         // Deleting business from employees
         Business b = Settings.getBusiness();
-        for(User u : Login.userList()){
+        for (User u : Login.userList()) {
             u.deleteEmployee(b);
         }
 
@@ -138,6 +141,51 @@ public class Operations {
         Business b = Settings.getBusiness();
         b.setName(name);
         Settings.save();
+    }
+
+    public static Panel displayEmployeeTypes() {
+        Panel p = Panels.basicPanel();
+        p.setLayout(new GridLayout(0, 1));
+        p.add(new Label("Copy the employee user type"));
+        p.add(new Label(""));
+        for (String employees : Settings.availableEmployees) {
+            Employee em = Settings.getEmployee(employees);
+            try {
+                p.add(new Label(employees + ": " + em.description()));
+            } catch (NullPointerException ignored) {
+            }
+        }
+
+        return p;
+    }
+
+    public static Panel displayEmployeeRank() {
+        Panel p = Panels.basicPanel();
+        p.setLayout(new GridLayout(0, 1));
+        p.add(new Label("Copy the role type"));
+        p.add(new Label(""));
+        for (String rank : Settings.availableRanks) {
+            try {
+                EmployeeLadder el = Settings.getType(rank);
+                p.add(new Label(rank + ": " + el.description()));
+            } catch (NullPointerException ignored) {}
+        }
+        return p;
+    }
+
+    public static Panel displayKPIs() {
+        Panel p = Panels.basicPanel();
+        p.setLayout(new GridLayout(0, 1));
+        p.add(new Label("Copy the kpi type"));
+        p.add(new Label(""));
+        for (String kpis : Settings.availableKpis) {
+            try {
+                KPI kpi = Settings.createKpiObject("", kpis);
+                p.add(new Label(kpis + ": " + kpi.description()));
+            }catch (NullPointerException ignored){}
+        }
+
+        return p;
     }
 
 }

@@ -17,10 +17,12 @@ public class AnalystType extends EmployeeLadder{
 
     @Override
     boolean compareTo(Object obj) {
-        if (obj instanceof AnalystType){
-            return true;
-        }
-        return false;
+        return obj instanceof AnalystType;
+    }
+
+    @Override
+    String description() {
+        return "this is for analysts";
     }
 
     @Override
@@ -38,6 +40,6 @@ public class AnalystType extends EmployeeLadder{
 
     @Override
     public String showInfoMetric() {
-        return "Analyst";
+        return "Contains KPI types for Analysts";
     }
 }

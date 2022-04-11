@@ -29,4 +29,9 @@ public class AnalystLeader extends Employee {
         return "analyst";
     }
 
+    @Override
+    String description() {
+        return "Head leader of analysts of the company";
+    }
+
 }

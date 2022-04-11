@@ -22,5 +22,10 @@ public class Leader extends Employee {
         return "leader";
     }
 
+    @Override
+    String description() {
+        return "null";
+    }
+
 
 }

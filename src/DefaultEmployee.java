@@ -20,4 +20,9 @@ public class DefaultEmployee extends Employee{
     String whatRank() {
         return "default";
     }
+
+    @Override
+    String description() {
+        return "null";
+    }
 }

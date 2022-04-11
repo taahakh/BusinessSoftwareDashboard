@@ -98,7 +98,7 @@ public class Business implements Serializable {
 
     public void addKpiToList(EmployeeLadder e, KPI k) {
         // Linking employee rank with KPI
-        if(hasLadderLink(e) == true) {
+        if(hasLadderLink(e)) {
             appendKPI(e,k);
         } else {
             // no ladders exists so we need to create a new link
@@ -159,7 +159,7 @@ public class Business implements Serializable {
         return temp;
     }
 
-    public void removeKPI(String kpi, String kpiName) {
+    public boolean removeKPI(String kpi, String kpiName) {
         KPI temp = null;
         ArrayList<KPI> list = returnLadderKPI(new AdminType());
         for (KPI k : list) {
@@ -170,6 +170,12 @@ public class Business implements Serializable {
             }
         }
 
+        if(temp == null){
+            return false;
+        }
+
+//        boolean remove;
+
         for (EmployeeLadder e : ladderKpis.keySet()){
             ladderKpis.get(e).remove(temp);
         }
@@ -177,6 +183,8 @@ public class Business implements Serializable {
         printLinks();
 
         Settings.save();
+
+        return true;
     }
 
 }

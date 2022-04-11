@@ -1,5 +1,4 @@
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -10,6 +9,11 @@ public class Popup extends Frame {
             @Override
             public void windowClosed(WindowEvent e) {
                 ((Frame) e.getSource()).dispose();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                e.getWindow().dispose();
             }
         });
     }

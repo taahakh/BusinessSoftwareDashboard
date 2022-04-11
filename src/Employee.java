@@ -90,4 +90,6 @@ public abstract class Employee implements EmployeeRules, Serializable {
 
     abstract String whatRank();
 
+    abstract String description();
+
 }
