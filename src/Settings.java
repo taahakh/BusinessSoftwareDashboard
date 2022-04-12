@@ -28,7 +28,7 @@ public class Settings {
     }
 
     public static final String [] availableKpis = new String[]{
-            "Sales", "Inventory", "Marketing",
+            "Sales", "Inventory", "Marketing", "HumanResources",
     };
 
     public static final String [] availableEmployees = new String[] {
@@ -47,6 +47,8 @@ public class Settings {
                 return new Inventory(name);
             case "marketing":
                 return new Marketing(name);
+            case "humanresources":
+                return new HumanResources(name);
             default:
                 break;
         }

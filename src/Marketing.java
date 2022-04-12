@@ -8,7 +8,8 @@ import java.util.Date;
 import java.util.HashMap;
 
 enum Method {
-    ADD, UPDATE, REMOVE
+    ADD, REMOVE, UPDATE, TYPE
+
 }
 
 public class Marketing extends KPI implements Serializable {
@@ -172,9 +173,6 @@ public class Marketing extends KPI implements Serializable {
         f.addButton(create(Method.REMOVE,"remove impressions", impressions));
         f.addButton(create(Method.UPDATE,"update reach", reach));
         f.addButton(create(Method.UPDATE,"update impressions", impressions));
-        System.out.println(impressions);
-        System.out.println(reach);
-
 
         return f;
     }
