@@ -6,13 +6,85 @@ import java.util.HashMap;
 
 public class Inventory extends KPI implements Serializable {
 
-    private HashMap<String, Integer> items;
+    private final HashMap<String, Integer> items;
     private final TextField visual = new TextField();
 
 
     public Inventory(String indicator){
         super(indicator, "Inventory");
         items = new HashMap<>();
+    }
+
+    public Button addItem() {
+        Button b = new Button("Add item");
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Popup p = new Popup();
+                Label desc, success;
+                TextField name, val;
+                Button submit;
+
+                desc = new Label("Enter the item you want to enter and number of");
+                success = new Label("");
+
+                name = new TextField();
+                val = new TextField();
+
+                submit = new Button("Submit");
+                submit.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(items.get(name.getText()) == null){
+                            items.put(name.getText(), Integer.parseInt(val.getText()));
+                            Settings.save();
+                        }
+                    }
+                });
+
+                p.add(desc);
+                p.add(name);
+                p.add(val);
+                p.add(submit);
+                p.add(success);
+
+                p.launch();
+            }
+        });
+        return b;
+    }
+
+    public Button deleteItem() {
+        Button b = new Button("Delete item");
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Popup p = new Popup();
+                Label desc, success;
+                TextField tf = new TextField();
+                Button submit = new Button("Submit");
+
+                desc = new Label("Enter the item you want to delete");
+                success = new Label("");
+
+                submit.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        items.remove(tf.getText());
+                        Settings.save();
+                        p.dispose();
+                    }
+                });
+
+                p.add(desc);
+                p.add(tf);
+                p.add(submit);
+                p.add(success);
+
+                p.launch();
+            }
+        });
+        return b;
     }
 
     public Button updateItem() {
@@ -35,16 +107,14 @@ public class Inventory extends KPI implements Serializable {
                     @Override
                     public void actionPerformed(ActionEvent e) throws NumberFormatException {
                         String str = item.getText();
-                        int val = 0;
+                        int val;
                         try {
                              val = Integer.parseInt(value.getText());
                         } catch (NumberFormatException ignored){
-//                            p.dispose();
                             return;
                         }
 
                         if(str.equals("") || val == 0) {
-//                            p.dispose();
                             success.setText("We couldn't update it");
                             return;
                         }
@@ -53,7 +123,9 @@ public class Inventory extends KPI implements Serializable {
                             if(i.equals(str)){
                                 int temp = items.get(i);
                                 temp += val;
+                                items.put(i, temp);
                                 p.dispose();
+                                Settings.save();
                                 return;
                             }
                         }
@@ -73,6 +145,17 @@ public class Inventory extends KPI implements Serializable {
         return p;
     }
 
+    public Button viewPKM() {
+        Button p = new Button("View Key Metrics");
+        p.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                visual.setText(provideKeyMetric());
+            }
+        });
+        return p;
+    }
+
     @Override
     String description() {
         return "tracks inventory";
@@ -80,7 +163,8 @@ public class Inventory extends KPI implements Serializable {
 
     @Override
     String provideKeyMetric() {
-        return "null";
+        System.out.println(items);
+        return "items -> " + items;
     }
 
     @Override
@@ -90,20 +174,12 @@ public class Inventory extends KPI implements Serializable {
 
     @Override
     Frame showKpi(boolean editable) {
-        Frame f = Panels.basicWindow();
-        Panel buttons = Panels.basicPanel();
 
-        f.setLayout(new GridLayout(0,2));
-
-
-        visual.setEditable(false);
-        visual.setText(provideKeyMetric());
-
-        buttons.add(updateItem());
-
-        f.add(visual);
-        f.add(buttons);
-
+        KPIFrame f = new KPIFrame(provideKeyMetric(), visual);
+        f.addButton(viewPKM());
+        f.addButton(updateItem());
+        f.addButton(addItem());
+        f.addButton(deleteItem());
         return f;
     }
 

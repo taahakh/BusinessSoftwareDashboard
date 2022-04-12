@@ -122,23 +122,14 @@ public class Sales extends KPI implements Serializable {
 
     @Override
     Frame showKpi(boolean editable) {
-        Frame f = Panels.basicWindow();
-        Panel buttons = Panels.basicPanel();
 
-        f.setLayout(new GridLayout(0,2));
+        KPIFrame frame = new KPIFrame(provideKeyMetric(), visual);
+        frame.addButton(viewPKM());
+        frame.addButton(setSales());
+        frame.addButton(updateSales());
+        frame.addButton(updateUnitsRemaining());
 
-
-        visual.setEditable(false);
-        visual.setText(provideKeyMetric());
-
-        buttons.add(viewPKM());
-        buttons.add(setSales());
-        buttons.add(updateSales());
-        buttons.add(updateUnitsRemaining());
-
-        f.add(visual);
-        f.add(buttons);
-        return f;
+        return frame;
     }
 
 }

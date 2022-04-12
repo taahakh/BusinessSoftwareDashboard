@@ -3,6 +3,8 @@ import java.io.Serializable;
 
 public abstract class KPI extends KPIStruct implements Serializable {
 
+//    private final TextField visual = new TextField();
+
     public KPI(String indicator, String className) {
         super(indicator, className);
     }
