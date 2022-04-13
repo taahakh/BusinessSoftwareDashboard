@@ -9,7 +9,6 @@ import java.util.HashMap;
 
 enum Method {
     ADD, REMOVE, UPDATE, TYPE
-
 }
 
 public class Marketing extends KPI implements Serializable {
