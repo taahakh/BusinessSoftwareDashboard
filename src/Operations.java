@@ -5,26 +5,16 @@ import java.util.ArrayList;
 
 public class Operations {
 
-    private static Employee assignEmployee(String username, String type) {
-        switch (type) {
-            case "admin":
-                return new Admin(username);
-            case "analyst":
-                return new Analyst(username);
-            case "analystleader":
-                return new AnalystLeader(username);
-        }
-
-        return new DefaultEmployee();
-    }
-
     public static boolean addUser(String username, String type) {
         if (checkUserExists(username)) {
             Employee e = Settings.getEmployee();
             // Loading in user
             User usr = Login.getUser(username);
             // Creating a new employee
-            Employee em = assignEmployee(e.getTitle(), type);
+            Employee em = Settings.getEmployee(type, e.getTitle());
+            if(em == null) {
+                return false;
+            }
             // Linking employee with business
             em.setBusiness(Settings.getBusiness());
             // Linking employee to user
@@ -149,7 +139,7 @@ public class Operations {
         p.add(new Label("Copy the employee user type"));
         p.add(new Label(""));
         for (String employees : Settings.availableEmployees) {
-            Employee em = Settings.getEmployee(employees);
+            Employee em = Settings.getEmployee(employees, "");
             try {
                 p.add(new Label(employees + ": " + em.description()));
             } catch (NullPointerException ignored) {

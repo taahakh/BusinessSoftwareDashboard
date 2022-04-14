@@ -11,6 +11,11 @@ public class Analyst extends Employee{
     }
 
     @Override
+    void formLayout() {
+
+    }
+
+    @Override
     public boolean compareTo(Object obj) {
         return obj instanceof Analyst;
     }

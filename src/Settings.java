@@ -10,9 +10,25 @@ public class Settings {
     private static Employee employee;
     private static Business business;
 
-    public final static String EM_FILENAME = "em.txt";
-    public final static String BUS_FILENAME = "bus.txt";
-    public final static String USER_FILENAME = "user.txt";
+    private final static String EM_FILENAME = "em.txt";
+    private final static String BUS_FILENAME = "bus.txt";
+    public  final static String USER_FILENAME = "user.txt";
+
+    /**/
+
+    private static final String ADMIN = "admin";
+    private static final String ANALYST = "analyst";
+    private static final String ANALYST_LEADER = "analystleader";
+
+    /**/
+
+    private static final String SALES = "sales";
+    private static final String INVENTORY = "inventory";
+    private static final String MARKETING = "marketing";
+    private static final String HUMAN_RESOURCES = "humanresources";
+
+    /**/
+
 
     public static void save(){
         Login.saveObjects(employee, EM_FILENAME);
@@ -28,26 +44,26 @@ public class Settings {
     }
 
     public static final String [] availableKpis = new String[]{
-            "Sales", "Inventory", "Marketing", "HumanResources",
+            SALES, INVENTORY, MARKETING, HUMAN_RESOURCES,
     };
 
     public static final String [] availableEmployees = new String[] {
-            "Admin", "Analyst", "AnalystLeader",
+            ADMIN, ANALYST, ANALYST_LEADER,
     };
 
     public static final String [] availableRanks = new String[] {
-            "Admin", "Analyst",
+            ADMIN, ANALYST,
     };
 
     public static KPI createKpiObject(String name, String type) {
         switch (type.toLowerCase()){
-            case "sales":
+            case SALES:
                 return new Sales(name);
-            case "inventory":
+            case INVENTORY:
                 return new Inventory(name);
-            case "marketing":
+            case MARKETING:
                 return new Marketing(name);
-            case "humanresources":
+            case HUMAN_RESOURCES:
                 return new HumanResources(name);
             default:
                 break;
@@ -55,26 +71,15 @@ public class Settings {
         throw new RuntimeException();
     }
 
-    public static Employee castEmployees(Employee em, String type) {
-        switch (type.toLowerCase()){
-            case "admin":
-                return (Admin) em;
-            case "analyst":
-                return (Analyst) em;
-            case "analystleader":
-                return (AnalystLeader) em;
-        }
-        return em;
-    }
 
-    public static Employee getEmployee(String type) {
+    public static Employee getEmployee(String type, String title) {
         switch (type.toLowerCase()){
-            case "admin":
-                return new Admin("");
-            case "analyst":
-                return new Analyst();
-            case "analystleader":
-                return new AnalystLeader("");
+            case ADMIN:
+                return new Admin(title);
+            case ANALYST:
+                return new Analyst(title);
+            case ANALYST_LEADER:
+                return new AnalystLeader(title);
         }
 
         return null;
@@ -82,9 +87,9 @@ public class Settings {
 
     public static EmployeeLadder getType(String type) {
         switch (type.toLowerCase()){
-            case "admin":
+            case ADMIN:
                 return new AdminType();
-            case "analyst":
+            case ANALYST:
                 return new AnalystType();
         }
         return null;

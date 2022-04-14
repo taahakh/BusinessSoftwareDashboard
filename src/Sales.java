@@ -5,14 +5,11 @@ import java.io.Serializable;
 
 public class Sales extends KPI implements Serializable {
 
-    private static final String SALES = "Sales";
-    private static final String TRACK_SALES = "Track Sales";
-
     private int sales;
     private int unitsRemaining;
 
     public Sales(String identifier) {
-        super(identifier, SALES, TRACK_SALES);
+        super(identifier, "Sales", "Track Sales");
     }
 
     // true = sales, false = unitsRemaining
@@ -23,7 +20,7 @@ public class Sales extends KPI implements Serializable {
             public void actionPerformed(ActionEvent e) {
                 Popup p = new Popup();
                 TextField tf = new TextField();
-                Button b = new Button("Submit");
+                Button b = new Button(Conts.SUBMIT);
                 p.setLayout(new GridLayout(0,1));
                 p.add(new Label(description));
                 b.addActionListener(new ActionListener() {
@@ -50,7 +47,7 @@ public class Sales extends KPI implements Serializable {
         return b;
     }
 
-    public void update(boolean state, int x){
+    private void update(boolean state, int x){
         if (state){
             sales += x;
         } else {
@@ -58,7 +55,7 @@ public class Sales extends KPI implements Serializable {
         }
     }
 
-    public void add(boolean state, int x){
+    private void add(boolean state, int x){
         if (state){
             sales = x;
         } else {

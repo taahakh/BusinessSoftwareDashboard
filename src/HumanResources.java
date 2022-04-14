@@ -6,14 +6,11 @@ import java.util.HashMap;
 
 public class HumanResources extends KPI implements Serializable {
 
-    private static final String HR = "HumanResources";
-    private static final String TRACK_HR = "Track Human resources";
-
-    private final HashMap<String, Integer> values = new HashMap<>();
+    private final HashMap<String, Integer> VALUES = new HashMap<>();
     private String type;
 
     public HumanResources(String indicator) {
-        super(indicator, HR,  TRACK_HR);
+        super(indicator, "HumanResources",  "Track Human resources");
     }
 
     public Button create(Method method, String name, String description){
@@ -25,7 +22,7 @@ public class HumanResources extends KPI implements Serializable {
                 Popup p  = new Popup();
                 Label desc, success;
                 TextField item, val;
-                Button submit = new Button("Submit");
+                Button submit = new Button(Conts.SUBMIT);
 
                 desc = new Label(description);
                 success = new Label();
@@ -75,9 +72,9 @@ public class HumanResources extends KPI implements Serializable {
         return b;
     }
 
-    public void add(String name, String val, Label success, Popup p){
-        if(!values.containsKey(name)){
-            values.put(name, Integer.parseInt(val));
+    private void add(String name, String val, Label success, Popup p){
+        if(!VALUES.containsKey(name)){
+            VALUES.put(name, Integer.parseInt(val));
             p.dispose();
             Settings.save();
         } else {
@@ -85,10 +82,10 @@ public class HumanResources extends KPI implements Serializable {
         }
     }
 
-    public void update(String name, String val, Label success, Popup p){
-        if (values.containsKey(name)){
+    private void update(String name, String val, Label success, Popup p){
+        if (VALUES.containsKey(name)){
             int i = Integer.parseInt(val);
-            values.put(name, values.get(name)+i);
+            VALUES.put(name, VALUES.get(name)+i);
             p.dispose();
             Settings.save();
         } else {
@@ -96,13 +93,13 @@ public class HumanResources extends KPI implements Serializable {
         }
     }
 
-    public void remove(String name, Popup p){
-        values.remove(name);
+    private void remove(String name, Popup p){
+        VALUES.remove(name);
         p.dispose();
         Settings.save();
     }
 
-    public void type(String name, Popup p){
+    private void type(String name, Popup p){
         this.type = name;
         p.dispose();
         Settings.save();

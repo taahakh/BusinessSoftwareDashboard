@@ -6,13 +6,10 @@ import java.util.HashMap;
 
 public class Inventory extends KPI implements Serializable {
 
-    private static final String INVENTORY = "Inventory";
-    private static final String TRACKS_INVENTORY = "tracks inventory";
-
     private final HashMap<String, Integer> ITEMS = new HashMap<>();
 
     public Inventory(String indicator){
-        super(indicator, INVENTORY, TRACKS_INVENTORY);
+        super(indicator, "Inventory", "tracks inventory");
     }
 
     public Button create(Method method, String name, String description){
@@ -31,7 +28,7 @@ public class Inventory extends KPI implements Serializable {
                 name = new TextField();
                 val = new TextField();
 
-                submit = new Button("Submit");
+                submit = new Button(Conts.SUBMIT);
                 submit.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -62,18 +59,19 @@ public class Inventory extends KPI implements Serializable {
         return b;
     }
 
-    public void add(String name, String val) {
+    private void add(String name, String val) {
         if(ITEMS.get(name) == null){
             ITEMS.put(name, Integer.parseInt(val));
             Settings.save();
         }
     }
 
-    public void update(String item, String value, Label success, Popup p) {
+    private void update(String item, String value, Label success, Popup p) {
         int val;
         try {
             val = Integer.parseInt(value);
         } catch (NumberFormatException ignored){
+            success.setText("Couldn't parse integer");
             return;
         }
 
@@ -95,7 +93,7 @@ public class Inventory extends KPI implements Serializable {
         success.setText("We couldn't update it");
     }
 
-    public void remove(String name, Popup p) {
+    private void remove(String name, Popup p) {
         ITEMS.remove(name);
         p.close();
     }

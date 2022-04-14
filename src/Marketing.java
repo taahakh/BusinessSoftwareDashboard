@@ -9,17 +9,14 @@ import java.util.HashMap;
 
 public class Marketing extends KPI implements Serializable {
 
-    private static final String MARKETING = "Sales";
-    private static final String TRACK_MARKETING = "Track Marketing";
-
     private final HashMap<Date, String> IMPRESSIONS = new HashMap<>();
     private final HashMap<Date, String> REACH = new HashMap<>();
 
     public Marketing(String indicator) {
-        super(indicator, MARKETING, TRACK_MARKETING);
+        super(indicator, "Sales", "Track Marketing");
     }
 
-    public Date parseDate(String date, Label success){
+    private Date parseDate(String date, Label success){
         try{
             return new SimpleDateFormat("dd-MM-yyyy").parse(date);
         }catch (ParseException ignored){
@@ -36,7 +33,7 @@ public class Marketing extends KPI implements Serializable {
                 Popup p = new Popup();
                 Label desc, success;
                 TextField date, val;
-                Button submit = new Button("Submit");
+                Button submit = new Button(Conts.SUBMIT);
 
                 desc = new Label(description);
                 success = new Label("");
@@ -75,7 +72,7 @@ public class Marketing extends KPI implements Serializable {
         return b;
     }
 
-    public void add(String date, String val, Label success, Popup p, HashMap<Date, String> set) {
+    private void add(String date, String val, Label success, Popup p, HashMap<Date, String> set) {
 
         Date d = parseDate(date, success);
         if(!(set.containsKey(d))){
@@ -87,7 +84,7 @@ public class Marketing extends KPI implements Serializable {
 
     }
 
-    public void update(String date, String val, Label success, Popup p, HashMap<Date, String> set) {
+    private void update(String date, String val, Label success, Popup p, HashMap<Date, String> set) {
         Date d = parseDate(date, success);
 
         if(set.get(d) != null){
@@ -105,7 +102,7 @@ public class Marketing extends KPI implements Serializable {
         }
     }
 
-    public void remove(String date, Label success, Popup p, HashMap<Date, String> set) {
+    private void remove(String date, Label success, Popup p, HashMap<Date, String> set) {
         Date d = parseDate(date, success);
 
         set.remove(d);

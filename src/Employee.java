@@ -37,15 +37,13 @@ public abstract class Employee implements EmployeeRules, Serializable {
 
     public Button[] showKPIButtons() {
         if(rank.has(Identifier.VIEWER)){
-            System.out.println("view");
             if(rank.has(Identifier.EDITOR)){
-                System.out.println("view, edit");
                 return Operations.generateKPIButtons(business.getKPILadderList(rank), true);
             }
             return Operations.generateKPIButtons(business.getKPILadderList(rank), false);
         }
 
-        throw new RuntimeException();
+        return new Button[0];
     }
 
     public Button showSettingsButton(){
@@ -67,4 +65,6 @@ public abstract class Employee implements EmployeeRules, Serializable {
     }
 
     abstract Button load();
+
+    abstract void formLayout();
 }

@@ -45,6 +45,7 @@ public abstract class KPI implements Serializable {
     }
 
     abstract String provideKeyMetric();
+
     abstract Frame showKpi(boolean editable);
 
 }

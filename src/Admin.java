@@ -25,4 +25,8 @@ public class Admin extends Employee{
     Button load() {
         return null;
     }
+
+    public void unique() {
+        System.out.println("HERE");
+    }
 }
