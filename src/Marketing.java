@@ -9,10 +9,8 @@ import java.util.HashMap;
 
 public class Marketing extends KPI implements Serializable {
 
-    private final HashMap<Date, String> impressions = new HashMap<>();
-    private final HashMap<Date, String> reach = new HashMap<>();
-//    private final TextField visual = new TextField();
-
+    private final HashMap<Date, String> IMPRESSIONS = new HashMap<>();
+    private final HashMap<Date, String> REACH = new HashMap<>();
 
     public Marketing(String indicator) {
         super(indicator, "Marketing", "");
@@ -27,8 +25,9 @@ public class Marketing extends KPI implements Serializable {
         }
     }
 
-    public ActionListener template(Method method, String description, HashMap<Date, String> set){
-        return new ActionListener() {
+    public Button create(Method method, String name, String description, HashMap<Date, String> set){
+        Button b = new Button(name);
+        b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Popup p = new Popup();
@@ -68,7 +67,9 @@ public class Marketing extends KPI implements Serializable {
                 p.add(success);
                 p.launch();
             }
-        };
+        });
+
+        return b;
     }
 
     public void add(String date, String val, Label success, Popup p, HashMap<Date, String> set) {
@@ -76,8 +77,7 @@ public class Marketing extends KPI implements Serializable {
         Date d = parseDate(date, success);
         if(!(set.containsKey(d))){
             set.put(d, val);
-            p.dispose();
-            Settings.save();
+            p.close();
         } else {
             success.setText("Cannot add. Check again please");
         }
@@ -98,8 +98,7 @@ public class Marketing extends KPI implements Serializable {
             }
 
             set.put(d, String.valueOf(x+y));
-            Settings.save();
-            p.dispose();
+            p.close();
         }
     }
 
@@ -107,47 +106,33 @@ public class Marketing extends KPI implements Serializable {
         Date d = parseDate(date, success);
 
         set.remove(d);
-        Settings.save();
-        p.dispose();
-    }
-
-
-
-    public Button create(Method method, String name, HashMap<Date, String> set) {
-        Button b = new Button(name);
-        switch (method){
-            case ADD:
-                b.addActionListener(template(method, "Enter date (format: dd-MM-yyyy) and value", set));
-                break;
-            case REMOVE:
-                b.addActionListener(template(method, "Enter date to remove", set));
-                break;
-            case UPDATE:
-                b.addActionListener(template(method, "Enter date and value to update", set));
-                break;
-        }
-
-
-        return b;
+        p.close();
     }
 
     @Override
     String provideKeyMetric() {
-        return "im: " + impressions + "" +
-                "re: " + reach;
+        return "im: " + IMPRESSIONS + "" +
+                "re: " + REACH;
     }
 
     @Override
     Frame showKpi(boolean editable) {
-        KPIFrame f = new KPIFrame(provideKeyMetric(), getVisual());
-        f.addButton(viewPKM("View key metrics"));
-        f.addButton(create(Method.ADD, "add Impressions", impressions));
-        f.addButton(create(Method.ADD,"add reach", reach));
-        f.addButton(create(Method.REMOVE,"remove reach", reach));
-        f.addButton(create(Method.REMOVE,"remove impressions", impressions));
-        f.addButton(create(Method.UPDATE,"update reach", reach));
-        f.addButton(create(Method.UPDATE,"update impressions", impressions));
 
+        final String ADD = "Enter date (format: dd-MM-yyyy) and value";
+        final String REMOVE = "Enter date to remove";
+        final String UPDATE = "Enter date and value to update";
+        KPIFrame f = new KPIFrame(provideKeyMetric(), getVisual());
+
+        f.addButton(viewPKM("View key metrics"));
+        if(editable) {
+            f.addButton(create(Method.ADD, "add Impressions", ADD, IMPRESSIONS));
+            f.addButton(create(Method.ADD,"add reach", ADD, REACH));
+            f.addButton(create(Method.REMOVE,"remove reach", REMOVE, REACH));
+            f.addButton(create(Method.REMOVE,"remove impressions", REMOVE, IMPRESSIONS));
+            f.addButton(create(Method.UPDATE,"update reach", UPDATE, REACH));
+            f.addButton(create(Method.UPDATE,"update impressions", UPDATE, IMPRESSIONS));
+
+        }
         return f;
     }
 }

@@ -114,11 +114,12 @@ public class HumanResources extends KPI implements Serializable {
     Frame showKpi(boolean editable) {
         KPIFrame f = new KPIFrame(provideKeyMetric(), new TextField());
         f.addButton(viewPKM("view key metrics"));
-        f.addButton(create(Method.ADD, "add production item","Add item and value"));
-        f.addButton(create(Method.UPDATE, "update production value","Update item value"));
-        f.addButton(create(Method.REMOVE, "remove production item","Remove item"));
-        f.addButton(create(Method.TYPE, "change production type","Change type"));
-        System.out.println(values);
+        if(editable) {
+            f.addButton(create(Method.ADD, "add production item","Add item and value"));
+            f.addButton(create(Method.UPDATE, "update production value","Update item value"));
+            f.addButton(create(Method.REMOVE, "remove production item","Remove item"));
+            f.addButton(create(Method.TYPE, "change production type","Change type"));
+        }
         return f;
     }
 }

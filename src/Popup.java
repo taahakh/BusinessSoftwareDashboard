@@ -27,4 +27,9 @@ public class Popup extends Frame {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
+
+    public void close() {
+        this.dispose();
+        Settings.save();
+    }
 }

@@ -12,6 +12,61 @@ public class Inventory extends KPI implements Serializable {
         super(indicator, "Inventory", "tracks inventory");
     }
 
+    public Button create(Method method, String name, String description){
+        Button b = new Button(name);
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Popup p = new Popup();
+                Label desc, success;
+                TextField name, val;
+                Button submit;
+
+                desc = new Label(description);
+                success = new Label("");
+
+                name = new TextField();
+                val = new TextField();
+
+                submit = new Button("Submit");
+                submit.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        switch (method){
+                            case ADD:
+                                break;
+                            case REMOVE:
+                                break;
+                            case UPDATE:
+                                break;
+                        }
+                    }
+                });
+
+                p.add(desc);
+                p.add(name);
+                p.add(val);
+                p.add(submit);
+                p.add(success);
+
+                p.launch();
+            }
+        });
+        return b;
+    }
+
+    public void add() {
+
+    }
+
+    public void update() {
+
+    }
+
+    public void remove() {
+
+    }
+
     public Button addItem() {
         Button b = new Button("Add item");
         b.addActionListener(new ActionListener() {
@@ -68,8 +123,7 @@ public class Inventory extends KPI implements Serializable {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         items.remove(tf.getText());
-                        Settings.save();
-                        p.dispose();
+                        p.close();
                     }
                 });
 

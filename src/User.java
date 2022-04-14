@@ -1,7 +1,7 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User implements Serializable {
+public final class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     // Note: there is no current functionality to change username/password so it's set to final

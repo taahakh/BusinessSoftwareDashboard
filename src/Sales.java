@@ -7,14 +7,14 @@ public class Sales extends KPI implements Serializable {
 
     private int sales;
     private int unitsRemaining;
-    private final TextField visual = new TextField();
 
     public Sales(String identifier) {
         super(identifier, "Sales", " Track sales");
     }
 
-    public Button setSales() {
-        Button b = new Button("Set sales");
+    // true = sales, false = unitsRemaining
+    public Button create(Method method, String name, String description, boolean either) {
+        Button b = new Button(name);
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -22,85 +22,38 @@ public class Sales extends KPI implements Serializable {
                 TextField tf = new TextField();
                 Button b = new Button("Submit");
                 p.setLayout(new GridLayout(0,1));
-                p.add(new Label("Enter sales amount"));
+                p.add(new Label(description));
                 b.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        sales = Integer.parseInt(tf.getText());
-                        p.dispose();
-                        Settings.save();
+                        int x = Integer.parseInt(tf.getText());
+                            switch (method) {
+                                case UPDATE:
+                                    if (either){
+                                        sales += x;
+                                    } else {
+                                        unitsRemaining += x;
+                                    }
+                                    p.close();
+                                    break;
+                                case ADD:
+                                    if (either){
+                                        sales = x;
+                                    } else {
+                                        unitsRemaining = x;
+                                    }
+                                    p.close();
+                                    break;
+                            }
                     }
                 });
+
                 p.add(tf);
                 p.add(b);
                 p.launch();
             }
         });
         return b;
-    }
-
-    public Button updateSales(){
-        Button p = new Button("Updates sales");
-        p.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Popup p = new Popup();
-                TextField tf = new TextField();
-                Button b = new Button("Submit");
-                p.setLayout(new GridLayout(0,1));
-                p.add(new Label("Update amount"));
-                b.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        sales += Integer.parseInt(tf.getText());
-                        p.dispose();
-                        Settings.save();
-                    }
-                });
-                p.add(tf);
-                p.add(b);
-                p.launch();
-            }
-        });
-        return p;
-    }
-
-
-    public Button updateUnitsRemaining(){
-        Button p = new Button("Update remaining units");
-        p.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Popup p = new Popup();
-                TextField tf = new TextField();
-                Button b = new Button("Submit");
-                p.setLayout(new GridLayout(0,1));
-                p.add(new Label("Update remaining units"));
-                b.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        unitsRemaining += Integer.parseInt(tf.getText());
-                        p.dispose();
-                        Settings.save();
-                    }
-                });
-                p.add(tf);
-                p.add(b);
-                p.launch();
-            }
-        });
-        return p;
-    }
-
-    public Button viewPKM() {
-        Button p = new Button("View Key Metrics");
-        p.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                visual.setText(provideKeyMetric());
-            }
-        });
-        return p;
     }
 
     @Override
@@ -113,12 +66,15 @@ public class Sales extends KPI implements Serializable {
     @Override
     Frame showKpi(boolean editable) {
 
-        KPIFrame frame = new KPIFrame(provideKeyMetric(), visual);
-        frame.addButton(viewPKM());
-        frame.addButton(setSales());
-        frame.addButton(updateSales());
-        frame.addButton(updateUnitsRemaining());
+        KPIFrame frame = new KPIFrame(provideKeyMetric(), getVisual());
+        frame.addButton(viewPKM("view KPM"));
+        if(editable) {
+            frame.addButton(create(Method.ADD, "Set sales", "Enter value to set sales", true));
+            frame.addButton(create(Method.UPDATE, "update sales", "Enter value to set sales", true));
+            frame.addButton(create(Method.ADD, "Set units", "Enter value to set sales", false));
+            frame.addButton(create(Method.UPDATE, "update units", "Enter value to set sales", false));
 
+        }
         return frame;
     }
 

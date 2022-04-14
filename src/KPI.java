@@ -5,15 +5,15 @@ import java.io.Serializable;
 
 public abstract class KPI implements Serializable {
 
-    private final TextField visual = new TextField();
+    private final TextField VISUAL = new TextField();
+    private final String CLASSNAME;
 
-    private final String indicator;
-    private final String className;
-    private final String description;
+    private String indicator;
+    private String description;
 
     public KPI(String indicator, String className, String description) {
         this.indicator = indicator;
-        this.className = className;
+        this.CLASSNAME = className;
         this.description = description;
     }
 
@@ -22,7 +22,7 @@ public abstract class KPI implements Serializable {
     }
 
     public String getClassName(){
-        return this.className;
+        return this.CLASSNAME;
     }
 
     public String description() {
@@ -30,7 +30,7 @@ public abstract class KPI implements Serializable {
     }
 
     public TextField getVisual() {
-        return visual;
+        return VISUAL;
     }
 
     public Button viewPKM(String name) {
@@ -38,12 +38,13 @@ public abstract class KPI implements Serializable {
         p.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                visual.setText(provideKeyMetric());
+                VISUAL.setText(provideKeyMetric());
             }
         });
         return p;
     }
 
+//    abstract ActionListener methodSwitch();
     abstract String provideKeyMetric();
     abstract Frame showKpi(boolean editable);
 
