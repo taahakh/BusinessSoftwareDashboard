@@ -5,11 +5,14 @@ import java.io.Serializable;
 
 public class Sales extends KPI implements Serializable {
 
+    private static final String SALES = "Sales";
+    private static final String TRACK_SALES = "Track Sales";
+
     private int sales;
     private int unitsRemaining;
 
     public Sales(String identifier) {
-        super(identifier, "Sales", " Track sales");
+        super(identifier, SALES, TRACK_SALES);
     }
 
     // true = sales, false = unitsRemaining
@@ -29,22 +32,13 @@ public class Sales extends KPI implements Serializable {
                         int x = Integer.parseInt(tf.getText());
                             switch (method) {
                                 case UPDATE:
-                                    if (either){
-                                        sales += x;
-                                    } else {
-                                        unitsRemaining += x;
-                                    }
-                                    p.close();
+                                    update(either, x);
                                     break;
                                 case ADD:
-                                    if (either){
-                                        sales = x;
-                                    } else {
-                                        unitsRemaining = x;
-                                    }
-                                    p.close();
+                                    add(either, x);
                                     break;
                             }
+                        p.close();
                     }
                 });
 
@@ -54,6 +48,22 @@ public class Sales extends KPI implements Serializable {
             }
         });
         return b;
+    }
+
+    public void update(boolean state, int x){
+        if (state){
+            sales += x;
+        } else {
+            unitsRemaining += x;
+        }
+    }
+
+    public void add(boolean state, int x){
+        if (state){
+            sales = x;
+        } else {
+            unitsRemaining = x;
+        }
     }
 
     @Override

@@ -9,11 +9,14 @@ import java.util.HashMap;
 
 public class Marketing extends KPI implements Serializable {
 
+    private static final String MARKETING = "Sales";
+    private static final String TRACK_MARKETING = "Track Marketing";
+
     private final HashMap<Date, String> IMPRESSIONS = new HashMap<>();
     private final HashMap<Date, String> REACH = new HashMap<>();
 
     public Marketing(String indicator) {
-        super(indicator, "Marketing", "");
+        super(indicator, MARKETING, TRACK_MARKETING);
     }
 
     public Date parseDate(String date, Label success){

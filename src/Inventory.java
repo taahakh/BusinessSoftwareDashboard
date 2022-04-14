@@ -6,10 +6,13 @@ import java.util.HashMap;
 
 public class Inventory extends KPI implements Serializable {
 
-    private final HashMap<String, Integer> items = new HashMap<>();
+    private static final String INVENTORY = "Inventory";
+    private static final String TRACKS_INVENTORY = "tracks inventory";
+
+    private final HashMap<String, Integer> ITEMS = new HashMap<>();
 
     public Inventory(String indicator){
-        super(indicator, "Inventory", "tracks inventory");
+        super(indicator, INVENTORY, TRACKS_INVENTORY);
     }
 
     public Button create(Method method, String name, String description){
@@ -34,10 +37,13 @@ public class Inventory extends KPI implements Serializable {
                     public void actionPerformed(ActionEvent e) {
                         switch (method){
                             case ADD:
+                                add(name.getText(), val.getText());
                                 break;
                             case REMOVE:
+                                remove(name.getText(), p);
                                 break;
                             case UPDATE:
+                                update(name.getText(), val.getText(), success, p);
                                 break;
                         }
                     }
@@ -45,161 +51,59 @@ public class Inventory extends KPI implements Serializable {
 
                 p.add(desc);
                 p.add(name);
-                p.add(val);
+                if(method != Method.REMOVE){
+                    p.add(val);
+                }
                 p.add(submit);
                 p.add(success);
-
                 p.launch();
             }
         });
         return b;
     }
 
-    public void add() {
-
+    public void add(String name, String val) {
+        if(ITEMS.get(name) == null){
+            ITEMS.put(name, Integer.parseInt(val));
+            Settings.save();
+        }
     }
 
-    public void update() {
+    public void update(String item, String value, Label success, Popup p) {
+        int val;
+        try {
+            val = Integer.parseInt(value);
+        } catch (NumberFormatException ignored){
+            return;
+        }
 
-    }
+        if(item.equals("") || val == 0) {
+            success.setText("We couldn't update it");
+            return;
+        }
 
-    public void remove() {
-
-    }
-
-    public Button addItem() {
-        Button b = new Button("Add item");
-        b.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Popup p = new Popup();
-                Label desc, success;
-                TextField name, val;
-                Button submit;
-
-                desc = new Label("Enter the item you want to enter and number of");
-                success = new Label("");
-
-                name = new TextField();
-                val = new TextField();
-
-                submit = new Button("Submit");
-                submit.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if(items.get(name.getText()) == null){
-                            items.put(name.getText(), Integer.parseInt(val.getText()));
-                            Settings.save();
-                        }
-                    }
-                });
-
-                p.add(desc);
-                p.add(name);
-                p.add(val);
-                p.add(submit);
-                p.add(success);
-
-                p.launch();
+        for(String i: ITEMS.keySet()){
+            if(i.equals(item)){
+                int temp = ITEMS.get(i);
+                temp += val;
+                ITEMS.put(i, temp);
+                p.close();
+                return;
             }
-        });
-        return b;
+        }
+
+        success.setText("We couldn't update it");
     }
 
-    public Button deleteItem() {
-        Button b = new Button("Delete item");
-        b.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Popup p = new Popup();
-                Label desc, success;
-                TextField tf = new TextField();
-                Button submit = new Button("Submit");
-
-                desc = new Label("Enter the item you want to delete");
-                success = new Label("");
-
-                submit.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        items.remove(tf.getText());
-                        p.close();
-                    }
-                });
-
-                p.add(desc);
-                p.add(tf);
-                p.add(submit);
-                p.add(success);
-
-                p.launch();
-            }
-        });
-        return b;
-    }
-
-    public Button updateItem() {
-        Button p = new Button("Update item");
-        p.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Popup p = new Popup();
-                Button submit = new Button("Submit");
-                TextField item, value;
-                Label label, success;
-
-                label = new Label("Enter the item and the corresponding value that you want to update");
-                success = new Label("");
-
-                item = new TextField("Item");
-                value = new TextField("Number");
-
-                submit.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) throws NumberFormatException {
-                        String str = item.getText();
-                        int val;
-                        try {
-                             val = Integer.parseInt(value.getText());
-                        } catch (NumberFormatException ignored){
-                            return;
-                        }
-
-                        if(str.equals("") || val == 0) {
-                            success.setText("We couldn't update it");
-                            return;
-                        }
-
-                        for(String i: items.keySet()){
-                            if(i.equals(str)){
-                                int temp = items.get(i);
-                                temp += val;
-                                items.put(i, temp);
-                                p.dispose();
-                                Settings.save();
-                                return;
-                            }
-                        }
-
-                        success.setText("We couldn't update it");
-                    }
-                });
-
-                p.add(label);
-                p.add(item);
-                p.add(value);
-                p.add(submit);
-                p.add(success);
-                p.launch();
-            }
-        });
-        return p;
+    public void remove(String name, Popup p) {
+        ITEMS.remove(name);
+        p.close();
     }
 
     @Override
     String provideKeyMetric() {
-        System.out.println(items);
-        return "items -> " + items;
+        System.out.println(ITEMS);
+        return "ITEMS -> " + ITEMS;
     }
 
     @Override
@@ -208,9 +112,9 @@ public class Inventory extends KPI implements Serializable {
         KPIFrame f = new KPIFrame(provideKeyMetric(), getVisual());
         f.addButton(viewPKM("view key metrics"));
         if(editable) {
-            f.addButton(updateItem());
-            f.addButton(addItem());
-            f.addButton(deleteItem());
+            f.addButton(create(Method.ADD, "Add item", "Enter the item you want to enter and number of"));
+            f.addButton(create(Method.UPDATE, "Update item",  "Enter the item and the corresponding value that you want to update"));
+            f.addButton(create(Method.REMOVE, "Remove item", "Enter the item you want to delete"));
         }
         return f;
     }

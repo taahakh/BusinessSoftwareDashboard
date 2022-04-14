@@ -6,11 +6,14 @@ import java.util.HashMap;
 
 public class HumanResources extends KPI implements Serializable {
 
+    private static final String HR = "HumanResources";
+    private static final String TRACK_HR = "Track Human resources";
+
     private final HashMap<String, Integer> values = new HashMap<>();
     private String type;
 
     public HumanResources(String indicator) {
-        super(indicator, "HumanResources", "HR");
+        super(indicator, HR,  TRACK_HR);
     }
 
     public Button create(Method method, String name, String description){
