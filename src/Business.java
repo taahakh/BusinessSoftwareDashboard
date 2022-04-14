@@ -48,10 +48,6 @@ public class Business implements Serializable {
         employees.remove(em);
     }
 
-    public void save(){
-        Login.saveObjects(this, Settings.BUS_FILENAME);
-    }
-
     public void setName(String name) {
         this.name = name;
     }

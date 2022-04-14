@@ -116,11 +116,6 @@ public class HumanResources extends KPI implements Serializable {
     }
 
     @Override
-    KPI returnSameClass() {
-        return null;
-    }
-
-    @Override
     Frame showKpi(boolean editable) {
         KPIFrame f = new KPIFrame(provideKeyMetric(), new TextField());
         f.addButton(create(Method.ADD, "add production item","Add item and value"));

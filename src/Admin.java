@@ -5,7 +5,7 @@ public class Admin extends Employee{
     }
 
     @Override
-    boolean compareTo(Object obj) {
+    public boolean compareTo(Object obj) {
         return obj instanceof Admin;
     }
 
@@ -15,12 +15,7 @@ public class Admin extends Employee{
     }
 
     @Override
-    String whatRank() {
-        return "admin";
-    }
-
-    @Override
-    String description() {
+    public String description() {
         return "Access rights etc";
     }
 

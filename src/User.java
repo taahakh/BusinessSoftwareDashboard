@@ -4,23 +4,16 @@ import java.util.ArrayList;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String username; // Login information
-    private String password;
+    // Note: there is no current functionality to change username/password so it's set to final
+    private final String username; // Login information
+    private final String password;
 
     private String name; // Name identification
-    private ArrayList<Employee> employee; // Account access to businesses
+    private final ArrayList<Employee> employee; // Account access to businesses
 
     public User(String username, String password) {
-        this.username= username;
-        this.password= password;
-        this.name = "";
-        this.employee = new ArrayList<Employee>(0);
-    }
-
-    public User(String username, String password, String name) {
-        this.username= username;
-        this.password= password;
-        this.name = name;
+        this.username = username;
+        this.password = password;
         this.employee = new ArrayList<Employee>(0);
     }
 
@@ -28,17 +21,8 @@ public class User implements Serializable {
         return this.password.equals(password);
     }
 
-    public void saveUser(){
-//        Login.userSave(this);
-        Settings.save();
-    }
-
     public ArrayList<Employee> getEmployee() {
         return employee;
-    }
-
-    public void deleteEmployee(Employee em) {
-        employee.remove(em);
     }
 
     public Employee removeEmployeeWithBusiness(Business bus) {

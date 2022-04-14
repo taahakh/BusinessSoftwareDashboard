@@ -16,26 +16,13 @@ public class AnalystType extends EmployeeLadder{
     }
 
     @Override
-    boolean compareTo(Object obj) {
+    public boolean compareTo(Object obj) {
         return obj instanceof AnalystType;
     }
 
     @Override
-    String description() {
+    public String description() {
         return "this is for analysts";
-    }
-
-    @Override
-    public Panel showRights() {
-        Panel p = Panels.basicPanel();
-        p.add(new Label("hello"));
-        return p;
-    }
-
-    @Override
-    public Frame showKpis() {
-        Frame f = Panels.basicWindow();
-        return f;
     }
 
     @Override

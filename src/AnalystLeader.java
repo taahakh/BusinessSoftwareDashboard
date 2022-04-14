@@ -12,7 +12,7 @@ public class AnalystLeader extends Employee {
     }
 
     @Override
-    boolean compareTo(Object obj) {
+    public boolean compareTo(Object obj) {
         if(obj instanceof AnalystLeader) {
             return true;
         }
@@ -25,12 +25,7 @@ public class AnalystLeader extends Employee {
     }
 
     @Override
-    String whatRank() {
-        return "analyst";
-    }
-
-    @Override
-    String description() {
+    public String description() {
         return "Head leader of analysts of the company";
     }
 

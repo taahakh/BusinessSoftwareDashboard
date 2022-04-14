@@ -5,11 +5,8 @@ public class Leader extends Employee {
     }
 
     @Override
-    boolean compareTo(Object obj) {
-        if(obj instanceof Leader) {
-            return true;
-        }
-        return false;
+    public boolean compareTo(Object obj) {
+        return obj instanceof Leader;
     }
 
     @Override
@@ -18,12 +15,7 @@ public class Leader extends Employee {
     }
 
     @Override
-    String whatRank() {
-        return "leader";
-    }
-
-    @Override
-    String description() {
+    public String description() {
         return "null";
     }
 

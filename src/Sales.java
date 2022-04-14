@@ -116,11 +116,6 @@ public class Sales extends KPI implements Serializable {
     }
 
     @Override
-    KPI returnSameClass() {
-        return new Sales("");
-    }
-
-    @Override
     Frame showKpi(boolean editable) {
 
         KPIFrame frame = new KPIFrame(provideKeyMetric(), visual);

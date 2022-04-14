@@ -1,12 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 
-class LoginExceptions extends RuntimeException {
-    public LoginExceptions(String msg) {
-        super(msg);
-    }
-}
-
 public class Login {
 
     private static User loggedIn;
@@ -38,8 +32,7 @@ public class Login {
         }
 
         if(users.size() == 0){
-            ArrayList<User> usr = (ArrayList<User>) loadObject(Settings.USER_FILENAME);
-            users = usr;
+            users = (ArrayList<User>) loadObject(Settings.USER_FILENAME);
         }
 
         for (User x:  users){
@@ -53,7 +46,7 @@ public class Login {
         try {
             users = readUserObject();
         }catch (IOException e) {
-            System.out.println(e);
+            return false;
         }
 
         for(User x: users){
@@ -68,21 +61,6 @@ public class Login {
 
     public static User createUser(String username, String password) {
         return new User(username, password);
-    }
-
-    public static User loadUser(String username)  {
-        try {
-            for (User x: readUserObject()){
-                if(x.getUsername().equals(username)){
-                    System.out.println("1: "+ x);
-                    return x;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        throw new RuntimeException();
     }
 
     public static boolean checkUserExists(String username){
@@ -124,9 +102,7 @@ public class Login {
             os.flush();
             os.close();
             fs.close();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        } catch (IOException e) {}
     }
 
     public static void setLoggedIn(User loggedIn) {
@@ -145,13 +121,12 @@ public class Login {
             os.flush();
             os.close();
             fs.close();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        } catch (IOException e) {}
     }
 
     //  Unsafe method. Bypasses any authentication processes where needed
-    public static <T extends Serializable> Object loadObject(String name) {
+    // NOTE: the object is not casted when loaded
+    public static Object loadObject(String name) {
         Object obj = null;
         try {
             FileInputStream fs = new FileInputStream(fileLocation + name);

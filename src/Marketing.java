@@ -7,10 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-enum Method {
-    ADD, REMOVE, UPDATE, TYPE
-}
-
 public class Marketing extends KPI implements Serializable {
 
     private final HashMap<Date, String> impressions = new HashMap<>();
@@ -155,11 +151,6 @@ public class Marketing extends KPI implements Serializable {
     String provideKeyMetric() {
         return "im: " + impressions + "" +
                 "re: " + reach;
-    }
-
-    @Override
-    KPI returnSameClass() {
-        return null;
     }
 
     @Override

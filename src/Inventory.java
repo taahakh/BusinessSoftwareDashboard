@@ -168,11 +168,6 @@ public class Inventory extends KPI implements Serializable {
     }
 
     @Override
-    KPI returnSameClass() {
-        return new Inventory("");
-    }
-
-    @Override
     Frame showKpi(boolean editable) {
 
         KPIFrame f = new KPIFrame(provideKeyMetric(), visual);

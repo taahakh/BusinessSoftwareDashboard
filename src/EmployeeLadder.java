@@ -1,9 +1,7 @@
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.awt.*;
 
-public abstract class EmployeeLadder implements Ladder, Serializable {
-    private Identifier[] access;
+public abstract class EmployeeLadder implements EmployeeRules, Serializable {
+    private final Identifier[] access;
 
     public EmployeeLadder(Identifier[] access){
         this.access = access;
@@ -11,10 +9,6 @@ public abstract class EmployeeLadder implements Ladder, Serializable {
 
     public Identifier[] getAccess() {
         return access;
-    }
-
-    public void setAccess(Identifier[] access) {
-        this.access = access;
     }
 
     public boolean has(Identifier iden) {
@@ -26,11 +20,5 @@ public abstract class EmployeeLadder implements Ladder, Serializable {
         return false;
     }
 
-    abstract boolean compareTo(Object obj);
-
-    abstract String description();
-
-    abstract Panel showRights();
-
-    abstract Frame showKpis();
+    abstract String showInfoMetric();
 }

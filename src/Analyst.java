@@ -4,7 +4,7 @@ public class Analyst extends Employee{
     }
 
     @Override
-    boolean compareTo(Object obj) {
+    public boolean compareTo(Object obj) {
         if (obj instanceof Analyst) {
             return true;
         }
@@ -17,12 +17,7 @@ public class Analyst extends Employee{
     }
 
     @Override
-    String whatRank() {
-        return "analyst";
-    }
-
-    @Override
-    String description() {
+    public String description() {
         return "null";
     }
 

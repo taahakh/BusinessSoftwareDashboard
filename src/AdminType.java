@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public class AdminType extends EmployeeLadder{
 
     public AdminType(){
@@ -19,28 +17,12 @@ public class AdminType extends EmployeeLadder{
     }
 
     @Override
-    boolean compareTo(Object obj) {
-        if(obj instanceof AdminType){
-            return true;
-        }
-        return false;
+    public boolean compareTo(Object obj) {
+        return obj instanceof AdminType;
     }
 
     @Override
-    String description() {
+    public String description() {
         return "this is admin type";
-    }
-
-    @Override
-    public Panel showRights() {
-        Panel p = Panels.basicPanel();
-        return p;
-    }
-
-    @Override
-    public Frame showKpis() {
-        Frame f = Panels.basicWindow();
-
-        return f;
     }
 }

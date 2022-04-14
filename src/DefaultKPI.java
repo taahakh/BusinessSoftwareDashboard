@@ -17,11 +17,6 @@ public class DefaultKPI extends KPI{
     }
 
     @Override
-    KPI returnSameClass() {
-        return null;
-    }
-
-    @Override
     Frame showKpi(boolean editable) {
         return null;
     }

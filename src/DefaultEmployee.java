@@ -4,11 +4,8 @@ public class DefaultEmployee extends Employee{
     }
 
     @Override
-    boolean compareTo(Object obj) {
-        if(obj instanceof DefaultEmployee) {
-            return true;
-        }
-        return false;
+    public boolean compareTo(Object obj) {
+        return obj instanceof DefaultEmployee;
     }
 
     @Override
@@ -17,12 +14,7 @@ public class DefaultEmployee extends Employee{
     }
 
     @Override
-    String whatRank() {
-        return "default";
-    }
-
-    @Override
-    String description() {
+    public String description() {
         return "null";
     }
 }
