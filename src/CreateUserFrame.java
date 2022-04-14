@@ -29,7 +29,7 @@ public class CreateUserFrame extends Frame {
         n = new Label("Name");
         notif = new Label("");
 
-        submit = new Button("Submit");
+        submit = new Button(Conts.SUBMIT);
         business = new Button("Create business");
         leave = new Button("Leave");
 

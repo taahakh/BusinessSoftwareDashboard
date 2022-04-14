@@ -58,6 +58,12 @@ public class DashboardFrame extends Frame {
         for(Button x: em.showKPIButtons()) {
             this.add(x);
         }
+
+        if(Settings.getEmployee() instanceof Admin) {
+            Admin admin = (Admin) Settings.getEmployee();
+            this.add(admin.printRanks());
+        }
+
         this.add(logout);
         this.add(refresh);
 

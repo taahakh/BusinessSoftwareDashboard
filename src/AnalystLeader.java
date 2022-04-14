@@ -32,4 +32,9 @@ public class AnalystLeader extends Employee {
     Button load() {
         return null;
     }
+
+    @Override
+    void formLayout() {
+
+    }
 }

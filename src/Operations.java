@@ -11,7 +11,8 @@ public class Operations {
             // Loading in user
             User usr = Login.getUser(username);
             // Creating a new employee
-            Employee em = Settings.getEmployee(type, e.getTitle());
+//            Employee em = Settings.getEmployee(type, e.getTitle());
+            Employee em = Settings.getEmployee(type, usr.getName());
             if(em == null) {
                 return false;
             }
