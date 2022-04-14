@@ -2,17 +2,22 @@ import java.awt.*;
 
 public class AnalystType extends EmployeeLadder{
 
+    private static final String DESC = "this is for analysts";
+    private static final String METRIC = "Contains KPI types for Analysts";
+
     public AnalystType() {
         super(
                 new Identifier[]{
                         Identifier.VIEWER,
                         Identifier.EDITOR
-                }
+                },
+                DESC,
+                METRIC
         );
     }
 
     public AnalystType(Identifier[] access) {
-        super(access);
+        super(access, DESC, METRIC);
     }
 
     @Override
@@ -21,12 +26,8 @@ public class AnalystType extends EmployeeLadder{
     }
 
     @Override
-    public String description() {
-        return "this is for analysts";
+    public Frame features() {
+        return null;
     }
 
-    @Override
-    public String showInfoMetric() {
-        return "Contains KPI types for Analysts";
-    }
 }

@@ -1,19 +1,23 @@
+import java.awt.*;
+
 public class Analyst extends Employee{
     public Analyst(){
         super(new AnalystType());
     }
 
     @Override
-    public boolean compareTo(Object obj) {
-        if (obj instanceof Analyst) {
-            return true;
-        }
-        return false;
+    Button load() {
+        return null;
     }
 
     @Override
-    String whatType() {
-        return "analyst";
+    public boolean compareTo(Object obj) {
+        return obj instanceof Analyst;
+    }
+
+    @Override
+    public Frame features() {
+        return null;
     }
 
     @Override

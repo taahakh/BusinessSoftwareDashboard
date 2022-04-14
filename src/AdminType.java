@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class AdminType extends EmployeeLadder{
 
     public AdminType(){
@@ -7,13 +9,11 @@ public class AdminType extends EmployeeLadder{
                 Identifier.ROLE,
                 Identifier.VIEWER,
                 Identifier.EDITOR,
-        });
-    }
-
-    @Override
-    public String showInfoMetric() {
-        return "Type: ADMIN\n" +
-                "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR";
+        },
+                "Type: ADMIN\n" +
+                        "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR",
+                "this is admin type"
+                );
     }
 
     @Override
@@ -22,7 +22,8 @@ public class AdminType extends EmployeeLadder{
     }
 
     @Override
-    public String description() {
-        return "this is admin type";
+    public Frame features() {
+        return null;
     }
+
 }

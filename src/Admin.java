@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class Admin extends Employee{
 
     public Admin(String title){
@@ -10,8 +12,8 @@ public class Admin extends Employee{
     }
 
     @Override
-    String whatType() {
-        return "admin";
+    public Frame features() {
+        return null;
     }
 
     @Override
@@ -19,4 +21,8 @@ public class Admin extends Employee{
         return "Access rights etc";
     }
 
+    @Override
+    Button load() {
+        return null;
+    }
 }

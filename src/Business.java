@@ -16,19 +16,6 @@ public class Business implements Serializable {
         this.ladderKpis = new HashMap<EmployeeLadder, ArrayList<KPI>>();
     }
 
-    public Business(String name, ArrayList<KPI> indicators, ArrayList<Employee> employees) {
-        this.name = name;
-        this.employees = employees;
-        this.ladderKpis = new HashMap<EmployeeLadder, ArrayList<KPI>>();
-    }
-
-    public static Business createBusiness(String name, ArrayList<KPI> indicators, ArrayList<Employee> employees) {
-        Business temp = new Business(name, indicators, employees);
-        business.add(temp);
-        Settings.setBusiness(temp);
-        return Settings.getBusiness();
-    }
-
     public static Business createBusiness(String name) {
         Business temp = new Business(name);
         business.add(temp);

@@ -10,7 +10,7 @@ public class HumanResources extends KPI implements Serializable {
     private String type;
 
     public HumanResources(String indicator) {
-        super(indicator, "HumanResources");
+        super(indicator, "HumanResources", "HR");
     }
 
     public Button create(Method method, String name, String description){
@@ -106,18 +106,14 @@ public class HumanResources extends KPI implements Serializable {
     }
 
     @Override
-    String description() {
-        return "null";
-    }
-
-    @Override
     String provideKeyMetric() {
-        return "null";
+        return "null" + type;
     }
 
     @Override
     Frame showKpi(boolean editable) {
         KPIFrame f = new KPIFrame(provideKeyMetric(), new TextField());
+        f.addButton(viewPKM("view key metrics"));
         f.addButton(create(Method.ADD, "add production item","Add item and value"));
         f.addButton(create(Method.UPDATE, "update production value","Update item value"));
         f.addButton(create(Method.REMOVE, "remove production item","Remove item"));

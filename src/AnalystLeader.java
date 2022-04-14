@@ -1,3 +1,5 @@
+import java.awt.*;
+
 public class AnalystLeader extends Employee {
 
     public AnalystLeader(String title){
@@ -13,15 +15,12 @@ public class AnalystLeader extends Employee {
 
     @Override
     public boolean compareTo(Object obj) {
-        if(obj instanceof AnalystLeader) {
-            return true;
-        }
-        return false;
+        return obj instanceof AnalystLeader;
     }
 
     @Override
-    String whatType() {
-        return "analystleader";
+    public Frame features() {
+        return null;
     }
 
     @Override
@@ -29,4 +28,8 @@ public class AnalystLeader extends Employee {
         return "Head leader of analysts of the company";
     }
 
+    @Override
+    Button load() {
+        return null;
+    }
 }

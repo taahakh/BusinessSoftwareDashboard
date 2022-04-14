@@ -10,7 +10,7 @@ public class Sales extends KPI implements Serializable {
     private final TextField visual = new TextField();
 
     public Sales(String identifier) {
-        super(identifier, "Sales");
+        super(identifier, "Sales", " Track sales");
     }
 
     public Button setSales() {
@@ -101,11 +101,6 @@ public class Sales extends KPI implements Serializable {
             }
         });
         return p;
-    }
-
-    @Override
-    String description() {
-        return "tracks sales";
     }
 
     @Override

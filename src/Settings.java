@@ -53,7 +53,6 @@ public class Settings {
                 break;
         }
         throw new RuntimeException();
-//        return new DefaultKPI();
     }
 
     public static Employee castEmployees(Employee em, String type) {

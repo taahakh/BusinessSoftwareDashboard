@@ -6,13 +6,10 @@ import java.util.HashMap;
 
 public class Inventory extends KPI implements Serializable {
 
-    private final HashMap<String, Integer> items;
-    private final TextField visual = new TextField();
-
+    private final HashMap<String, Integer> items = new HashMap<>();
 
     public Inventory(String indicator){
-        super(indicator, "Inventory");
-        items = new HashMap<>();
+        super(indicator, "Inventory", "tracks inventory");
     }
 
     public Button addItem() {
@@ -145,22 +142,6 @@ public class Inventory extends KPI implements Serializable {
         return p;
     }
 
-    public Button viewPKM() {
-        Button p = new Button("View Key Metrics");
-        p.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                visual.setText(provideKeyMetric());
-            }
-        });
-        return p;
-    }
-
-    @Override
-    String description() {
-        return "tracks inventory";
-    }
-
     @Override
     String provideKeyMetric() {
         System.out.println(items);
@@ -170,11 +151,13 @@ public class Inventory extends KPI implements Serializable {
     @Override
     Frame showKpi(boolean editable) {
 
-        KPIFrame f = new KPIFrame(provideKeyMetric(), visual);
-        f.addButton(viewPKM());
-        f.addButton(updateItem());
-        f.addButton(addItem());
-        f.addButton(deleteItem());
+        KPIFrame f = new KPIFrame(provideKeyMetric(), getVisual());
+        f.addButton(viewPKM("view key metrics"));
+        if(editable) {
+            f.addButton(updateItem());
+            f.addButton(addItem());
+            f.addButton(deleteItem());
+        }
         return f;
     }
 

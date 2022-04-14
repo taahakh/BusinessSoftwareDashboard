@@ -11,11 +11,11 @@ public class Marketing extends KPI implements Serializable {
 
     private final HashMap<Date, String> impressions = new HashMap<>();
     private final HashMap<Date, String> reach = new HashMap<>();
-    private final TextField visual = new TextField();
+//    private final TextField visual = new TextField();
 
 
     public Marketing(String indicator) {
-        super(indicator, "Marketing");
+        super(indicator, "Marketing", "");
     }
 
     public Date parseDate(String date, Label success){
@@ -131,22 +131,6 @@ public class Marketing extends KPI implements Serializable {
         return b;
     }
 
-    public Button viewPKM() {
-        Button p = new Button("View Key Metrics");
-        p.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                visual.setText(provideKeyMetric());
-            }
-        });
-        return p;
-    }
-
-    @Override
-    String description() {
-        return "null";
-    }
-
     @Override
     String provideKeyMetric() {
         return "im: " + impressions + "" +
@@ -155,8 +139,8 @@ public class Marketing extends KPI implements Serializable {
 
     @Override
     Frame showKpi(boolean editable) {
-        KPIFrame f = new KPIFrame(provideKeyMetric(), visual);
-        f.addButton(viewPKM());
+        KPIFrame f = new KPIFrame(provideKeyMetric(), getVisual());
+        f.addButton(viewPKM("View key metrics"));
         f.addButton(create(Method.ADD, "add Impressions", impressions));
         f.addButton(create(Method.ADD,"add reach", reach));
         f.addButton(create(Method.REMOVE,"remove reach", reach));

@@ -1,6 +1,13 @@
+import java.awt.*;
+
 public class DefaultEmployee extends Employee{
     public DefaultEmployee(){
         super();
+    }
+
+    @Override
+    Button load() {
+        return null;
     }
 
     @Override
@@ -9,8 +16,8 @@ public class DefaultEmployee extends Employee{
     }
 
     @Override
-    String whatType() {
-        return "default";
+    public Frame features() {
+        return null;
     }
 
     @Override
