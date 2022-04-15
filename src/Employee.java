@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public abstract class Employee implements EmployeeRules, Serializable {
 
@@ -7,6 +8,7 @@ public abstract class Employee implements EmployeeRules, Serializable {
     private String title; // Job title
     // Business position. Classes inherit EmployeeLadder and can access certain features regarding access to KPI's, creating/deleting users etc. At each rank, certain kpi's can be viewed and certain access rights can be shown
     private EmployeeLadder rank;
+    private String description;
 
     public Employee() {}
 
@@ -14,9 +16,10 @@ public abstract class Employee implements EmployeeRules, Serializable {
         this.rank = type;
     }
 
-    public Employee(String title, EmployeeLadder type){
+    public Employee(String title, EmployeeLadder type, String description){
         this.title = title;
         this.rank = type;
+        this.description = description;
     }
 
     public String getTitle(){
@@ -35,15 +38,15 @@ public abstract class Employee implements EmployeeRules, Serializable {
         return rank;
     }
 
-    public Button[] showKPIButtons() {
+    public ArrayList<Button> showKPIButtons() {
         if(rank.has(Identifier.VIEWER)){
             if(rank.has(Identifier.EDITOR)){
-                return Operations.generateKPIButtons(business.getKPILadderList(rank), true);
+                return generateKPIButtons(true);
             }
-            return Operations.generateKPIButtons(business.getKPILadderList(rank), false);
+            return generateKPIButtons(false);
         }
 
-        return new Button[0];
+        return new ArrayList<Button>();
     }
 
     public Button showSettingsButton(){
@@ -64,7 +67,14 @@ public abstract class Employee implements EmployeeRules, Serializable {
         return rank.getAccess();
     }
 
-    abstract Button load();
+    public String description() {
+        return description;
+    }
 
-    abstract void formLayout();
+    public ArrayList<Button> generateKPIButtons(boolean editable) {
+        return Operations.generateKPIButtons(business.getKPILadderList(rank), editable);
+    }
+
+    abstract void formLayout(Panel panel);
+
 }

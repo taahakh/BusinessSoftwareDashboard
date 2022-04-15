@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AnalystLeader extends Employee {
 
@@ -10,7 +12,8 @@ public class AnalystLeader extends Employee {
                         Identifier.ROLE,
                         Identifier.USER
                 }
-        ));
+
+        ), "Head leader of analysts of the company");
     }
 
     @Override
@@ -19,22 +22,28 @@ public class AnalystLeader extends Employee {
     }
 
     @Override
-    public Frame features() {
-        return null;
+    void formLayout(Panel panel) {
+        panel.add(viewAnalysts());
     }
 
-    @Override
-    public String description() {
-        return "Head leader of analysts of the company";
-    }
+    public Button viewAnalysts() {
+        Button b = new Button("View analysts");
+        AnalystType at = (AnalystType) getLadder();
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Popup p = new Popup();
+                StringBuilder items = new StringBuilder();
+                for (String item : at.getLinks()) {
+                    items.append(Operations.viewEmployees(item)).append("\n");
+                }
+                TextArea ta = new TextArea(items.toString());
+                ta.setEditable(false);
+                p.add(ta);
+                p.launch();
+            }
+        });
 
-    @Override
-    Button load() {
-        return null;
-    }
-
-    @Override
-    void formLayout() {
-
+        return b;
     }
 }

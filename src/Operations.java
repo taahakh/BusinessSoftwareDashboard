@@ -56,10 +56,25 @@ public class Operations {
     }
 
     // Generates buttons for KPI list
-    public static Button[] generateKPIButtons(ArrayList<KPI> kpis, boolean editable) {
-        Button[] buttons = new Button[kpis.size()];
-        int counter = 0;
-        System.out.println(kpis);
+    public static ArrayList<Button> generateKPIButtons(ArrayList<KPI> kpis, boolean editable) {
+//        Button[] buttons = new Button[kpis.size()];
+//        int counter = 0;
+//        System.out.println(kpis);
+//        for (KPI x : kpis) {
+//            Button button = new Button(x.getClassName() + ": " + x.getIndicatorName());
+//            button.addActionListener(new ActionListener() {
+//                @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    x.showKpi(editable).setVisible(true);
+//                }
+//            });
+//            buttons[counter] = button;
+//            counter++;
+//        }
+//
+//        return buttons;
+
+        ArrayList<Button> buttons = new ArrayList<Button>(kpis.size());
         for (KPI x : kpis) {
             Button button = new Button(x.getClassName() + ": " + x.getIndicatorName());
             button.addActionListener(new ActionListener() {
@@ -68,8 +83,7 @@ public class Operations {
                     x.showKpi(editable).setVisible(true);
                 }
             });
-            buttons[counter] = button;
-            counter++;
+            buttons.add(button);
         }
 
         return buttons;
@@ -177,6 +191,20 @@ public class Operations {
         }
 
         return p;
+    }
+
+    public static String viewEmployees(String type) {
+        Employee e = Settings.getEmployee(type);
+        StringBuilder items = new StringBuilder();
+        if(e != null) {
+            for (Employee em: Settings.getBusiness().getEmployees()) {
+                if(em.compareTo(e)){
+                    items.append("--->").append(em.getTitle()).append("\n");
+                }
+            }
+        }
+
+        return items.toString();
     }
 
 }

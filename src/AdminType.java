@@ -22,8 +22,7 @@ public class AdminType extends EmployeeLadder{
     }
 
     @Override
-    public Frame features() {
+    Frame features() {
         return null;
     }
-
 }

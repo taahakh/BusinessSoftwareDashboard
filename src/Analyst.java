@@ -1,17 +1,13 @@
 import java.awt.*;
 
 public class Analyst extends Employee{
-    public Analyst(){
-        super(new AnalystType());
+
+    public Analyst(String title) {
+        super(title, new AnalystType(), "Analyst stuff");
     }
 
     @Override
-    Button load() {
-        return null;
-    }
-
-    @Override
-    void formLayout() {
+    void formLayout(Panel panel) {
 
     }
 
@@ -20,17 +16,5 @@ public class Analyst extends Employee{
         return obj instanceof Analyst;
     }
 
-    @Override
-    public Frame features() {
-        return null;
-    }
 
-    @Override
-    public String description() {
-        return "null";
-    }
-
-    public Analyst(String title) {
-        super(title, new AnalystType());
-    }
 }

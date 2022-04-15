@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.io.Serializable;
 
 /*
@@ -39,5 +40,7 @@ public abstract class EmployeeLadder implements EmployeeRules, Serializable {
     public String showInfoMetric(){
         return METRIC;
     }
+
+    abstract Frame features();
 
 }

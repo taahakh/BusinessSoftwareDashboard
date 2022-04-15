@@ -1,18 +1,14 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Set;
 
 public class DashboardFrame extends Frame {
 
     public DashboardFrame() {
-        User user = Login.getLoggedIn();
-        Business b = Settings.getBusiness();
         Employee em = Settings.getEmployee();
 
         Panel layout;
         Button logout, refresh;
-        Button[] buttons;
         Label area;
 
         logout = new Button("Logout");
@@ -59,10 +55,7 @@ public class DashboardFrame extends Frame {
             this.add(x);
         }
 
-        if(Settings.getEmployee() instanceof Admin) {
-            Admin admin = (Admin) Settings.getEmployee();
-            this.add(admin.printRanks());
-        }
+        em.formLayout(layout);
 
         this.add(logout);
         this.add(refresh);

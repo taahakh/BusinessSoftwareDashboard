@@ -121,7 +121,6 @@ public class LoginFrame extends Frame {
                             System.out.println("x stat:" + x);
                             System.out.println("x-bus stat:" + x.getBusiness());
                             Settings.setEmployee(x);
-//                            Settings.setBusiness((Business) x.getBusiness());
                             Settings.setBusiness(x.getBusiness());
                             p.closeFrame();
                             return;

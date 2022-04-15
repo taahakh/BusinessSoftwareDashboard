@@ -17,8 +17,6 @@ public class Settings {
     /**/
 
     private static final String ADMIN = "admin";
-    private static final String ANALYST = "analyst";
-    private static final String ANALYST_LEADER = "analystleader";
 
     /**/
 
@@ -48,11 +46,11 @@ public class Settings {
     };
 
     public static final String [] availableEmployees = new String[] {
-            ADMIN, ANALYST, ANALYST_LEADER,
+            ADMIN, Conts.ANALYST, Conts.ANALYST_LEADER,
     };
 
     public static final String [] availableRanks = new String[] {
-            ADMIN, ANALYST,
+            ADMIN, Conts.ANALYST,
     };
 
     public static KPI createKpiObject(String name, String type) {
@@ -76,20 +74,24 @@ public class Settings {
         switch (type.toLowerCase()){
             case ADMIN:
                 return new Admin(title);
-            case ANALYST:
+            case Conts.ANALYST:
                 return new Analyst(title);
-            case ANALYST_LEADER:
+            case Conts.ANALYST_LEADER:
                 return new AnalystLeader(title);
         }
 
         return null;
     }
 
+    public static Employee getEmployee(String type) {
+        return getEmployee(type, "");
+    }
+
     public static EmployeeLadder getType(String type) {
         switch (type.toLowerCase()){
             case ADMIN:
                 return new AdminType();
-            case ANALYST:
+            case Conts.ANALYST:
                 return new AnalystType();
         }
         return null;

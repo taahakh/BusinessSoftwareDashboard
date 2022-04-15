@@ -2,6 +2,10 @@ import java.awt.*;
 
 public class AnalystType extends EmployeeLadder{
 
+    private final String[] links = {
+            Conts.ANALYST, Conts.ANALYST_LEADER
+    };
+
     private static final String DESC = "this is for analysts";
     private static final String METRIC = "Contains KPI types for Analysts";
 
@@ -26,8 +30,11 @@ public class AnalystType extends EmployeeLadder{
     }
 
     @Override
-    public Frame features() {
+    Frame features() {
         return null;
     }
 
+    public String[] getLinks() {
+        return links;
+    }
 }

@@ -2,12 +2,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class Admin extends Employee{
 
     public Admin(String title){
-        super(title, new AdminType());
+        super(title, new AdminType(), "Access rights etc");
     }
 
     @Override
@@ -16,57 +15,67 @@ public class Admin extends Employee{
     }
 
     @Override
-    public Frame features() {
-        return null;
+    void formLayout(Panel panel) {
+        panel.add(printKPIGroups());
+        panel.add(printRanks());
     }
 
-    @Override
-    public String description() {
-        return "Access rights etc";
-    }
-
-    @Override
-    Button load() {
-        return null;
-    }
-
-    @Override
-    void formLayout() {
-
-    }
-
-    public Button printRanks() {
-        Button b = new Button("Print ranks");
+    public Button printKPIGroups() {
+        Button b = new Button("Print KPI groups");
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                Popup p = new Popup();
-//
-//
-//
-//                p.launch();
-                ranks();
+                Popup p = new Popup();
+                TextArea area = new TextArea(kpiGroups());
+                area.setEditable(false);
+                p.add(area);
+                p.launch();
             }
         });
         return b;
     }
 
-    private void ranks() {
-        Map<EmployeeLadder, ArrayList<KPI>> ladder = getBusiness().getLadderKpis();
+    public Button printRanks() {
+        Button b = new Button("Print employee ranks");
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Popup p = new Popup();
+                TextArea area = new TextArea(employeeGroups());
+                area.setEditable(false);
+                p.add(area);
+                p.launch();
+            }
+        });
+        return b;
+    }
+
+
+    private String kpiGroups() {
         Business b = Settings.getBusiness();
-//        String rank = "";
+        String items = "";
         for (String ranks : Settings.availableRanks) {
             EmployeeLadder el = Settings.getType(ranks);
             if(el != null) {
-                System.out.println(ranks);
+                items += ranks+"\n";
                 for (Employee e : b.getEmployees()) {
                     if(e.getLadder().compareTo(el)){
-                        System.out.println("--->" + e.getTitle());
+                        items += "--->" + e.getTitle() +"\n";
                     }
                 }
-                System.out.println("---------------------");
+                items += "------------------------\n";
             }
         }
+        return items;
+    }
 
+    private String employeeGroups() {
+        StringBuilder items = new StringBuilder();
+        for (String rank : Settings.availableEmployees) {
+            items.append(rank).append("\n");
+            items.append(Operations.viewEmployees(rank));
+            items.append("|*--------------------------------*|\n\n");
+        }
+        return items.toString();
     }
 }
