@@ -15,4 +15,16 @@ public class Conts {
     public static final String MARKETING = "marketing";
     public static final String HUMAN_RESOURCES = "humanresources";
 
+    /**/
+
+    public static final String HR = "hr";
+    public static final String HR_MANAGER = "hrmanager";
+    public static final String HR_VIWER = "hrviewer";
+
+    /**/
+
+    public static final String ADMIN = "admin";
+
+
+
 }

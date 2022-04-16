@@ -11,7 +11,6 @@ public class Operations {
             // Loading in user
             User usr = Login.getUser(username);
             // Creating a new employee
-//            Employee em = Settings.getEmployee(type, e.getTitle());
             Employee em = Settings.getEmployee(type, usr.getName());
             if(em == null) {
                 return false;
@@ -57,36 +56,34 @@ public class Operations {
 
     // Generates buttons for KPI list
     public static ArrayList<Button> generateKPIButtons(ArrayList<KPI> kpis, boolean editable) {
-//        Button[] buttons = new Button[kpis.size()];
-//        int counter = 0;
-//        System.out.println(kpis);
-//        for (KPI x : kpis) {
-//            Button button = new Button(x.getClassName() + ": " + x.getIndicatorName());
-//            button.addActionListener(new ActionListener() {
-//                @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    x.showKpi(editable).setVisible(true);
-//                }
-//            });
-//            buttons[counter] = button;
-//            counter++;
-//        }
-//
-//        return buttons;
-
         ArrayList<Button> buttons = new ArrayList<Button>(kpis.size());
         for (KPI x : kpis) {
-            Button button = new Button(x.getClassName() + ": " + x.getIndicatorName());
-            button.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    x.showKpi(editable).setVisible(true);
-                }
-            });
-            buttons.add(button);
+            buttons.add(generateKPIButton(x, editable));
         }
 
         return buttons;
+    }
+
+    public static ArrayList<Button> generateKPIButtons(ArrayList<KPI> kpis, String kpi, boolean editable) {
+        ArrayList<Button> buttons = new ArrayList<>();
+        for(KPI k : kpis){
+            if (k.compareTo(kpi)){
+                buttons.add(generateKPIButton(k, editable));
+            }
+        }
+        return buttons;
+    }
+
+    private static Button generateKPIButton(KPI k, boolean editable) {
+        Button temp = new Button(k.getClassName() + ": " + k.getIndicatorName());
+        temp.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                k.showKpi(editable).setVisible(true);
+            }
+        });
+
+        return temp;
     }
 
     public static Button generateSettingsButton(Identifier[] iden) {
@@ -111,6 +108,9 @@ public class Operations {
         Employee e = Settings.getEmployee();
         EmployeeLadder el = Settings.getType(type);
         if (el == null) {
+            return false;
+        }
+        if (!(el.check(kpi))) {
             return false;
         }
         // We want people who do not have the admin rank not to change/give admin permissions
@@ -148,16 +148,20 @@ public class Operations {
         Settings.save();
     }
 
-    public static Panel displayEmployeeTypes() {
+    private static Panel displayPanels(String desc) {
         Panel p = Panels.basicPanel();
         p.setLayout(new GridLayout(0, 1));
-        p.add(new Label("Copy the employee user type"));
+        p.add(new Label(desc));
         p.add(new Label(""));
+        return p;
+    }
+
+    public static Panel displayEmployeeTypes() {
+        Panel p = displayPanels("Copy the employee user type");
         for (String employees : Settings.availableEmployees) {
             Employee em = Settings.getEmployee(employees, "");
-            try {
+            if(em != null) {
                 p.add(new Label(employees + ": " + em.description()));
-            } catch (NullPointerException ignored) {
             }
         }
 
@@ -165,29 +169,21 @@ public class Operations {
     }
 
     public static Panel displayEmployeeRank() {
-        Panel p = Panels.basicPanel();
-        p.setLayout(new GridLayout(0, 1));
-        p.add(new Label("Copy the role type"));
-        p.add(new Label(""));
+        Panel p = displayPanels("Copy the role type");
         for (String rank : Settings.availableRanks) {
-            try {
-                EmployeeLadder el = Settings.getType(rank);
+            EmployeeLadder el = Settings.getType(rank);
+            if(el != null){
                 p.add(new Label(rank + ": " + el.description()));
-            } catch (NullPointerException ignored) {}
+            }
         }
         return p;
     }
 
     public static Panel displayKPIs() {
-        Panel p = Panels.basicPanel();
-        p.setLayout(new GridLayout(0, 1));
-        p.add(new Label("Copy the kpi type"));
-        p.add(new Label(""));
+        Panel p = displayPanels("Copy the kpi type");
         for (String kpis : Settings.availableKpis) {
-            try {
-                KPI kpi = Settings.createKpiObject("", kpis);
-                p.add(new Label(kpis + ": " + kpi.description()));
-            }catch (NullPointerException ignored){}
+            KPI kpi = Settings.createKpiObject("", kpis);
+            p.add(new Label(kpis + ": " + kpi.description()));
         }
 
         return p;

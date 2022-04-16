@@ -102,7 +102,6 @@ public class Business implements Serializable {
         // checks for any ladders that exists
         for (EmployeeLadder x: ladderKpis.keySet()){
             if(e.compareTo(x)){
-                System.out.println("stagev1");
                 return append(ladderKpis.get(x), k);
             }
         }
@@ -111,10 +110,8 @@ public class Business implements Serializable {
     }
 
     private boolean append(ArrayList<KPI> list, KPI k) {
-        System.out.println("stagev2");
         for (KPI x: list) {
             if(x.getIndicatorName().equals(k.getIndicatorName()) && x.getClassName().equals(k.getClassName())){
-                System.out.println("stagev3");
                 return false;
             }
         }

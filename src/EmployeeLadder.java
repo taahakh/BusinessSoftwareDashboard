@@ -43,4 +43,6 @@ public abstract class EmployeeLadder implements CompareRules, Serializable {
 
     abstract Frame features();
 
+    abstract boolean check(String kpi);
+
 }

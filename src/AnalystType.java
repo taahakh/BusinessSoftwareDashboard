@@ -1,9 +1,10 @@
 import java.awt.*;
+//import java.util.ArrayList;
 
 public class AnalystType extends EmployeeLadder{
 
     private final String[] links = {
-            Conts.ANALYST, Conts.ANALYST_LEADER
+            Conts.ANALYST, Conts.ANALYST_LEADER, Conts.ANALYST_SALES
     };
 
     private static final String DESC = "this is for analysts";
@@ -34,7 +35,22 @@ public class AnalystType extends EmployeeLadder{
         return null;
     }
 
+    @Override
+    boolean check(String kpi) {
+        return true;
+    }
+
     public String[] getLinks() {
+//        ArrayList<String> list = new ArrayList<String>();
+//        for(String em : Settings.availableEmployees){
+//            Employee e = Settings.getEmployee(em);
+//            if(e != null) {
+//                if(e.getLadder().compareTo(new AnalystType())){
+//                    list.add(em);
+//                }
+//            }
+//        }
+//        String[] items = (String[]) list.toArray();
         return links;
     }
 }

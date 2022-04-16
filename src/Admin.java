@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class Admin extends Employee{
 
@@ -16,32 +15,17 @@ public class Admin extends Employee{
 
     @Override
     void formLayout(Panel panel) {
-        panel.add(printKPIGroups());
-        panel.add(printRanks());
+        panel.add(print("Print kpi groups", kpiGroups()));
+        panel.add(print("Print employee ranks", employeeGroups()));
     }
 
-    public Button printKPIGroups() {
-        Button b = new Button("Print KPI groups");
+    public Button print(String name, String val) {
+        Button b = new Button(name);
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Popup p = new Popup();
-                TextArea area = new TextArea(kpiGroups());
-                area.setEditable(false);
-                p.add(area);
-                p.launch();
-            }
-        });
-        return b;
-    }
-
-    public Button printRanks() {
-        Button b = new Button("Print employee ranks");
-        b.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Popup p = new Popup();
-                TextArea area = new TextArea(employeeGroups());
+                TextArea area = new TextArea(val);
                 area.setEditable(false);
                 p.add(area);
                 p.launch();
@@ -53,20 +37,20 @@ public class Admin extends Employee{
 
     private String kpiGroups() {
         Business b = Settings.getBusiness();
-        String items = "";
+        StringBuilder items = new StringBuilder();
         for (String ranks : Settings.availableRanks) {
             EmployeeLadder el = Settings.getType(ranks);
             if(el != null) {
-                items += ranks+"\n";
+                items.append(ranks).append("\n");
                 for (Employee e : b.getEmployees()) {
                     if(e.getLadder().compareTo(el)){
-                        items += "--->" + e.getTitle() +"\n";
+                        items.append("--->").append(e.getTitle()).append("\n");
                     }
                 }
-                items += "------------------------\n";
+                items.append("------------------------\n");
             }
         }
-        return items;
+        return items.toString();
     }
 
     private String employeeGroups() {

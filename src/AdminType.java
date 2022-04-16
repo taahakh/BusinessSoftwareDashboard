@@ -16,6 +16,10 @@ public class AdminType extends EmployeeLadder{
                 );
     }
 
+    public AdminType(Identifier[] iden) {
+        super(iden,"","");
+    }
+
     @Override
     public boolean compareTo(Object obj) {
         return obj instanceof AdminType;
@@ -24,5 +28,10 @@ public class AdminType extends EmployeeLadder{
     @Override
     Frame features() {
         return null;
+    }
+
+    @Override
+    boolean check(String kpi) {
+        return true;
     }
 }
