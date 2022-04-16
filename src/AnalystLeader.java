@@ -13,7 +13,7 @@ public class AnalystLeader extends Employee {
                         Identifier.USER
                 }
 
-        ), "Head leader of analysts of the company", Settings.getBusiness());
+        ), "Head leader of analysts of the company");
     }
 
     @Override

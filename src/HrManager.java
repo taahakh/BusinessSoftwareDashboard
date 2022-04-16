@@ -3,7 +3,7 @@ import java.awt.*;
 public class HrManager extends Employee{
 
     public HrManager(String title){
-        super(title, new HrType(), "", Settings.getBusiness());
+        super(title, new HrType(), "");
     }
 
     @Override

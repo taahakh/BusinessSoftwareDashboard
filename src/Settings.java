@@ -28,15 +28,15 @@ public class Settings {
         Login.resetLoggedIn();
     }
 
-    public static final String [] availableKpis = new String[]{
+    private static final String [] availableKpis = new String[]{
             Conts.SALES, Conts.INVENTORY, Conts.MARKETING, Conts.HUMAN_RESOURCES,
     };
 
-    public static final String [] availableEmployees = new String[] {
+    private static final String [] availableEmployees = new String[] {
             Conts.ADMIN, Conts.ANALYST, Conts.ANALYST_LEADER, Conts.ANALYST_SALES, Conts.HR_MANAGER, Conts.HR_VIWER
     };
 
-    public static final String [] availableRanks = new String[] {
+    private static final String [] availableRanks = new String[] {
             Conts.ADMIN, Conts.ANALYST, Conts.HR
     };
 
@@ -105,6 +105,18 @@ public class Settings {
 
     public static void setBusiness(Business b){
         business = b;
+    }
+
+    public static String[] getAvailableKpis() {
+        return availableKpis;
+    }
+
+    public static String[] getAvailableEmployees() {
+        return availableEmployees;
+    }
+
+    public static String[] getAvailableRanks() {
+        return availableRanks;
     }
 
 }

@@ -45,6 +45,12 @@ public class DashboardFrame extends Frame {
         System.out.println(Settings.getBusiness().getEmployees().toString());
         System.out.println("-------------------");
 
+        System.out.println("------------PERMISSIONS------------");
+        for (Identifier iden : Settings.getEmployee().getLadder().getAccess()) {
+            System.out.print(iden +" ");
+        }
+        System.out.println("\n-----------------------------------");
+
         layout.add(area);
 
         this.add(layout);

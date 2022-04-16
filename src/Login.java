@@ -4,9 +4,7 @@ import java.util.ArrayList;
 public class Login {
 
     private static User loggedIn;
-
-    private static ArrayList<User> users = new ArrayList<User>(3);
-
+    private static ArrayList<User> users = new ArrayList<>(3);
     private final static String fileLocation = "/Users/taaha/Documents/savedata/";
 
     public static ArrayList<User> userList(){
@@ -14,13 +12,12 @@ public class Login {
     }
 
     public static User getUser(String username) {
-        User temp = null;
         for (User usr: users) {
             if(usr.getUsername().equals(username)){
                 return usr;
             }
         }
-        return temp;
+        return null;
     }
 
     private static ArrayList<User> readUserObject() throws IOException {
@@ -35,9 +32,6 @@ public class Login {
             users = (ArrayList<User>) loadObject(Settings.USER_FILENAME);
         }
 
-        for (User x:  users){
-            System.out.println(x.getUsername());
-        }
         return users;
     }
 
@@ -45,7 +39,7 @@ public class Login {
 
         try {
             users = readUserObject();
-        }catch (IOException e) {
+        } catch (IOException e) {
             return false;
         }
 
@@ -78,7 +72,7 @@ public class Login {
     }
 
     public static boolean createUserInterface(String username, String password, String name){
-        try{
+        try {
             readUserObject();
         } catch (IOException e){}
 
@@ -105,7 +99,7 @@ public class Login {
         } catch (IOException e) {}
     }
 
-    public static void setLoggedIn(User loggedIn) {
+    private static void setLoggedIn(User loggedIn) {
         Login.loggedIn = loggedIn;
     }
 
@@ -126,7 +120,8 @@ public class Login {
 
     //  Unsafe method. Bypasses any authentication processes where needed
     // NOTE: the object is not casted when loaded
-    public static Object loadObject(String name) {
+    // However we know what file belongs to which object
+    private static Object loadObject(String name) {
         Object obj = null;
         try {
             FileInputStream fs = new FileInputStream(fileLocation + name);

@@ -158,7 +158,7 @@ public class Operations {
 
     public static Panel displayEmployeeTypes() {
         Panel p = displayPanels("Copy the employee user type");
-        for (String employees : Settings.availableEmployees) {
+        for (String employees : Settings.getAvailableEmployees()) {
             Employee em = Settings.getEmployee(employees, "");
             if(em != null) {
                 p.add(new Label(employees + ": " + em.description()));
@@ -170,7 +170,7 @@ public class Operations {
 
     public static Panel displayEmployeeRank() {
         Panel p = displayPanels("Copy the role type");
-        for (String rank : Settings.availableRanks) {
+        for (String rank : Settings.getAvailableRanks()) {
             EmployeeLadder el = Settings.getType(rank);
             if(el != null){
                 p.add(new Label(rank + ": " + el.description()));
@@ -181,7 +181,7 @@ public class Operations {
 
     public static Panel displayKPIs() {
         Panel p = displayPanels("Copy the kpi type");
-        for (String kpis : Settings.availableKpis) {
+        for (String kpis : Settings.getAvailableKpis()) {
             KPI kpi = Settings.createKpiObject("", kpis);
             p.add(new Label(kpis + ": " + kpi.description()));
         }

@@ -178,7 +178,8 @@ public class Business implements Serializable {
     public EmployeeLadder assignType(EmployeeLadder el) {
         for (EmployeeLadder x: ladderKpis){
             if(el.compareTo(x)){
-                return x;
+                el.setKpis(x.getKpis());
+                return el;
             }
         }
 

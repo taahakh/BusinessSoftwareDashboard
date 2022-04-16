@@ -11,7 +11,7 @@ public class HrViewer extends Employee{
     public HrViewer(String title) {
         super(title, new AdminType(new Identifier[]{
                 Identifier.VIEWER
-        }),"", Settings.getBusiness());
+        }),"");
     }
 
     @Override

@@ -20,9 +20,14 @@ public abstract class Employee implements CompareRules, Serializable {
         assign(title, type, description);
     }
 
-    public Employee(String title, EmployeeLadder type, String description, Business b){
-        this.business = b;
-        assign(title, b.assignType(type), description);
+//    public Employee(String title, EmployeeLadder type, String description, Business b){
+//        this.business = b;
+//        assign(title, b.assignType(type), description);
+//    }
+
+    public Employee(String title, String type, String description){
+        this.business = Settings.getBusiness();
+        assign(title, business.assignType(Settings.getType(type)), description);
     }
 
     private void assign(String title, EmployeeLadder type, String description) {
@@ -73,7 +78,7 @@ public abstract class Employee implements CompareRules, Serializable {
         return false;
     }
 
-    public Identifier[] getIdentifiers() {
+    private Identifier[] getIdentifiers() {
         return rank.getAccess();
     }
 

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class AnalystSales extends Employee {
 
     public AnalystSales(String title) {
-        super(title, new AnalystType(), "Analyst Sales stuff", Settings.getBusiness());
+        super(title, new AnalystType(), "Analyst Sales stuff");
     }
 
     @Override

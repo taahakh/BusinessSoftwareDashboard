@@ -11,7 +11,7 @@ public class BusinessFrame extends Frame {
 
     public BusinessFrame(){
 
-        String[] list = Settings.availableKpis;
+        String[] list = Settings.getAvailableKpis();
 
         Panel layout;
         Button submit;

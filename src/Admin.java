@@ -38,7 +38,7 @@ public class Admin extends Employee{
     private String kpiGroups() {
         Business b = Settings.getBusiness();
         StringBuilder items = new StringBuilder();
-        for (String ranks : Settings.availableRanks) {
+        for (String ranks : Settings.getAvailableRanks()) {
             EmployeeLadder el = Settings.getType(ranks);
             if(el != null) {
                 items.append(ranks).append("\n");
@@ -55,7 +55,7 @@ public class Admin extends Employee{
 
     private String employeeGroups() {
         StringBuilder items = new StringBuilder();
-        for (String rank : Settings.availableEmployees) {
+        for (String rank : Settings.getAvailableEmployees()) {
             items.append(rank).append("\n");
             items.append(Operations.viewEmployees(rank));
             items.append("|*--------------------------------*|\n\n");
