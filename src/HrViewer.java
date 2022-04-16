@@ -30,8 +30,6 @@ public class HrViewer extends Employee{
     }
 
     public ArrayList<Button> viewAllHr() {
-//        getLadder().
-//        return generateKPIButtons(Conts.ADMIN, Conts.HUMAN_RESOURCES, false);
         return generateKPIButtons(this, Conts.HUMAN_RESOURCES, false);
 
     }

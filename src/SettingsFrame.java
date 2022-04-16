@@ -68,17 +68,6 @@ public class SettingsFrame extends Frame {
 
     //----------------------------------------------------------------------------
     public Frame userPanel() {
-        //        final String a,r,t,ab,rb,empty,suc,err,rs,rf;
-//        a = "Add user to business";
-//        r = "Remove user from business";
-//        t = "Enter user type";
-//        ab = "Add user";
-//        rb = "Remove user";
-//        empty = "These boxes cannot be empty";
-//        suc = "Operation successful";
-//        err = "Error finding user or couldn't add type";
-//        rs = "Remove successful";
-//        rf = "Remove failed :(";
 
         Frame p = Panels.basicWindow();
 
@@ -183,11 +172,6 @@ public class SettingsFrame extends Frame {
     }
 
     public Frame rolePanel() {
-
-//        final String kt = "KPI Type";
-//        final String n = "Name";
-//        final String r = "Role";
-//        final String s = "Submit";
 
         Frame p = Panels.basicWindow();
 

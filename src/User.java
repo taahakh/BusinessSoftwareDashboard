@@ -55,22 +55,6 @@ public final class User implements Serializable {
         this.employee.add(employee);
     }
 
-    // Check if the user is already added to the business
-    // We check if the business name matches and their rank matches
-    // NOTE: we can add multiple ranks for each business. It is safe
-    // but not intended.
-//    public boolean addEmployeeSafely(Employee em, String businessName){
-//        for(Employee x: employee) {
-//            if(x.whatType().equals(em.whatType()) && x.getBusiness().getName().equals(businessName)){
-//                return false;
-//            }
-//        }
-//
-//        employee.add(em);
-//
-//        return true;
-//    }
-
     public boolean addEmployeeSafely(Employee em, String businessName){
         for(Employee x: employee) {
             if(x.compareTo(em) && x.getBusiness().getName().equals(businessName)){
