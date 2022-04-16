@@ -15,11 +15,6 @@ public class HrType extends EmployeeLadder{
     }
 
     @Override
-    Frame features() {
-        return null;
-    }
-
-    @Override
     boolean check(String kpi) {
         return kpi.equals(Conts.MARKETING) || kpi.equals(Conts.HUMAN_RESOURCES);
     }

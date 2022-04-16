@@ -26,11 +26,6 @@ public class AdminType extends EmployeeLadder{
     }
 
     @Override
-    Frame features() {
-        return null;
-    }
-
-    @Override
     boolean check(String kpi) {
         return true;
     }

@@ -22,12 +22,20 @@ public abstract class Employee implements CompareRules, Serializable {
         this.description = description;
     }
 
+    public Employee(String title, EmployeeLadder type, String description, Business b){
+        this.business = b;
+        this.title = title;
+        this.rank = b.assignType(type);
+        this.description = description;
+    }
+
     public String getTitle(){
         return this.title;
     }
 
     public void setBusiness(Business business) {
         this.business = business;
+        rank = business.assignType(rank);
     }
 
     public Business getBusiness() {
@@ -72,19 +80,13 @@ public abstract class Employee implements CompareRules, Serializable {
     }
 
     public ArrayList<Button> generateKPIButtons(boolean editable) {
-        return Operations.generateKPIButtons(business.getKPILadderList(rank), editable);
+        return Operations.generateKPIButtons(rank.getKpis(), editable);
     }
 
-//    public ArrayList<Button> generateKPIButtons(String type, String kpi, boolean editable) {
-//        return Operations.generateKPIButtons(business.getKPILadderList(Settings.getType(type)), kpi, editable);
-//    }
-
-//    public ArrayList<Button> generateKPIButtons(EmployeeLadder el, String kpi, boolean editable) {
-//        return Operations.generateKPIButtons(business.getKPILadderList(el), kpi, editable);
-//    }
-
     public ArrayList<Button> generateKPIButtons(Employee e, String kpi, boolean editable) {
-        return Operations.generateKPIButtons(business.getKPILadderList(e.getLadder()), kpi, editable);
+//        return Operations.generateKPIButtons(business.getKPILadderList(e.getLadder()), kpi, editable);
+        return Operations.generateKPIButtons(e.getLadder().getKpis(), kpi, editable);
+
     }
 
     abstract void formLayout(Panel panel);

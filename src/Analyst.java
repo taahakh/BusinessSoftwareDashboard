@@ -3,7 +3,7 @@ import java.awt.*;
 public class Analyst extends Employee{
 
     public Analyst(String title) {
-        super(title, new AnalystType(), "Analyst stuff");
+        super(title, new AnalystType(), "Analyst stuff", Settings.getBusiness());
     }
 
     @Override

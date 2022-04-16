@@ -8,12 +8,13 @@ public class Business implements Serializable {
 
     private String name; // name of the business
     private ArrayList<Employee> employees; // all employees that the business has
-    private HashMap<EmployeeLadder, ArrayList<KPI>> ladderKpis;
+//    private HashMap<EmployeeLadder, ArrayList<KPI>> ladderKpis;
+    private ArrayList<EmployeeLadder> ladderKpis;
 
     public Business(String name) {
         this.name = name;
         this.employees = new ArrayList<Employee>();
-        this.ladderKpis = new HashMap<EmployeeLadder, ArrayList<KPI>>();
+        this.ladderKpis = new ArrayList<>();
     }
 
     public static Business createBusiness(String name) {
@@ -43,18 +44,18 @@ public class Business implements Serializable {
         return employees;
     }
 
-    public Map<EmployeeLadder, ArrayList<KPI>> getLadderKpis() {
+    public ArrayList<EmployeeLadder> getLadderKpis() {
         return ladderKpis;
     }
 
-    public void setLadderKpis(HashMap <EmployeeLadder, ArrayList<KPI>> ladderKpis) {
+    public void setLadderKpis(ArrayList<EmployeeLadder> ladderKpis) {
         this.ladderKpis = ladderKpis;
     }
 
     public ArrayList<KPI> compareTo(EmployeeLadder type) {
-        for(EmployeeLadder k: ladderKpis.keySet()){
+        for(EmployeeLadder k: ladderKpis){
             if(type.compareTo(k)){
-                return ladderKpis.get(k);
+                return k.getKpis();
             }
         }
 
@@ -66,11 +67,12 @@ public class Business implements Serializable {
     }
 
     public void linkLadderList(EmployeeLadder e, ArrayList<KPI> k) {
-        ladderKpis.put(e,k);
+        e.setKpis(k);
+        ladderKpis.add(e);
     }
 
     public boolean hasLadderLink(EmployeeLadder e) {
-        for (EmployeeLadder x: ladderKpis.keySet()){
+        for (EmployeeLadder x: ladderKpis){
             if(e.compareTo(x)){
                 return true;
             }
@@ -100,9 +102,9 @@ public class Business implements Serializable {
 
     private boolean appendKPI (EmployeeLadder e, KPI k) {
         // checks for any ladders that exists
-        for (EmployeeLadder x: ladderKpis.keySet()){
+        for (EmployeeLadder x: ladderKpis){
             if(e.compareTo(x)){
-                return append(ladderKpis.get(x), k);
+                return append(x.getKpis(), k);
             }
         }
 
@@ -120,27 +122,26 @@ public class Business implements Serializable {
     }
 
     public void printLinks() {
-        for(EmployeeLadder x: ladderKpis.keySet()){
-            System.out.println("Ladder: " + x + " List: " + ladderKpis.get(x));
+        for(EmployeeLadder x: ladderKpis){
+            System.out.println("Ladder: " + x + " List: " + x.getKpis());
         }
     }
 
     public ArrayList<KPI> getKPILadderList(EmployeeLadder e) {
-        for (EmployeeLadder x: ladderKpis.keySet()) {
+        for (EmployeeLadder x: ladderKpis) {
             if(x.compareTo(e)){
-                return ladderKpis.get(x);
+                return x.getKpis();
             }
         }
 
         return new ArrayList<KPI>();
-//        throw new RuntimeException("OH NO");
     }
 
     public ArrayList<KPI> returnLadderKPI(EmployeeLadder ladder) {
         ArrayList<KPI> temp = null;
-        for (EmployeeLadder e : ladderKpis.keySet()) {
+        for (EmployeeLadder e : ladderKpis) {
             if(e.compareTo(ladder)){
-                return ladderKpis.get(e);
+                return e.getKpis();
             }
         }
         return temp;
@@ -163,8 +164,8 @@ public class Business implements Serializable {
 
 //        boolean remove;
 
-        for (EmployeeLadder e : ladderKpis.keySet()){
-            ladderKpis.get(e).remove(temp);
+        for (EmployeeLadder e : ladderKpis){
+            e.getKpis().remove(temp);
         }
 
         printLinks();
@@ -172,6 +173,19 @@ public class Business implements Serializable {
         Settings.save();
 
         return true;
+    }
+
+    public EmployeeLadder assignType(EmployeeLadder el) {
+        for (EmployeeLadder x: ladderKpis){
+            if(el.compareTo(x)){
+                return x;
+            }
+        }
+
+        ladderKpis.add(el);
+        Settings.save();
+
+        return el;
     }
 
 }

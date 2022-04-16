@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /*
 * We could've taken the route to instantiate objects only of this type
@@ -10,6 +11,7 @@ import java.io.Serializable;
 */
 public abstract class EmployeeLadder implements CompareRules, Serializable {
     private final Identifier[] access;
+    private ArrayList<KPI> kpis = new ArrayList<>();
 
     private final String DESC;
     private final String METRIC;
@@ -41,7 +43,13 @@ public abstract class EmployeeLadder implements CompareRules, Serializable {
         return METRIC;
     }
 
-    abstract Frame features();
+    public ArrayList<KPI> getKpis() {
+        return kpis;
+    }
+
+    public void setKpis(ArrayList<KPI> kpis) {
+        this.kpis = kpis;
+    }
 
     abstract boolean check(String kpi);
 
