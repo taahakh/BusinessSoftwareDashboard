@@ -48,4 +48,6 @@ public abstract class KPI implements Serializable {
 
     abstract Frame showKpi(boolean editable);
 
+    abstract boolean compareTo(Object obj);
+
 }

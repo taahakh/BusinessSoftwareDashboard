@@ -122,4 +122,12 @@ public class HumanResources extends KPI implements Serializable {
         }
         return f;
     }
+
+    @Override
+    boolean compareTo(Object obj) {
+        if(obj instanceof String){
+            return obj.equals(Conts.HUMAN_RESOURCES);
+        }
+        return false;
+    }
 }

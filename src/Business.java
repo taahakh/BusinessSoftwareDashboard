@@ -82,6 +82,10 @@ public class Business implements Serializable {
     public void addKpiToList(EmployeeLadder e, KPI k) {
         // Linking employee rank with KPI
         if(hasLadderLink(e)) {
+            if(!(appendKPI(new AdminType(), k))){
+                System.out.println("repat");
+                return;
+            }
             appendKPI(e,k);
         } else {
             // no ladders exists so we need to create a new link
@@ -98,6 +102,7 @@ public class Business implements Serializable {
         // checks for any ladders that exists
         for (EmployeeLadder x: ladderKpis.keySet()){
             if(e.compareTo(x)){
+                System.out.println("stagev1");
                 return append(ladderKpis.get(x), k);
             }
         }
@@ -106,8 +111,10 @@ public class Business implements Serializable {
     }
 
     private boolean append(ArrayList<KPI> list, KPI k) {
+        System.out.println("stagev2");
         for (KPI x: list) {
-            if(x.getIndicatorName().equals(k.getIndicatorName())){
+            if(x.getIndicatorName().equals(k.getIndicatorName()) && x.getClassName().equals(k.getClassName())){
+                System.out.println("stagev3");
                 return false;
             }
         }

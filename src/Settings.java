@@ -20,13 +20,6 @@ public class Settings {
 
     /**/
 
-    private static final String SALES = "sales";
-    private static final String INVENTORY = "inventory";
-    private static final String MARKETING = "marketing";
-    private static final String HUMAN_RESOURCES = "humanresources";
-
-    /**/
-
 
     public static void save(){
         Login.saveObjects(employee, EM_FILENAME);
@@ -42,11 +35,11 @@ public class Settings {
     }
 
     public static final String [] availableKpis = new String[]{
-            SALES, INVENTORY, MARKETING, HUMAN_RESOURCES,
+            Conts.SALES, Conts.INVENTORY, Conts.MARKETING, Conts.HUMAN_RESOURCES,
     };
 
     public static final String [] availableEmployees = new String[] {
-            ADMIN, Conts.ANALYST, Conts.ANALYST_LEADER,
+            ADMIN, Conts.ANALYST, Conts.ANALYST_LEADER, Conts.ANALYST_SALES,
     };
 
     public static final String [] availableRanks = new String[] {
@@ -55,13 +48,13 @@ public class Settings {
 
     public static KPI createKpiObject(String name, String type) {
         switch (type.toLowerCase()){
-            case SALES:
+            case Conts.SALES:
                 return new Sales(name);
-            case INVENTORY:
+            case Conts.INVENTORY:
                 return new Inventory(name);
-            case MARKETING:
+            case Conts.MARKETING:
                 return new Marketing(name);
-            case HUMAN_RESOURCES:
+            case Conts.HUMAN_RESOURCES:
                 return new HumanResources(name);
             default:
                 break;
@@ -78,6 +71,8 @@ public class Settings {
                 return new Analyst(title);
             case Conts.ANALYST_LEADER:
                 return new AnalystLeader(title);
+            case Conts.ANALYST_SALES:
+                return new AnalystSales(title);
         }
 
         return null;

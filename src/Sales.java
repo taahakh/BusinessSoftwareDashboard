@@ -9,7 +9,7 @@ public class Sales extends KPI implements Serializable {
     private int unitsRemaining;
 
     public Sales(String identifier) {
-        super(identifier, "Sales", "Track Sales");
+        super(identifier, Conts.SALES, "Track Sales");
     }
 
     // true = sales, false = unitsRemaining
@@ -83,6 +83,14 @@ public class Sales extends KPI implements Serializable {
 
         }
         return frame;
+    }
+
+    @Override
+    boolean compareTo(Object obj) {
+        if(obj instanceof String){
+            return obj.equals(Conts.SALES);
+        }
+        return false;
     }
 
 }

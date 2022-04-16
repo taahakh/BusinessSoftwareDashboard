@@ -8,7 +8,7 @@ import java.io.Serializable;
 * This would be very hard to manage without polymorphism
 * Each type must be unique and there can be only one of that type per business
 */
-public abstract class EmployeeLadder implements EmployeeRules, Serializable {
+public abstract class EmployeeLadder implements CompareRules, Serializable {
     private final Identifier[] access;
 
     private final String DESC;

@@ -2,7 +2,7 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Employee implements EmployeeRules, Serializable {
+public abstract class Employee implements CompareRules, Serializable {
 
     private Business business; // Which business they belong to. Each employee is tied to one business
     private String title; // Job title

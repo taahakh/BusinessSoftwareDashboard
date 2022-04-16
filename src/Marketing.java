@@ -13,7 +13,7 @@ public class Marketing extends KPI implements Serializable {
     private final HashMap<Date, String> REACH = new HashMap<>();
 
     public Marketing(String indicator) {
-        super(indicator, "Sales", "Track Marketing");
+        super(indicator, "Marketing", "Track Marketing");
     }
 
     private Date parseDate(String date, Label success){
@@ -134,5 +134,13 @@ public class Marketing extends KPI implements Serializable {
 
         }
         return f;
+    }
+
+    @Override
+    boolean compareTo(Object obj) {
+        if(obj instanceof String){
+            return obj.equals(Conts.MARKETING);
+        }
+        return false;
     }
 }
