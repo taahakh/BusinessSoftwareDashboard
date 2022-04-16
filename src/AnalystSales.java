@@ -9,7 +9,7 @@ public class AnalystSales extends Employee {
 
     @Override
     public ArrayList<Button> showKPIButtons() {
-        return generateKPIButtons(Conts.ANALYST, Conts.SALES, true);
+        return generateKPIButtons(this, Conts.SALES, true);
     }
 
     @Override

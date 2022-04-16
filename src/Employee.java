@@ -75,8 +75,16 @@ public abstract class Employee implements CompareRules, Serializable {
         return Operations.generateKPIButtons(business.getKPILadderList(rank), editable);
     }
 
-    public ArrayList<Button> generateKPIButtons(String type, String kpi, boolean editable) {
-        return Operations.generateKPIButtons(business.getKPILadderList(Settings.getType(type)), kpi, editable);
+//    public ArrayList<Button> generateKPIButtons(String type, String kpi, boolean editable) {
+//        return Operations.generateKPIButtons(business.getKPILadderList(Settings.getType(type)), kpi, editable);
+//    }
+
+//    public ArrayList<Button> generateKPIButtons(EmployeeLadder el, String kpi, boolean editable) {
+//        return Operations.generateKPIButtons(business.getKPILadderList(el), kpi, editable);
+//    }
+
+    public ArrayList<Button> generateKPIButtons(Employee e, String kpi, boolean editable) {
+        return Operations.generateKPIButtons(business.getKPILadderList(e.getLadder()), kpi, editable);
     }
 
     abstract void formLayout(Panel panel);
