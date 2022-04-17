@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Admin extends Employee{
 
@@ -9,14 +10,18 @@ public class Admin extends Employee{
     }
 
     @Override
-    public boolean compareTo(Object obj) {
+    public boolean compare(Object obj) {
         return obj instanceof Admin;
     }
 
     @Override
     void formLayout(Panel panel) {
+        ArrayList<Management> m = Settings.getBusiness().getManagement();
         panel.add(print("Print kpi groups", kpiGroups()));
         panel.add(print("Print employee ranks", employeeGroups()));
+        for(Management man: m) {
+            panel.add(man.viewWindow());
+        }
     }
 
     public Button print(String name, String val) {
@@ -43,7 +48,7 @@ public class Admin extends Employee{
             if(el != null) {
                 items.append(ranks).append("\n");
                 for (Employee e : b.getEmployees()) {
-                    if(e.getLadder().compareTo(el)){
+                    if(e.getLadder().compare(el)){
                         items.append("--->").append(e.getTitle()).append("\n");
                     }
                 }

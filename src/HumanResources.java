@@ -124,7 +124,7 @@ public class HumanResources extends KPI implements Serializable {
     }
 
     @Override
-    boolean compareTo(Object obj) {
+    public boolean compare(Object obj) {
         if(obj instanceof String){
             return obj.equals(Conts.HUMAN_RESOURCES);
         }

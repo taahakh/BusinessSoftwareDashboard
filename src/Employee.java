@@ -20,11 +20,6 @@ public abstract class Employee implements CompareRules, Serializable {
         assign(title, type, description);
     }
 
-//    public Employee(String title, EmployeeLadder type, String description, Business b){
-//        this.business = b;
-//        assign(title, b.assignType(type), description);
-//    }
-
     public Employee(String title, String type, String description){
         this.business = Settings.getBusiness();
         assign(title, business.assignType(Settings.getType(type)), description);

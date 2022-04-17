@@ -61,6 +61,9 @@ public class DashboardFrame extends Frame {
             this.add(x);
         }
 
+        Hiring hi = new Hiring("Hello");
+        this.add(hi.viewWindow());
+
         em.formLayout(layout);
 
         this.add(logout);

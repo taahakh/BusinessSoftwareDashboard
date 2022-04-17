@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 
-public abstract class KPI implements Serializable {
+public abstract class KPI implements CompareRules, Serializable {
 
     private final TextField VISUAL = new TextField();
     private final String CLASSNAME;
@@ -48,6 +48,5 @@ public abstract class KPI implements Serializable {
 
     abstract Frame showKpi(boolean editable);
 
-    abstract boolean compareTo(Object obj);
 
 }

@@ -57,7 +57,7 @@ public final class User implements Serializable {
 
     public boolean addEmployeeSafely(Employee em, String businessName){
         for(Employee x: employee) {
-            if(x.compareTo(em) && x.getBusiness().getName().equals(businessName)){
+            if(x.compare(em) && x.getBusiness().getName().equals(businessName)){
                 return false;
             }
         }

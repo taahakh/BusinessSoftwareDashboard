@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.lang.management.ManagementFactory;
 
 public class Panels {
     public static Panel basicPanel() {
@@ -23,27 +24,42 @@ public class Panels {
 
 class KPIFrame extends Frame {
 
-    private final Panel buttons;
-//    private final TextField visual;
+    private Panel buttons;
+
+    public KPIFrame() {
+        super();
+        assign();
+    }
 
     public KPIFrame(String keyMetric, TextField visual) {
         super();
+        assign();
+        visual.setEditable(false);
+        visual.setText(keyMetric);
+        this.add(visual);
+    }
 
-//        this.visual = visual;
+    private void assign() {
         this.setLayout(new GridLayout(0,2));
         this.addWindowListener(new WindowCloser());
         this.setSize(700,700);
         this.setLocationRelativeTo(null);
 
         buttons = Panels.basicPanel();
-        visual.setEditable(false);
-        visual.setText(keyMetric);
 
-        this.add(visual);
         this.add(buttons);
     }
 
     public void addButton(Button b){
         buttons.add(b);
+    }
+}
+
+class MangementFrame extends KPIFrame {
+    public MangementFrame() {
+        super();
+
+        this.setLayout(new GridLayout(2,1));
+        this.setSize(400, 700);
     }
 }

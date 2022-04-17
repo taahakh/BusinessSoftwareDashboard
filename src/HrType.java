@@ -10,7 +10,7 @@ public class HrType extends EmployeeLadder{
     }
 
     @Override
-    public boolean compareTo(Object obj) {
+    public boolean compare(Object obj) {
         return obj instanceof HrType;
     }
 

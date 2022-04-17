@@ -15,7 +15,7 @@ public class HrViewer extends Employee{
     }
 
     @Override
-    public boolean compareTo(Object obj) {
+    public boolean compare(Object obj) {
         return obj instanceof HrViewer;
     }
 

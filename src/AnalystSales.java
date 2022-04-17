@@ -18,7 +18,7 @@ public class AnalystSales extends Employee {
     }
 
     @Override
-    public boolean compareTo(Object obj) {
+    public boolean compare(Object obj) {
         return false;
     }
 }

@@ -67,7 +67,7 @@ public class Operations {
     public static ArrayList<Button> generateKPIButtons(ArrayList<KPI> kpis, String kpi, boolean editable) {
         ArrayList<Button> buttons = new ArrayList<>();
         for(KPI k : kpis){
-            if (k.compareTo(kpi)){
+            if (k.compare(kpi)){
                 buttons.add(generateKPIButton(k, editable));
             }
         }
@@ -194,7 +194,7 @@ public class Operations {
         StringBuilder items = new StringBuilder();
         if(e != null) {
             for (Employee em: Settings.getBusiness().getEmployees()) {
-                if(em.compareTo(e)){
+                if(em.compare(e)){
                     items.append("--->").append(em.getTitle()).append("\n");
                 }
             }

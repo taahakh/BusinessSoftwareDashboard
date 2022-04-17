@@ -8,13 +8,15 @@ public class Business implements Serializable {
 
     private String name; // name of the business
     private ArrayList<Employee> employees; // all employees that the business has
-//    private HashMap<EmployeeLadder, ArrayList<KPI>> ladderKpis;
     private ArrayList<EmployeeLadder> ladderKpis;
+    private ArrayList<Management> management;
 
     public Business(String name) {
         this.name = name;
         this.employees = new ArrayList<Employee>();
         this.ladderKpis = new ArrayList<>();
+        this.management = new ArrayList<>();
+        addManagementButtons();
     }
 
     public static Business createBusiness(String name) {
@@ -22,6 +24,11 @@ public class Business implements Serializable {
         business.add(temp);
         Settings.setBusiness(temp);
         return Settings.getBusiness();
+    }
+
+    private void addManagementButtons(){
+        management.add(new Hiring("Hiring List"));
+        management.add(new EmployeeList("Employee List"));
     }
 
     public String getName(){
@@ -52,9 +59,9 @@ public class Business implements Serializable {
         this.ladderKpis = ladderKpis;
     }
 
-    public ArrayList<KPI> compareTo(EmployeeLadder type) {
+    public ArrayList<KPI> compare(EmployeeLadder type) {
         for(EmployeeLadder k: ladderKpis){
-            if(type.compareTo(k)){
+            if(type.compare(k)){
                 return k.getKpis();
             }
         }
@@ -63,7 +70,7 @@ public class Business implements Serializable {
     }
 
     public ArrayList<KPI> getTotalKpis() {
-        return compareTo(new AdminType());
+        return compare(new AdminType());
     }
 
     public void linkLadderList(EmployeeLadder e, ArrayList<KPI> k) {
@@ -73,7 +80,7 @@ public class Business implements Serializable {
 
     public boolean hasLadderLink(EmployeeLadder e) {
         for (EmployeeLadder x: ladderKpis){
-            if(e.compareTo(x)){
+            if(e.compare(x)){
                 return true;
             }
         }
@@ -103,7 +110,7 @@ public class Business implements Serializable {
     private boolean appendKPI (EmployeeLadder e, KPI k) {
         // checks for any ladders that exists
         for (EmployeeLadder x: ladderKpis){
-            if(e.compareTo(x)){
+            if(e.compare(x)){
                 return append(x.getKpis(), k);
             }
         }
@@ -129,7 +136,7 @@ public class Business implements Serializable {
 
     public ArrayList<KPI> getKPILadderList(EmployeeLadder e) {
         for (EmployeeLadder x: ladderKpis) {
-            if(x.compareTo(e)){
+            if(x.compare(e)){
                 return x.getKpis();
             }
         }
@@ -140,7 +147,7 @@ public class Business implements Serializable {
     public ArrayList<KPI> returnLadderKPI(EmployeeLadder ladder) {
         ArrayList<KPI> temp = null;
         for (EmployeeLadder e : ladderKpis) {
-            if(e.compareTo(ladder)){
+            if(e.compare(ladder)){
                 return e.getKpis();
             }
         }
@@ -177,7 +184,7 @@ public class Business implements Serializable {
 
     public EmployeeLadder assignType(EmployeeLadder el) {
         for (EmployeeLadder x: ladderKpis){
-            if(el.compareTo(x)){
+            if(el.compare(x)){
                 el.setKpis(x.getKpis());
                 return el;
             }
@@ -187,6 +194,10 @@ public class Business implements Serializable {
         Settings.save();
 
         return el;
+    }
+
+    public ArrayList<Management> getManagement(){
+        return management;
     }
 
 }

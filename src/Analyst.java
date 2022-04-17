@@ -6,13 +6,15 @@ public class Analyst extends Employee{
         super(title, Conts.ANALYST, "Analyst stuff");
     }
 
-    @Override
-    void formLayout(Panel panel) {
-
+    public Analyst(String title, EmployeeLadder el, String description) {
+        super(title, el, description);
     }
 
     @Override
-    public boolean compareTo(Object obj) {
+    void formLayout(Panel panel) {}
+
+    @Override
+    public boolean compare(Object obj) {
         return obj instanceof Analyst;
     }
 
