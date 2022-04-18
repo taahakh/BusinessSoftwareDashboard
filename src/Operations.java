@@ -203,4 +203,11 @@ public class Operations {
         return items.toString();
     }
 
+    public static void addManagementToPanel(Panel panel) {
+        ArrayList<Management> m = Settings.getBusiness().getManagement();
+        for(Management man: m) {
+            panel.add(man.viewWindow());
+        }
+    }
+
 }

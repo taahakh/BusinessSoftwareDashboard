@@ -25,6 +25,9 @@ public class Conts {
 
     public static final String ADMIN = "admin";
 
+    /**/
+
+    public static final String STANDARD = "standard";
 
 
 }

@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class Admin extends Employee{
 
@@ -16,12 +15,10 @@ public class Admin extends Employee{
 
     @Override
     void formLayout(Panel panel) {
-        ArrayList<Management> m = Settings.getBusiness().getManagement();
+        panel.setLayout(new GridLayout(0,1));
         panel.add(print("Print kpi groups", kpiGroups()));
         panel.add(print("Print employee ranks", employeeGroups()));
-        for(Management man: m) {
-            panel.add(man.viewWindow());
-        }
+        Operations.addManagementToPanel(panel);
     }
 
     public Button print(String name, String val) {

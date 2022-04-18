@@ -31,20 +31,10 @@ public class AnalystType extends EmployeeLadder{
 
     @Override
     boolean check(String kpi) {
-        return true;
+        return kpi.equals(Conts.MARKETING) || kpi.equals(Conts.SALES) || kpi.equals(Conts.INVENTORY);
     }
 
     public String[] getLinks() {
-//        ArrayList<String> list = new ArrayList<String>();
-//        for(String em : Settings.availableEmployees){
-//            Employee e = Settings.getEmployee(em);
-//            if(e != null) {
-//                if(e.getLadder().compareTo(new AnalystType())){
-//                    list.add(em);
-//                }
-//            }
-//        }
-//        String[] items = (String[]) list.toArray();
         return links;
     }
 }

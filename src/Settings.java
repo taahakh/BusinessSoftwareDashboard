@@ -33,11 +33,11 @@ public class Settings {
     };
 
     private static final String [] availableEmployees = new String[] {
-            Conts.ADMIN, Conts.ANALYST, Conts.ANALYST_LEADER, Conts.ANALYST_SALES, Conts.HR_MANAGER, Conts.HR_VIWER
+            Conts.ADMIN, Conts.ANALYST, Conts.ANALYST_LEADER, Conts.ANALYST_SALES, Conts.HR_MANAGER, Conts.HR_VIWER, Conts.STANDARD
     };
 
     private static final String [] availableRanks = new String[] {
-            Conts.ADMIN, Conts.ANALYST, Conts.HR
+            Conts.ADMIN, Conts.ANALYST, Conts.HR, Conts.STANDARD
     };
 
     public static KPI createKpiObject(String name, String type) {
@@ -70,6 +70,8 @@ public class Settings {
                 return new HrManager(title);
             case Conts.HR_VIWER:
                 return new HrViewer(title);
+            case Conts.STANDARD:
+                return new Standard(title);
         }
 
         return null;
@@ -87,6 +89,8 @@ public class Settings {
                 return new AnalystType();
             case Conts.HR:
                 return new HrType();
+            case Conts.STANDARD:
+                return new StandardType();
         }
         return null;
     }

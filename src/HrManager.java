@@ -13,6 +13,7 @@ public class HrManager extends Employee{
 
     @Override
     void formLayout(Panel panel) {
-
+        Operations.addManagementToPanel(panel);
     }
+
 }

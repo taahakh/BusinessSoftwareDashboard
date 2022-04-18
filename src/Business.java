@@ -29,6 +29,7 @@ public class Business implements Serializable {
     private void addManagementButtons(){
         management.add(new Hiring("Hiring List"));
         management.add(new EmployeeList("Employee List"));
+        management.add(new Finance("Finances"));
     }
 
     public String getName(){
@@ -49,14 +50,6 @@ public class Business implements Serializable {
 
     public ArrayList<Employee> getEmployees(){
         return employees;
-    }
-
-    public ArrayList<EmployeeLadder> getLadderKpis() {
-        return ladderKpis;
-    }
-
-    public void setLadderKpis(ArrayList<EmployeeLadder> ladderKpis) {
-        this.ladderKpis = ladderKpis;
     }
 
     public ArrayList<KPI> compare(EmployeeLadder type) {
@@ -134,24 +127,23 @@ public class Business implements Serializable {
         }
     }
 
-    public ArrayList<KPI> getKPILadderList(EmployeeLadder e) {
-        for (EmployeeLadder x: ladderKpis) {
-            if(x.compare(e)){
-                return x.getKpis();
-            }
-        }
-
-        return new ArrayList<KPI>();
-    }
-
     public ArrayList<KPI> returnLadderKPI(EmployeeLadder ladder) {
-        ArrayList<KPI> temp = null;
         for (EmployeeLadder e : ladderKpis) {
             if(e.compare(ladder)){
                 return e.getKpis();
             }
         }
-        return temp;
+        return null;
+    }
+
+    public ArrayList<KPI> returnLadderKPI(String item) {
+        EmployeeLadder ladder = Settings.getType(item);
+        for (EmployeeLadder e : ladderKpis) {
+            if(e.compare(ladder)){
+                return e.getKpis();
+            }
+        }
+        return null;
     }
 
     public boolean removeKPI(String kpi, String kpiName) {

@@ -32,7 +32,7 @@ public class DashboardFrame extends Frame {
 
         this.setLayout(new FlowLayout());
         layout = new Panel();
-        layout.setLayout(new GridLayout(0,1));
+//        layout.setLayout(new GridLayout(0,1));
         layout.setVisible(true);
 
         area = new Label(em.getLadder().showInfoMetric());

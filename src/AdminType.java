@@ -1,5 +1,3 @@
-import java.awt.*;
-
 public class AdminType extends EmployeeLadder{
 
     public AdminType(){
@@ -17,7 +15,8 @@ public class AdminType extends EmployeeLadder{
     }
 
     public AdminType(Identifier[] iden) {
-        super(iden,"","");
+        super(iden,"Type: ADMIN\n" +
+                "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR","this is admin type");
     }
 
     @Override
@@ -29,4 +28,5 @@ public class AdminType extends EmployeeLadder{
     boolean check(String kpi) {
         return true;
     }
+
 }

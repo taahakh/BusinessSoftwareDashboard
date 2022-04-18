@@ -93,4 +93,8 @@ public class Sales extends KPI implements Serializable {
         return false;
     }
 
+    public int getSales(){
+        return sales;
+    }
+
 }

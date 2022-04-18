@@ -11,12 +11,18 @@ public class Analyst extends Employee{
     }
 
     @Override
-    void formLayout(Panel panel) {}
+    void formLayout(Panel panel) {
+        panel.add(viewFinances());
+    }
 
     @Override
     public boolean compare(Object obj) {
         return obj instanceof Analyst;
     }
 
+    public Button viewFinances() {
+        Button b = new Button("View finances");
+        return b;
+    }
 
 }
