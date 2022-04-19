@@ -29,16 +29,10 @@ public class AnalystSales extends Employee {
         panel.add(new Label(description));
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        return false;
-    }
-
     public int printTotalSales() {
         int sales = 0;
         Business b = Settings.getBusiness();
         ArrayList<KPI> items = b.returnLadderKPI(Conts.ANALYST);
-        System.out.println(items);
         for(KPI k : items) {
             if(k instanceof Sales){
                 Sales s = (Sales) k;

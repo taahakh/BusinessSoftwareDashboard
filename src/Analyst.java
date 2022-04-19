@@ -6,7 +6,7 @@ public class Analyst extends Employee{
         super(title, Conts.ANALYST, "Analyst access to specific sets of analyst KPI's such as Sales and Inventory");
     }
 
-    public Analyst(String title, EmployeeLadder el, String description) {
+    public Analyst(String title, KPIGroup el, String description) {
         super(title, el, description);
     }
 
@@ -15,22 +15,13 @@ public class Analyst extends Employee{
         panel.add(viewFinances());
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        return obj instanceof Analyst;
-    }
-
     public Button viewFinances() {
-        Finance finance = null;
+        Finance type = new Finance("");
         for (Management m : Settings.getBusiness().getManagement()) {
-            if(m instanceof Finance){
-                finance = (Finance) m;
+            if(m.compare(type)){
+                return m.viewWindow();
             }
         }
-        if(finance != null){
-            return finance.viewWindow();
-        }
-
         return new Button();
     }
 

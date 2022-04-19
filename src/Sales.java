@@ -89,13 +89,6 @@ public class Sales extends KPI implements Serializable {
         return frame;
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        if(obj instanceof String){
-            return obj.equals(Conts.SALES);
-        }
-        return false;
-    }
 
     public int getSales(){
         return sales;

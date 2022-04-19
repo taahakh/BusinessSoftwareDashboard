@@ -2,31 +2,33 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Employee implements CompareRules, Serializable {
+public abstract class Employee extends CompareRules implements Serializable {
 
     private Business business; // Which business they belong to. Each employee is tied to one business
     private String title; // Job title
-    // Business position. Classes inherit EmployeeLadder and can access certain features regarding access to KPI's, creating/deleting users etc. At each rank, certain kpi's can be viewed and certain access rights can be shown
-    private EmployeeLadder rank;
+    // Business position. Classes inherit KPIGroup and can access certain features regarding access to KPI's, creating/deleting users etc. At each rank, certain kpi's can be viewed and certain access rights can be shown
+    private KPIGroup rank;
     private String description;
     private String username;
 
     public Employee() {}
 
-    public Employee(EmployeeLadder type){
+    public Employee(KPIGroup type){
         this.rank = type;
     }
 
-    public Employee(String title, EmployeeLadder type, String description){
+    public Employee(String title, KPIGroup type, String description){
         assign(title, type, description);
     }
 
     public Employee(String title, String type, String description){
-        this.business = Settings.getBusiness();
-        assign(title, business.assignType(Settings.getType(type)), description);
+        if(Settings.getBusiness() != null) {
+            this.business = Settings.getBusiness();
+            assign(title, business.assignType(Settings.getType(type)), description);
+        }
     }
 
-    private void assign(String title, EmployeeLadder type, String description) {
+    private void assign(String title, KPIGroup type, String description) {
         this.title = title;
         this.rank = type;
         this.description = description;
@@ -49,7 +51,7 @@ public abstract class Employee implements CompareRules, Serializable {
         return business;
     }
 
-    public EmployeeLadder getLadder(){
+    public KPIGroup getLadder(){
         return rank;
     }
 
@@ -102,6 +104,10 @@ public abstract class Employee implements CompareRules, Serializable {
 
     public String getUsername() {
         return username;
+    }
+
+    public boolean comparing(Object obj) {
+        return obj.getClass().equals(getClass());
     }
 
     abstract void formLayout(Panel panel);

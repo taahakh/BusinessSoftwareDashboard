@@ -9,14 +9,14 @@ import java.util.ArrayList;
 * This would be very hard to manage without polymorphism
 * Each type must be unique and there can be only one of that type per business
 */
-public abstract class EmployeeLadder implements CompareRules, Serializable {
+public abstract class KPIGroup extends CompareRules implements Serializable {
     private final Identifier[] access;
     private ArrayList<KPI> kpis = new ArrayList<>();
 
     private final String DESC;
     private final String METRIC;
 
-    public EmployeeLadder(Identifier[] access, String description, String showInfoMetric){
+    public KPIGroup(Identifier[] access, String description, String showInfoMetric){
         this.access = access;
         this.DESC = description;
         this.METRIC = showInfoMetric;

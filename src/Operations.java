@@ -12,9 +12,11 @@ public class Operations {
             User usr = Login.getUser(username);
             // Creating a new employee
             Employee em = Settings.getEmployee(type, usr.getName());
+
             if(em == null) {
                 return false;
             }
+
             if(!(e.getLadder().compare(new AdminType()))) {
                 if(!(e.getLadder().compare(em.getLadder()))) {
                     return false;
@@ -28,7 +30,7 @@ public class Operations {
             // Linking employee with business
             em.setBusiness(Settings.getBusiness());
             // Linking employee to user
-            if (usr.addEmployeeSafely(em, e.getTitle())) {
+            if (usr.addEmployeeSafely(em, e.getBusiness().getName())) {
                 Business b = Settings.getBusiness();
                 // Linking business with employee
                 b.addEmployee(em);
@@ -77,7 +79,10 @@ public class Operations {
     public static ArrayList<Button> generateKPIButtons(ArrayList<KPI> kpis, String kpi, boolean editable) {
         ArrayList<Button> buttons = new ArrayList<>();
         for(KPI k : kpis){
-            if (k.compare(kpi)){
+//            if (k.compare(kpi)){
+//                buttons.add(generateKPIButton(k, editable));
+//            }
+            if (k.compare(Settings.getKPI(kpi))){
                 buttons.add(generateKPIButton(k, editable));
             }
         }
@@ -116,22 +121,28 @@ public class Operations {
 
         Business b = Settings.getBusiness();
         Employee e = Settings.getEmployee();
-        EmployeeLadder el = Settings.getType(type);
+        KPIGroup el = Settings.getType(type);
+
         if (el == null) {
+            System.out.println("Failed 1");
             return false;
         }
+
         if (!(el.check(kpi))) {
+            System.out.println("Failed 2");
             return false;
         }
         // We want people who do not have the admin rank not to change/give admin permissions
         if (el.has(Identifier.ADMIN)) {
             if (!(e.hasIdentifier(Identifier.ADMIN))) {
+                System.out.println("Failed 3");
                 return false;
             }
         }
 
-        if(!(e.compare(Conts.ADMIN))){
+        if(!(e.getLadder().compare(new AdminType()))){
             if(!(e.getLadder().compare(el))){
+                System.out.println("Failed 4");
                 return false;
             }
         }
@@ -175,6 +186,7 @@ public class Operations {
 
     public static Panel displayEmployeeTypes() {
         Panel p = displayPanels("Copy the employee user type");
+        p.add(new Label());
         for (String employees : Settings.getAvailableEmployees()) {
             Employee em = Settings.getEmployee(employees, "");
             if(em != null) {
@@ -186,20 +198,30 @@ public class Operations {
     }
 
     public static Panel displayEmployeeRank() {
-        Panel p = displayPanels("Copy the role type");
+        Panel p = displayPanels("");
+        p.add(new Label("NOTE: these are KPI groups. You can choose which group you want to add to."));
+        p.add(new Label("Employees are LINKED to the groups meaning they don't necessarily belong to that group"));
+        p.add(new Label("However, with the naming conventions, it semantically means they belong to each other"));
+        p.add(new Label("You can only add roles to the group you are linked to. e.g analystleader linked to analyst"));
+        p.add(new Label("If you are linked to admin, you can add to any of these groups but KPI adding rules still apply"));
+        p.add(new Label("KPIs of the same class cannot have the same name but the same name can exist for different KPIs"));
+        p.add(new Label("KPIs of the same class cannot have the same name but the same name can exist for different KPIs"));
+        p.add(new Label());
+        p.add(new Label("Copy the role type"));
         for (String rank : Settings.getAvailableRanks()) {
-            EmployeeLadder el = Settings.getType(rank);
+            KPIGroup el = Settings.getType(rank);
             if(el != null){
                 p.add(new Label(rank + ": " + el.description()));
             }
         }
+        p.add(new Label());
         return p;
     }
 
     public static Panel displayKPIs() {
         Panel p = displayPanels("Copy the kpi type");
         for (String kpis : Settings.getAvailableKpis()) {
-            KPI kpi = Settings.createKpiObject("", kpis);
+            KPI kpi = Settings.getKPI(kpis);
             p.add(new Label(kpis + ": " + kpi.description()));
         }
 

@@ -6,7 +6,7 @@ public abstract class Employee implements CompareRules, Serializable {
 
     private Business business; // Which business they belong to. Each employee is tied to one business
     private String title; // Job title
-    // Business position. Classes inherit EmployeeLadder and can access certain features regarding access to KPI's, creating/deleting users etc. At each rank, certain kpi's can be viewed and certain access rights can be shown
+    // Business position. Classes inherit KPIGroup and can access certain features regarding access to KPI's, creating/deleting users etc. At each rank, certain kpi's can be viewed and certain access rights can be shown
     private EmployeeLadder rank;
     private String description;
 
@@ -79,7 +79,7 @@ public abstract class Employee implements CompareRules, Serializable {
 //        return Operations.generateKPIButtons(business.getKPILadderList(Settings.getType(type)), kpi, editable);
 //    }
 
-//    public ArrayList<Button> generateKPIButtons(EmployeeLadder el, String kpi, boolean editable) {
+//    public ArrayList<Button> generateKPIButtons(KPIGroup el, String kpi, boolean editable) {
 //        return Operations.generateKPIButtons(business.getKPILadderList(el), kpi, editable);
 //    }
 

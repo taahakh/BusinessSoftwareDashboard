@@ -14,10 +14,10 @@ public class EmployeeList extends Hiring {
         visual.setEditable(false);
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        return obj instanceof EmployeeList;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        return obj instanceof EmployeeList;
+//    }
 
     @Override
     MangementFrame window() {

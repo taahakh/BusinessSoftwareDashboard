@@ -8,7 +8,7 @@ public class Business implements Serializable {
 
     private String name; // name of the business
     private final ArrayList<Employee> employees; // all employees that the business has
-    private final ArrayList<EmployeeLadder> ladderKpis;
+    private final ArrayList<KPIGroup> ladderKpis;
     private final ArrayList<Management> management;
 
     public Business(String name) {
@@ -52,8 +52,8 @@ public class Business implements Serializable {
         return employees;
     }
 
-    public ArrayList<KPI> compare(EmployeeLadder type) {
-        for(EmployeeLadder k: ladderKpis){
+    public ArrayList<KPI> compare(KPIGroup type) {
+        for(KPIGroup k: ladderKpis){
             if(type.compare(k)){
                 return k.getKpis();
             }
@@ -66,19 +66,28 @@ public class Business implements Serializable {
         return compare(new AdminType());
     }
 
-    public void linkLadderList(EmployeeLadder e, ArrayList<KPI> k) {
+    public void linkLadderList(KPIGroup e, ArrayList<KPI> k) {
         e.setKpis(k);
         ladderKpis.add(e);
     }
 
     public void linkLadderList(String type, ArrayList<KPI> kpi) {
-        EmployeeLadder e = Settings.getType(type);
+        KPIGroup e = Settings.getType(type);
         e.setKpis(kpi);
         ladderKpis.add(e);
     }
 
-    public boolean hasLadderLink(EmployeeLadder e) {
-        for (EmployeeLadder x: ladderKpis){
+    public void linkLadderList() {
+        for (String type : Settings.getAvailableRanks()) {
+            KPIGroup el = Settings.getType(type);
+            if(!hasLadderLink(el)){
+                ladderKpis.add(el);
+            }
+        }
+    }
+
+    public boolean hasLadderLink(KPIGroup e) {
+        for (KPIGroup x: ladderKpis){
             if(e.compare(x)){
                 return true;
             }
@@ -87,7 +96,7 @@ public class Business implements Serializable {
         return false;
     }
 
-    public void addKpiToList(EmployeeLadder e, KPI k) {
+    public void addKpiToList(KPIGroup e, KPI k) {
         // Linking employee rank with KPI
         if(hasLadderLink(e)) {
             if(!(appendKPI(new AdminType(), k))){
@@ -106,9 +115,9 @@ public class Business implements Serializable {
         Settings.save();
     }
 
-    private boolean appendKPI (EmployeeLadder e, KPI k) {
+    private boolean appendKPI (KPIGroup e, KPI k) {
         // checks for any ladders that exists
-        for (EmployeeLadder x: ladderKpis){
+        for (KPIGroup x: ladderKpis){
             if(e.compare(x)){
                 return append(x.getKpis(), k);
             }
@@ -128,13 +137,13 @@ public class Business implements Serializable {
     }
 
     public void printLinks() {
-        for(EmployeeLadder x: ladderKpis){
+        for(KPIGroup x: ladderKpis){
             System.out.println("Ladder: " + x + " List: " + x.getKpis());
         }
     }
 
-    public ArrayList<KPI> returnLadderKPI(EmployeeLadder ladder) {
-        for (EmployeeLadder e : ladderKpis) {
+    public ArrayList<KPI> returnLadderKPI(KPIGroup ladder) {
+        for (KPIGroup e : ladderKpis) {
             if(e.compare(ladder)){
                 return e.getKpis();
             }
@@ -143,8 +152,8 @@ public class Business implements Serializable {
     }
 
     public ArrayList<KPI> returnLadderKPI(String item) {
-        EmployeeLadder ladder = Settings.getType(item);
-        for (EmployeeLadder e : ladderKpis) {
+        KPIGroup ladder = Settings.getType(item);
+        for (KPIGroup e : ladderKpis) {
             if(e.compare(ladder)){
                 return e.getKpis();
             }
@@ -169,7 +178,7 @@ public class Business implements Serializable {
 
 //        boolean remove;
 
-        for (EmployeeLadder e : ladderKpis){
+        for (KPIGroup e : ladderKpis){
             e.getKpis().remove(temp);
         }
 
@@ -180,8 +189,8 @@ public class Business implements Serializable {
         return true;
     }
 
-    public EmployeeLadder assignType(EmployeeLadder el) {
-        for (EmployeeLadder x: ladderKpis){
+    public KPIGroup assignType(KPIGroup el) {
+        for (KPIGroup x: ladderKpis){
             if(el.compare(x)){
                 el.setKpis(x.getKpis());
                 return el;

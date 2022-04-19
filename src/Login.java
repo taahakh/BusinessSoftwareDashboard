@@ -77,6 +77,10 @@ public class Login {
             readUserObject();
         } catch (IOException e){}
 
+        if(checkUserExists(username)) {
+            return false;
+        }
+
         User usr = createUser(username, password);
         usr.setName(name);
         addUser(usr);

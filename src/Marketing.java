@@ -135,11 +135,11 @@ public class Marketing extends KPI implements Serializable {
         return f;
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        if(obj instanceof String){
-            return obj.equals(Conts.MARKETING);
-        }
-        return false;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        if(obj instanceof String){
+//            return obj.equals(Conts.MARKETING);
+//        }
+//        return false;
+//    }
 }

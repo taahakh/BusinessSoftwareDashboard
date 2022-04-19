@@ -1,4 +1,4 @@
-public class StandardType extends EmployeeLadder{
+public class StandardType extends KPIGroup {
 
     public StandardType(){
         super(new Identifier[]{
@@ -10,10 +10,10 @@ public class StandardType extends EmployeeLadder{
         );
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        return obj instanceof StandardType;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        return obj instanceof StandardType;
+//    }
 
     @Override
     boolean check(String kpi) {

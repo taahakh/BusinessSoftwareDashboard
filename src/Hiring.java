@@ -12,10 +12,10 @@ public class Hiring extends Management {
         this.list = new ArrayList<>();
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        return obj instanceof Hiring;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        return obj instanceof Hiring;
+//    }
 
     @Override
     MangementFrame window() {

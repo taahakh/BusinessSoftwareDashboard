@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class CreateUserFrame extends Frame {
 
@@ -40,8 +42,10 @@ public class CreateUserFrame extends Frame {
                     notif.setText("These boxes cannot be empty");
                 } else {
                     if(Login.createUserInterface(username, password, n)){
+                        closeFrame();
                         System.out.println("Successfukl");
                         Popup p = new Popup();
+                        p.setTitle("User created successfully");
                         p.add(business);
                         p.add(leave);
 
@@ -64,7 +68,9 @@ public class CreateUserFrame extends Frame {
                             }
                         });
 
+                        p.addWindowListener(new CompleteClose());
                         p.launch();
+
                     } else {
                         notif.setText("We couldn't create a user. Try again");
                     }
@@ -81,6 +87,7 @@ public class CreateUserFrame extends Frame {
         layout.add(n);
         layout.add(name);
         layout.add(submit);
+        layout.add(notif);
 
         this.add(layout);
 

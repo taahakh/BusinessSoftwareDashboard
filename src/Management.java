@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 
-public abstract class Management implements CompareRules, Serializable {
+public abstract class Management extends CompareRules implements Serializable {
     private final String name;
 
     public Management(String name) {

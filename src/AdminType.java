@@ -1,4 +1,4 @@
-public class AdminType extends EmployeeLadder{
+public class AdminType extends KPIGroup {
 
     public AdminType(){
         super(new Identifier[]{
@@ -18,10 +18,15 @@ public class AdminType extends EmployeeLadder{
                 "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR","Has access to administrative permissions, all kpis and management tools");
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        return obj instanceof AdminType;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        return obj instanceof AdminType;
+//    }
+
+//    @Override
+//    public boolean compare(Object obj) {
+//        return obj.getClass().equals(AdminType.class);
+//    }
 
     @Override
     boolean check(String kpi) {

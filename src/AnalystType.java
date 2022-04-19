@@ -1,6 +1,4 @@
-import java.awt.*;
-
-public class AnalystType extends EmployeeLadder{
+public class AnalystType extends KPIGroup {
 
     private final String[] links = {
             Conts.ANALYST, Conts.ANALYST_LEADER, Conts.ANALYST_SALES
@@ -24,10 +22,10 @@ public class AnalystType extends EmployeeLadder{
         super(access, DESC, METRIC);
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        return obj instanceof AnalystType;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        return obj instanceof AnalystType;
+//    }
 
     @Override
     boolean check(String kpi) {

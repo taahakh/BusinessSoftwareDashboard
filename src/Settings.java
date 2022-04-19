@@ -1,6 +1,3 @@
-import java.awt.*;
-import java.util.Locale;
-
 /* Tracks all the global variables for the user, business and employee class
 *  These methods automatically generate KPI's, employees etc. It is up to the
 *  developer to add their inclusion of their types of KPI's, employees etc.
@@ -56,6 +53,10 @@ public class Settings {
         throw new RuntimeException();
     }
 
+    public static KPI getKPI(String type) {
+        return createKpiObject("", type);
+    }
+
     public static Employee getEmployee(String type, String title) {
         switch (type.toLowerCase()){
             case Conts.ADMIN:
@@ -81,7 +82,7 @@ public class Settings {
         return getEmployee(type, "");
     }
 
-    public static EmployeeLadder getType(String type) {
+    public static KPIGroup getType(String type) {
         switch (type.toLowerCase()){
             case Conts.ADMIN:
                 return new AdminType();

@@ -166,8 +166,9 @@ public class BusinessFrame extends Frame {
         // He himself is an employee of the business so we add him to the business
         b.addEmployee(a);
         // Lets link the type of admin to the list of KPI's
-//      b.linkLadderList(new AdminType(), items);
         b.linkLadderList(Conts.ADMIN, items);
+        // Lets create links to all types
+        b.linkLadderList();
         // Lets add business to admin
         a.setBusiness(b);
         // Lets now link the employee to the user

@@ -131,13 +131,13 @@ public class Inventory extends KPI implements Serializable {
     }
 
 
-    @Override
-    public boolean compare(Object obj) {
-        if(obj instanceof String){
-            return obj.equals(Conts.INVENTORY);
-        }
-        return false;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        if(obj instanceof String){
+//            return obj.equals(Conts.INVENTORY);
+//        }
+//        return false;
+//    }
 
 
 }

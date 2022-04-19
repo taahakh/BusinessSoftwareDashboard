@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public abstract class KPI implements CompareRules, Serializable {
+public abstract class KPI extends CompareRules implements Serializable {
 
     private final TextArea VISUAL = new TextArea();
     private final String CLASSNAME;

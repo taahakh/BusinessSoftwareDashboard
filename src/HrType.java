@@ -1,4 +1,4 @@
-public class HrType extends EmployeeLadder{
+public class HrType extends KPIGroup {
 
     public HrType() {
         super(new Identifier[]{
@@ -7,10 +7,10 @@ public class HrType extends EmployeeLadder{
         }, "description", "You can only add marketing and human resources to this group");
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        return obj instanceof HrType;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        return obj instanceof HrType;
+//    }
 
     @Override
     boolean check(String kpi) {

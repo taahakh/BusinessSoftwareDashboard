@@ -8,10 +8,15 @@ public class Admin extends Employee{
         super(title, new AdminType(), "Complete access over the business and has access to all KPIs and Operations");
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        return obj instanceof Admin;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        return obj instanceof Admin;
+//    }
+
+//    @Override
+//    public boolean compare(Object obj) {
+//        return obj.getClass().equals(Admin.class);
+//    }
 
     @Override
     void formLayout(Panel panel) {
@@ -41,7 +46,7 @@ public class Admin extends Employee{
         Business b = Settings.getBusiness();
         StringBuilder items = new StringBuilder();
         for (String ranks : Settings.getAvailableRanks()) {
-            EmployeeLadder el = Settings.getType(ranks);
+            KPIGroup el = Settings.getType(ranks);
             if(el != null) {
                 items.append(ranks).append("\n");
                 for (Employee e : b.getEmployees()) {

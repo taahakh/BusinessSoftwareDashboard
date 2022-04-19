@@ -16,11 +16,6 @@ public class Finance extends Management{
     }
 
     @Override
-    public boolean compare(Object obj) {
-        return obj instanceof Finance;
-    }
-
-    @Override
     MangementFrame window() {
         System.out.println(300/3);
         MangementFrame mf = new MangementFrame();

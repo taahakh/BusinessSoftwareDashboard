@@ -7,12 +7,7 @@ public class Standard extends Employee{
     }
 
     @Override
-    public boolean compare(Object obj) {
-        return false;
-    }
-
-    @Override
     void formLayout(Panel panel) {
-        panel.setLayout(new GridLayout(0,0));
+        panel.setLayout(new GridLayout(1,1));
     }
 }

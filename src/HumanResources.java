@@ -198,11 +198,11 @@ public class HumanResources extends Inventory implements Serializable {
         return f;
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        if(obj instanceof String){
-            return obj.equals(Conts.HUMAN_RESOURCES);
-        }
-        return false;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        if(obj instanceof String){
+//            return obj.equals(Conts.HUMAN_RESOURCES);
+//        }
+//        return false;
+//    }
 }

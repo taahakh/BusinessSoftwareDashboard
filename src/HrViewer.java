@@ -17,10 +17,10 @@ public class HrViewer extends Employee{
         }),"View all HR kpis here across the business. This means that it doesn't just only view HR kpi's in the HR group");
     }
 
-    @Override
-    public boolean compare(Object obj) {
-        return obj instanceof HrViewer;
-    }
+//    @Override
+//    public boolean compare(Object obj) {
+//        return obj instanceof HrViewer;
+//    }
 
     @Override
     void formLayout(Panel panel) {
