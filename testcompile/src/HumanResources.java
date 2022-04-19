@@ -145,7 +145,7 @@ import java.util.HashMap;
 
 public class HumanResources extends Inventory implements Serializable {
 
-//    private final HashMap<String, Integer> VALUES = new HashMap<>();
+    private final HashMap<String, Integer> VALUES = new HashMap<>();
     private String type;
 
     public HumanResources(String indicator) {
