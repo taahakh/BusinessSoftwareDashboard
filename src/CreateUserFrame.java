@@ -10,15 +10,12 @@ public class CreateUserFrame extends Frame {
 
     public CreateUserFrame(){
 
-        Panel layout;
+        Panel layout = Panels.basicPanel();
         TextField usr, pwd, name;
         Label u, p, n, notif;
         Button submit, business, leave;
 
         this.setLayout(new FlowLayout());
-        layout = new Panel();
-        layout.setLayout(new GridLayout(0,1));
-        layout.setVisible(true);
 
         usr = new TextField();
         pwd = new TextField();
@@ -87,7 +84,7 @@ public class CreateUserFrame extends Frame {
 
         this.add(layout);
 
-        this.addWindowListener(new WindowCloser());
+        this.addWindowListener(new CompleteClose());
         this.setSize(500,500);
         this.setLocationRelativeTo(null);
         this.setVisible(true);

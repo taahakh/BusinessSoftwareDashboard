@@ -7,9 +7,9 @@ public class Business implements Serializable {
     public static ArrayList<Business> business = new ArrayList<Business>();
 
     private String name; // name of the business
-    private ArrayList<Employee> employees; // all employees that the business has
-    private ArrayList<EmployeeLadder> ladderKpis;
-    private ArrayList<Management> management;
+    private final ArrayList<Employee> employees; // all employees that the business has
+    private final ArrayList<EmployeeLadder> ladderKpis;
+    private final ArrayList<Management> management;
 
     public Business(String name) {
         this.name = name;
@@ -68,6 +68,12 @@ public class Business implements Serializable {
 
     public void linkLadderList(EmployeeLadder e, ArrayList<KPI> k) {
         e.setKpis(k);
+        ladderKpis.add(e);
+    }
+
+    public void linkLadderList(String type, ArrayList<KPI> kpi) {
+        EmployeeLadder e = Settings.getType(type);
+        e.setKpis(kpi);
         ladderKpis.add(e);
     }
 

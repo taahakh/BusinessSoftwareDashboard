@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 
 public abstract class Management implements CompareRules, Serializable {
-    private String name;
+    private final String name;
 
     public Management(String name) {
         this.name = name;

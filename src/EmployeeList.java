@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class EmployeeList extends Hiring {
 
-    private ArrayList<String> description;
-    private final TextField visual = new TextField();
+    private final ArrayList<String> description;
+    private final TextArea visual = new TextArea();
 
     public EmployeeList(String name) {
         super(name);
@@ -25,8 +25,8 @@ public class EmployeeList extends Hiring {
         mf.add(visual);
         viewEmployeeList();
 
-        mf.add(view("View Employee List", "employeeList"));
-        mf.add(view("View Employees only", "onlyEmployee"));
+        mf.add(view("View Employee List", true));
+        mf.add(view("View Employees only", false));
         mf.add(add());
         mf.add(remove());
 
@@ -44,18 +44,15 @@ public class EmployeeList extends Hiring {
         }
     }
 
-    private Button view(String name, String which) {
+    private Button view(String name, boolean showList) {
         Button b = new Button(name);
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                switch (which) {
-                    case "employeeList":
-                        viewEmployeeList();
-                        break;
-                    case "onlyEmployee":
-                        viewEmployeesOnly();
-                        break;
+                if (showList) {
+                    viewEmployeeList();
+                } else {
+                    viewEmployeesOnly();
                 }
             }
         });

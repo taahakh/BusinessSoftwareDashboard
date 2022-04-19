@@ -16,7 +16,7 @@ public class SettingsFrame extends Frame {
         this.add(layout);
 
         this.addWindowListener(new WindowCloser());
-        this.setSize(990, 400);
+        this.setSize(300, 150);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
@@ -38,7 +38,7 @@ public class SettingsFrame extends Frame {
                     p.add(temp);
                     break;
                 case ADMIN:
-                    temp = new Button("ADMIN");
+                    temp = new Button(Conts.ADMIN.toUpperCase());
                     temp.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -67,34 +67,37 @@ public class SettingsFrame extends Frame {
     }
 
     //----------------------------------------------------------------------------
-    public Frame userPanel() {
+    private Frame userPanel() {
 
         Frame p = Panels.basicWindow();
+        p.setSize(900, 400);
 
-        Label add, remove, success, type;
-        TextField addTF, removeTF, typeTF;
-        Button addB, removeB;
+        Label add, success, type;
+        TextField addTF, typeTF;
+        Button addB;
 
         add = new Label("Add user to business");
-        remove = new Label("Remove user from business");
+//        remove = new Label("Remove user from business");
         type = new Label("Enter user type");
         success = new Label("");
 
         addTF = new TextField();
-        removeTF = new TextField();
+//        removeTF = new TextField();
         typeTF = new TextField();
 
         addB = new Button("Add user");
-        removeB = new Button("Remove user");
+//        removeB = new Button("Remove user");
 
         addB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (typeTF.getText().isEmpty() || addTF.getText().isEmpty()) {
+                String type = typeTF.getText();
+                String add = addTF.getText();
+                if (type.isEmpty() || add.isEmpty()) {
                     success.setText("These boxes cannot be empty");
                     return;
                 }
-                if (Operations.addUser(addTF.getText(), typeTF.getText())) {
+                if (Operations.addUser(add, type)) {
                     success.setText("Operation successful");
                 } else {
                     success.setText("Error finding user or couldn't add type");
@@ -102,19 +105,19 @@ public class SettingsFrame extends Frame {
             }
         });
 
-        removeB.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (Operations.removeUser(removeTF.getText())) {
-                    success.setText("Remove successful");
-                } else {
-                    success.setText("Remove failed :(");
-                }
-            }
-        });
+//        removeB.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (Operations.removeUser(removeTF.getText())) {
+//                    success.setText("Remove successful");
+//                } else {
+//                    success.setText("Remove failed :(");
+//                }
+//            }
+//        });
 
         addTF.setPreferredSize(textFieldDimensions);
-        removeTF.setPreferredSize(textFieldDimensions);
+//        removeTF.setPreferredSize(textFieldDimensions);
         typeTF.setPreferredSize(textFieldDimensions);
 
         p.add(add);
@@ -122,9 +125,9 @@ public class SettingsFrame extends Frame {
         p.add(type);
         p.add(typeTF);
         p.add(addB);
-        p.add(remove);
-        p.add(removeTF);
-        p.add(removeB);
+//        p.add(remove);
+//        p.add(removeTF);
+//        p.add(removeB);
         p.add(Operations.displayEmployeeTypes());
         p.add(success);
 
@@ -132,7 +135,7 @@ public class SettingsFrame extends Frame {
         return p;
     }
 
-    public Frame adminPanel() {
+    private Frame adminPanel() {
 
         Frame p = Panels.basicWindow();
 
@@ -143,17 +146,18 @@ public class SettingsFrame extends Frame {
         rename = new Label("Rename business?");
 
         renameTF = new TextField();
-        success = new Label("");
+        success = new Label();
 
         submit = new Button("Rename");
 
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(renameTF.getText().isEmpty()){
+                String rename = renameTF.getText();
+                if(rename.isEmpty()){
                     success.setText("Cannot be empty");
                 } else {
-                    Operations.renameBusiness(renameTF.getText());
+                    Operations.renameBusiness(rename);
                     success.setText("Rename successful");
                 }
             }
@@ -164,14 +168,15 @@ public class SettingsFrame extends Frame {
         p.add(rename);
         p.add(renameTF);
         p.add(submit);
+        p.add(removeKpiPanel(success));
+        p.add(removeUser(success));
         p.add(success);
-
         p.add(deleteBusiness());
 
         return p;
     }
 
-    public Frame rolePanel() {
+    private Frame rolePanel() {
 
         Frame p = Panels.basicWindow();
 
@@ -188,7 +193,7 @@ public class SettingsFrame extends Frame {
         kpiNameTF = new TextField();
         roleTF = new TextField();
 
-        submit = new Button("Submit");
+        submit = new Button(Conts.SUBMIT);
         submit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -211,7 +216,7 @@ public class SettingsFrame extends Frame {
         p.add(kpiName);
         p.add(kpiNameTF);
         p.add(submit);
-        p.add(removeKpiPanel(success));
+//        p.add(removeKpiPanel(success));
         p.add(Operations.displayEmployeeRank());
         p.add(Operations.displayKPIs());
         p.add(success);
@@ -220,7 +225,7 @@ public class SettingsFrame extends Frame {
     }
 
     //----------------------------------------------------------------------------
-    public Panel removeKpiPanel(Label success) {
+    private Panel removeKpiPanel(Label success) {
         Panel p = Panels.basicPanel();
 
         Button submit;
@@ -259,7 +264,39 @@ public class SettingsFrame extends Frame {
         return p;
     }
 
-    public Panel deleteBusiness() {
+    private Panel removeUser(Label success) {
+        Panel p = Panels.basicPanel();
+
+        Button submit;
+        Label desc;
+        TextField name = new TextField();
+
+        desc = new Label("Enter user to delete: ");
+        submit = new Button("Delete User");
+
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(Operations.removeUser(name.getText())){
+                    success.setText("Removal successful");
+                } else {
+                    success.setText("Removal failed");
+                }
+
+            }
+        });
+
+        name.setPreferredSize(textFieldDimensions);
+
+        p.add(desc);
+        p.add(name);
+        p.add(submit);
+//        p.add(success);
+
+        return p;
+    }
+
+    private Panel deleteBusiness() {
         Panel p = Panels.basicPanel();
 
         Button submit = new Button("Delete business?");

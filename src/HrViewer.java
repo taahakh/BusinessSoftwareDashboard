@@ -14,7 +14,7 @@ public class HrViewer extends Employee{
     public HrViewer(String title) {
         super(title, new AdminType(new Identifier[]{
                 Identifier.VIEWER
-        }),"View all HR kpis here across the business");
+        }),"View all HR kpis here across the business. This means that it doesn't just only view HR kpi's in the HR group");
     }
 
     @Override

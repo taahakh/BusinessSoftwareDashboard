@@ -12,6 +12,10 @@ public class Inventory extends KPI implements Serializable {
         super(indicator, "Inventory", "tracks inventory");
     }
 
+    public Inventory(String indicator, String className, String description){
+        super(indicator, className, description);
+    }
+
     public Button create(Method method, String name, String description){
         Button b = new Button(name);
         b.addActionListener(new ActionListener() {
@@ -34,7 +38,7 @@ public class Inventory extends KPI implements Serializable {
                     public void actionPerformed(ActionEvent e) {
                         switch (method){
                             case ADD:
-                                add(name.getText(), val.getText());
+                                add(name.getText(), val.getText(), success);
                                 break;
                             case REMOVE:
                                 remove(name.getText(), p);
@@ -59,19 +63,28 @@ public class Inventory extends KPI implements Serializable {
         return b;
     }
 
-    private void add(String name, String val) {
+    private void add(String name, String val, Label success) {
         if(ITEMS.get(name) == null){
-            ITEMS.put(name, Integer.parseInt(val));
-            Settings.save();
+            if(handleNumberException(val, success)){
+                ITEMS.put(name, Integer.parseInt(val));
+                Settings.save();
+            }
+        } else {
+            success.setText("Item already exists");
         }
     }
 
     private void update(String item, String value, Label success, Popup p) {
         int val;
-        try {
+//        try {
+//            val = Integer.parseInt(value);
+//        } catch (NumberFormatException ignored){
+//            success.setText("Couldn't parse integer");
+//            return;
+//        }
+        if(handleNumberException(value, success)){
             val = Integer.parseInt(value);
-        } catch (NumberFormatException ignored){
-            success.setText("Couldn't parse integer");
+        } else {
             return;
         }
 
@@ -100,22 +113,23 @@ public class Inventory extends KPI implements Serializable {
 
     @Override
     String provideKeyMetric() {
-        System.out.println(ITEMS);
-        return "ITEMS -> " + ITEMS;
+        return "Items -> \n" + generatePKM(ITEMS).toString();
     }
 
     @Override
     Frame showKpi(boolean editable) {
 
         KPIFrame f = new KPIFrame(provideKeyMetric(), getVisual());
+        f.setTitle(Conts.INVENTORY);
         f.addButton(viewPKM("view key metrics"));
         if(editable) {
-            f.addButton(create(Method.ADD, "Add item", "Enter the item you want to enter and number of"));
+            f.addButton(create(Method.ADD, "Add item", "Enter the item you want to enter and number of item"));
             f.addButton(create(Method.UPDATE, "Update item",  "Enter the item and the corresponding value that you want to update"));
             f.addButton(create(Method.REMOVE, "Remove item", "Enter the item you want to delete"));
         }
         return f;
     }
+
 
     @Override
     public boolean compare(Object obj) {

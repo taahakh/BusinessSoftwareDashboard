@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 public class Finance extends Management{
 
     private int amount;
-    private int[] track = new int[3];
+    private final int[] track = new int[3];
     private int pointer;
     private boolean ready;
 

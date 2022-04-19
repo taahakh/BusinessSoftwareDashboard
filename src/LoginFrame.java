@@ -4,28 +4,29 @@ import java.util.ArrayList;
 
 public class LoginFrame extends Frame {
 
-    public void closeFrame(){
-        this.dispose();
-    }
+//    private void closeCurrentFrame() {
+//        this.dispose();
+//    }
+
+    private boolean isClosed = false;
+
 
     public LoginFrame(){
-        Panel layout;
+        Panel layout = Panels.basicPanel();
         TextField usr, pwd;
         Label usrLabel, pwdLabel, notif;
         Button submit, newUser;
 
         this.setLayout(new FlowLayout());
-        layout = new Panel();
-        layout.setLayout(new GridLayout(0,1));
-        layout.setVisible(true);
 
         usrLabel = new Label("Username");
-        usr = new TextField();
         pwdLabel = new Label("Password");
-        pwd = new TextField();
         submit = new Button("Submit");
         newUser = new Button("Create user");
         notif = new Label();
+
+        usr = new TextField();
+        pwd = new TextField();
 
         submit.addActionListener(new ActionListener() {
             @Override
@@ -49,7 +50,7 @@ public class LoginFrame extends Frame {
         newUser.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                closeFrame();
+                dispose();
                 new CreateUserFrame().setVisible(true);
             }
         });
@@ -63,9 +64,9 @@ public class LoginFrame extends Frame {
         layout.add(notif);
 
         this.add(layout);
-        this.addWindowListener(new WindowCloser());
 
-        this.setSize(500,500);
+        this.addWindowListener(new CompleteClose());
+        this.setSize(400,400);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -74,58 +75,56 @@ public class LoginFrame extends Frame {
         User user = Login.getLoggedIn();
         if(user.getEmployee().size() == 0) {
             showNoEmployee();
-            System.out.println(user.getEmployee());
+//            System.out.println(user.getEmployee());
+        } else {
+            Popup p = showEmployee(user.getEmployee());
+            p.addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosed(WindowEvent e) {
+                    super.windowClosed(e);
+                    p.closeFrame();
+                    dispose();
+                    if(!(isClosed)) {
+                        new LoginFrame().setVisible(true);
+                    }
+                }
+            });
         }
-        Popup p = showEmployee(user.getEmployee());
-        p.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) {
-                super.windowClosed(e);
-                p.closeFrame();
-                closeFrame();
-                new DashboardFrame().setVisible(true);
-            }
-        });
-
     }
 
     public void showNoEmployee(){
         Popup p = new Popup();
         Label text = new Label("You are not linked to any business. Make sure your employer adds you");
-        Button button = new Button("Close");
-        button.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                p.closeFrame();
-            }
-        });
         p.add(text);
-        p.add(button);
         p.addWindowListener(new WindowCloser());
         p.launch();
     }
 
     public Popup showEmployee(ArrayList<Employee> em) {
         Popup p = new Popup();
+        p.setTitle("Select business");
+        p.setPreferredSize(new Dimension(300,100));
         Button[] buttons = new Button[em.size()];
         int i = 0;
-        for (Employee x: em){
-            Button b = new Button(x.getBusiness().getName() + ": "+ x.getTitle());
-            b.setName(x.getTitle());
+        for (int j=0; j<em.size(); j++) {
+            Employee emp = em.get(j);
+            Business empBusiness = emp.getBusiness();
+            Button b = new Button(empBusiness.getName() + ": "+ emp.getTitle());
+            b.setName(String.valueOf(j));
             b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String employee = ((Button) e.getSource()).getName();
-                    for(Employee x : em) {
-                        if(x.getTitle().equals(employee)){
-                            System.out.println("x stat:" + x);
-                            System.out.println("x-bus stat:" + x.getBusiness());
-                            Settings.setEmployee(x);
-                            Settings.setBusiness(x.getBusiness());
-                            p.closeFrame();
-                            return;
-                        }
-                    }
+                    int pointer = Integer.parseInt(employee);
+                    Employee emp = em.get(pointer);
+//                            System.out.println("x stat:" + emp);
+//                            System.out.println("x-bus stat:" + emp.getBusiness());
+                    Settings.setEmployee(emp);
+                    Settings.setBusiness(empBusiness);
+                    isClosed = true;
+                    p.closeFrame();
+                    new DashboardFrame().setVisible(true);
+                    return;
                 }
             });
             buttons[i] = b;

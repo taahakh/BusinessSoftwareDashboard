@@ -61,15 +61,12 @@ public class DashboardFrame extends Frame {
             this.add(x);
         }
 
-        Hiring hi = new Hiring("Hello");
-        this.add(hi.viewWindow());
-
         em.formLayout(layout);
 
         this.add(logout);
         this.add(refresh);
 
-        this.addWindowListener(new WindowCloser());
+        this.addWindowListener(new CompleteClose());
         this.setSize(700,700);
         this.setLocationRelativeTo(null);
         this.setVisible(true);

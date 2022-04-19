@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 public class Admin extends Employee{
 
     public Admin(String title){
-        super(title, new AdminType(), "Access rights etc");
+        super(title, new AdminType(), "Complete access over the business and has access to all KPIs and Operations");
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Admin extends Employee{
                 items.append(ranks).append("\n");
                 for (Employee e : b.getEmployees()) {
                     if(e.getLadder().compare(el)){
-                        items.append("--->").append(e.getTitle()).append("\n");
+                        items.append("--->").append(e.getUsername()).append("\n");
                     }
                 }
                 items.append("------------------------\n");

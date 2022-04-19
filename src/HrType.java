@@ -1,12 +1,10 @@
-import java.awt.*;
-
 public class HrType extends EmployeeLadder{
 
     public HrType() {
         super(new Identifier[]{
                 Identifier.VIEWER,
                 Identifier.EDITOR,
-        }, "description", "showInfoMetric");
+        }, "description", "You can only add marketing and human resources to this group");
     }
 
     @Override

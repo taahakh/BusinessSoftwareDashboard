@@ -6,7 +6,7 @@ public class AnalystType extends EmployeeLadder{
             Conts.ANALYST, Conts.ANALYST_LEADER, Conts.ANALYST_SALES
     };
 
-    private static final String DESC = "this is for analysts";
+    private static final String DESC = "You can only add Sales and Inventory to the analyst group";
     private static final String METRIC = "Contains KPI types for Analysts";
 
     public AnalystType() {

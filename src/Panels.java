@@ -1,12 +1,10 @@
 import java.awt.*;
-import java.lang.management.ManagementFactory;
 
 public class Panels {
     public static Panel basicPanel() {
         Panel layout = new Panel();
-//        layout.setLayout(new GridLayout(0,1));
+        layout.setLayout(new GridLayout(0,1));
         layout.setVisible(true);
-
         return layout;
     }
 
@@ -31,15 +29,12 @@ class KPIFrame extends Frame {
         assign();
     }
 
-    public KPIFrame(String keyMetric, TextField visual) {
+    public KPIFrame(String keyMetric, TextArea visual) {
         super();
         assign();
         visual.setEditable(false);
         visual.setText(keyMetric);
-        this.add(visual);
-    }
 
-    private void assign() {
         this.setLayout(new GridLayout(0,2));
         this.addWindowListener(new WindowCloser());
         this.setSize(700,700);
@@ -48,6 +43,13 @@ class KPIFrame extends Frame {
         buttons = Panels.basicPanel();
 
         this.add(buttons);
+
+        this.add(visual);
+    }
+
+    protected void assign() {
+        this.addWindowListener(new WindowCloser());
+        this.setPreferredSize(new Dimension(400, 600));
     }
 
     public void addButton(Button b){
@@ -58,8 +60,7 @@ class KPIFrame extends Frame {
 class MangementFrame extends KPIFrame {
     public MangementFrame() {
         super();
-
-        this.setLayout(new GridLayout(2,1));
+        this.setLayout(new GridLayout(0,1));
         this.setSize(400, 700);
     }
 }

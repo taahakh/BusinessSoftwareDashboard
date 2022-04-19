@@ -26,7 +26,8 @@ public class Sales extends KPI implements Serializable {
                 b.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        int x = Integer.parseInt(tf.getText());
+                        if(handleNumberException(tf.getText(), new Label())){
+                            int x = Integer.parseInt(tf.getText());
                             switch (method) {
                                 case UPDATE:
                                     update(either, x);
@@ -35,7 +36,9 @@ public class Sales extends KPI implements Serializable {
                                     add(either, x);
                                     break;
                             }
-                        p.close();
+                            p.close();
+                        }
+
                     }
                 });
 
@@ -74,6 +77,7 @@ public class Sales extends KPI implements Serializable {
     Frame showKpi(boolean editable) {
 
         KPIFrame frame = new KPIFrame(provideKeyMetric(), getVisual());
+        frame.setTitle(Conts.SALES);
         frame.addButton(viewPKM("view KPM"));
         if(editable) {
             frame.addButton(create(Method.ADD, "Set sales", "Enter value to set sales", true));

@@ -3,7 +3,7 @@ import java.awt.*;
 public class Analyst extends Employee{
 
     public Analyst(String title) {
-        super(title, Conts.ANALYST, "Analyst stuff");
+        super(title, Conts.ANALYST, "Analyst access to specific sets of analyst KPI's such as Sales and Inventory");
     }
 
     public Analyst(String title, EmployeeLadder el, String description) {
@@ -21,8 +21,17 @@ public class Analyst extends Employee{
     }
 
     public Button viewFinances() {
-        Button b = new Button("View finances");
-        return b;
+        Finance finance = null;
+        for (Management m : Settings.getBusiness().getManagement()) {
+            if(m instanceof Finance){
+                finance = (Finance) m;
+            }
+        }
+        if(finance != null){
+            return finance.viewWindow();
+        }
+
+        return new Button();
     }
 
 }

@@ -2,14 +2,15 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
+import java.util.HashMap;
 
 public abstract class KPI implements CompareRules, Serializable {
 
-    private final TextField VISUAL = new TextField();
+    private final TextArea VISUAL = new TextArea();
     private final String CLASSNAME;
 
-    private String indicator;
-    private String description;
+    private final String indicator;
+    private final String description;
 
     public KPI(String indicator, String className, String description) {
         this.indicator = indicator;
@@ -29,7 +30,7 @@ public abstract class KPI implements CompareRules, Serializable {
         return description;
     }
 
-    public TextField getVisual() {
+    public TextArea getVisual() {
         return VISUAL;
     }
 
@@ -42,6 +43,24 @@ public abstract class KPI implements CompareRules, Serializable {
             }
         });
         return p;
+    }
+
+    public <E, T> StringBuilder generatePKM (HashMap<E, T> set) {
+        StringBuilder text = new StringBuilder();
+        for (E item : set.keySet()){
+            text.append(item.toString()).append(": ").append(set.get(item)).append("\n");
+        }
+        return text;
+    }
+
+    public boolean handleNumberException(String val, Label success) {
+        try {
+            Integer.parseInt(val);
+            return true;
+        } catch (NumberFormatException e){
+            success.setText("Number format incorrect");
+            return false;
+        }
     }
 
     abstract String provideKeyMetric();

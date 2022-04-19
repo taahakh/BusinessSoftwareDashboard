@@ -8,15 +8,14 @@ public class AdminType extends EmployeeLadder{
                 Identifier.VIEWER,
                 Identifier.EDITOR,
         },
-                "Type: ADMIN\n" +
-                        "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR",
+                "Has access to administrative permissions, all kpis and management tools",
                 "this is admin type"
                 );
     }
 
     public AdminType(Identifier[] iden) {
         super(iden,"Type: ADMIN\n" +
-                "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR","this is admin type");
+                "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR","Has access to administrative permissions, all kpis and management tools");
     }
 
     @Override

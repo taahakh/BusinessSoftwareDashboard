@@ -5,7 +5,8 @@ public class Login {
 
     private static User loggedIn;
     private static ArrayList<User> users = new ArrayList<>(3);
-    private final static String fileLocation = "/Users/taaha/Documents/savedata/";
+//    private final static String fileLocation = "/Users/taaha/Documents/savedata/";
+    private final static String fileLocation = "./savedata/";
 
     public static ArrayList<User> userList(){
         return users;

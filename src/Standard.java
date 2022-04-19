@@ -3,7 +3,7 @@ import java.awt.*;
 public class Standard extends Employee{
 
     public Standard(String title) {
-        super(title, Conts.STANDARD, "Standard type");
+        super(title, Conts.STANDARD, "There are no special rules. This means that any KPI's can be added here");
     }
 
     @Override

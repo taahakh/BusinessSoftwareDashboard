@@ -5,7 +5,7 @@ public class StandardType extends EmployeeLadder{
                         Identifier.VIEWER,
                         Identifier.EDITOR,
                 },
-                "Standard employee. No KPI rules",
+                "Standard employee. No KPI rules. Any kpis can be added here",
                 "Standard type"
         );
     }

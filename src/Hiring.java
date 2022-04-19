@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Hiring extends Management {
 
-    private ArrayList<String> list;
+    private final ArrayList<String> list;
 
     public Hiring(String name) {
         super(name);
@@ -21,7 +21,7 @@ public class Hiring extends Management {
     MangementFrame window() {
         MangementFrame mf = new MangementFrame();
 
-        TextField tf = new TextField(viewList());
+        TextArea tf = new TextArea(viewList());
         tf.setEditable(false);
 
 
@@ -78,7 +78,7 @@ public class Hiring extends Management {
         return str.toString();
     }
 
-    public Button viewListButton(TextField tf) {
+    public Button viewListButton(TextArea tf) {
         Button b = new Button("View list");
         b.addActionListener(new ActionListener() {
             @Override

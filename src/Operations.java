@@ -15,6 +15,16 @@ public class Operations {
             if(em == null) {
                 return false;
             }
+            if(!(e.getLadder().compare(new AdminType()))) {
+                if(!(e.getLadder().compare(em.getLadder()))) {
+                    return false;
+                }
+            }
+            // Setting title of the employee to its type
+            em.setTitle(type);
+            // Setting username for employee
+            em.setUsername(usr.getUsername());
+
             // Linking employee with business
             em.setBusiness(Settings.getBusiness());
             // Linking employee to user
@@ -119,6 +129,13 @@ public class Operations {
                 return false;
             }
         }
+
+        if(!(e.compare(Conts.ADMIN))){
+            if(!(e.getLadder().compare(el))){
+                return false;
+            }
+        }
+
         b.addKpiToList(el, Settings.createKpiObject(kpiName, kpi));
         b.printLinks();
         return true;
@@ -195,7 +212,7 @@ public class Operations {
         if(e != null) {
             for (Employee em: Settings.getBusiness().getEmployees()) {
                 if(em.compare(e)){
-                    items.append("--->").append(em.getTitle()).append("\n");
+                    items.append("--->").append(em.getUsername()).append("\n");
                 }
             }
         }

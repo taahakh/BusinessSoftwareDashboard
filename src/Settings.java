@@ -10,9 +10,9 @@ public class Settings {
     private static Employee employee;
     private static Business business;
 
-    private final static String EM_FILENAME = "em.txt";
-    private final static String BUS_FILENAME = "bus.txt";
-    public  final static String USER_FILENAME = "user.txt";
+    private final static String EM_FILENAME = "em.obj";
+    private final static String BUS_FILENAME = "bus.obj";
+    public  final static String USER_FILENAME = "user.obj";
 
 
     public static void save(){

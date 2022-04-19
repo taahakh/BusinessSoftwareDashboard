@@ -8,7 +8,7 @@ public class AnalystSales extends Employee {
     private final String description = "View all sales kpi's that belong to the analyst group";
 
     public AnalystSales(String title) {
-        super(title, Conts.ANALYST, "Analyst Sales stuff");
+        super(title, Conts.ANALYST, "View all sales kpi's that belong to the analyst group");
     }
 
     @Override

@@ -13,7 +13,7 @@ public class Marketing extends KPI implements Serializable {
     private final HashMap<Date, String> REACH = new HashMap<>();
 
     public Marketing(String indicator) {
-        super(indicator, "Marketing", "Track Marketing");
+        super(indicator, Conts.MARKETING, "Track Marketing");
     }
 
     private Date parseDate(String date, Label success){
@@ -111,8 +111,7 @@ public class Marketing extends KPI implements Serializable {
 
     @Override
     String provideKeyMetric() {
-        return "im: " + IMPRESSIONS + "" +
-                "re: " + REACH;
+        return getIndicatorName() + "\n\nim: " + generatePKM(IMPRESSIONS) + "\n re: " + generatePKM(REACH);
     }
 
     @Override
@@ -122,7 +121,7 @@ public class Marketing extends KPI implements Serializable {
         final String REMOVE = "Enter date to remove";
         final String UPDATE = "Enter date and value to update";
         KPIFrame f = new KPIFrame(provideKeyMetric(), getVisual());
-
+        f.setTitle(Conts.MARKETING);
         f.addButton(viewPKM("View key metrics"));
         if(editable) {
             f.addButton(create(Method.ADD, "add Impressions", ADD, IMPRESSIONS));

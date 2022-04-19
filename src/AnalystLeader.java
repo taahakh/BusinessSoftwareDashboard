@@ -63,7 +63,7 @@ public class AnalystLeader extends Analyst {
                         Identifier.USER
                 }
 
-        ), "Head leader of analysts of the company");
+        ), "More administrative control over the Analyst group. Have access to adding users, kpis etc");
     }
 
     @Override
