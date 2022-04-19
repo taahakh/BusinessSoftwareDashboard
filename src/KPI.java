@@ -8,7 +8,7 @@ import java.util.HashMap;
 * Basic KPI template for sales, inventory etc..
 */
 
-public abstract class KPI extends CompareRules implements Serializable, KPIRules {
+public abstract class KPI extends Rules implements Serializable, KPIRules {
 
     private final TextArea VISUAL = new TextArea();
     private final String CLASSNAME;

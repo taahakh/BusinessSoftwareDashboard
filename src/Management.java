@@ -7,7 +7,7 @@ import java.io.Serializable;
 * Management Indicators. Similar to KPI's but they are heavily stripped down version
 * */
 
-public abstract class Management extends CompareRules implements Serializable {
+public abstract class Management extends Rules implements Serializable {
     private final String name;
 
     public Management(String name) {

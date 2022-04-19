@@ -3,7 +3,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public abstract class Employee extends CompareRules implements Serializable {
+public abstract class Employee extends Rules implements Serializable {
 
     private Business business; // Which business they belong to. Each employee is tied to one business
 

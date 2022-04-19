@@ -6,7 +6,7 @@ import java.util.ArrayList;
 * Access rights (Identifier) determines what the employee can see in the Settings frame
 * kpis arraylist store whatever a user has given it which must follow the check rule when appending
 */
-public abstract class KPIGroup extends CompareRules implements Serializable, KPIRules {
+public abstract class KPIGroup extends Rules implements Serializable, KPIRules {
     private final Identifier[] access;
     private ArrayList<KPI> kpis = new ArrayList<>();
 
