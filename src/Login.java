@@ -44,7 +44,7 @@ public class Login {
         }
 
         for(User usr: users){
-            if(usr.getUsername().equals(username) && x.confirmPassword(password)){
+            if(usr.getUsername().equals(username) && usr.confirmPassword(password)){
                 setLoggedIn(usr);
                 return true;
             }

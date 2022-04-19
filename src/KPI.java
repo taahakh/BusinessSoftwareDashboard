@@ -13,8 +13,8 @@ public abstract class KPI extends Rules implements Serializable, KPIRules {
     private final TextArea VISUAL = new TextArea();
     private final String CLASSNAME;
 
-    private final String indicator;
-    private final String description;
+    private String indicator;
+    private String description;
 
     public KPI(String indicator, String className, String description) {
         this.indicator = indicator;
@@ -71,8 +71,6 @@ public abstract class KPI extends Rules implements Serializable, KPIRules {
             return false;
         }
     }
-
-//    abstract String provideKeyMetric();
 
     // ---------------------------------------------
 

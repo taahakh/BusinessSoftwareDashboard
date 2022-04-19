@@ -125,11 +125,11 @@ public class Finance extends Management{
         for(int x : track) {
             temp += x;
         }
-        return temp/track.length;
+        return temp/AVERAGE;
     }
 
     private void updateTrack(){
-        if(pointer == track.length){
+        if(pointer == AVERAGE){
             pointer = 0;
         }
         track[pointer] = amount;
@@ -147,7 +147,7 @@ public class Finance extends Management{
         if (ready) {
             return true;
         }
-        if(track[track.length-1] == 0){
+        if(track[AVERAGE-1] == 0){
             return false;
         }
         ready = true;
