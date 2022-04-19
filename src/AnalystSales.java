@@ -3,12 +3,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class AnalystSales extends Employee {
+public class AnalystSales extends Analyst {
 
     private final String description = "View all sales kpi's that belong to the analyst group";
 
     public AnalystSales(String title) {
-        super(title, Conts.ANALYST, "View all sales kpi's that belong to the analyst group");
+        super(title,"View all sales kpi's that belong to the analyst group");
     }
 
     @Override
@@ -18,6 +18,7 @@ public class AnalystSales extends Employee {
 
     @Override
     void formLayout(Panel panel) {
+        super.formLayout(panel);
         Button b = new Button("Print total sales");
         b.addActionListener(new ActionListener() {
             @Override
@@ -34,6 +35,8 @@ public class AnalystSales extends Employee {
         Business b = Settings.getBusiness();
         ArrayList<KPI> items = b.returnLadderKPI(Conts.ANALYST);
         for(KPI k : items) {
+            // Using instanceof due to the fact its a unique function for Sales
+            // There was no point in introducing a polymorphic way to retrieve sales just to add extra baggage to the code
             if(k instanceof Sales){
                 Sales s = (Sales) k;
                 sales += s.getSales();

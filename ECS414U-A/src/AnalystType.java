@@ -45,7 +45,7 @@ public class AnalystType extends EmployeeLadder{
 //        for(String em : Settings.availableEmployees){
 //            Employee e = Settings.getEmployee(em);
 //            if(e != null) {
-//                if(e.getLadder().compareTo(new AnalystType())){
+//                if(e.getGroup().compareTo(new AnalystType())){
 //                    list.add(em);
 //                }
 //            }

@@ -28,7 +28,7 @@
 //
 //    public Button viewAnalysts() {
 //        Button b = new Button("View analysts");
-//        AnalystType at = (AnalystType) getLadder();
+//        AnalystType at = (AnalystType) getGroup();
 //        b.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {

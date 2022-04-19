@@ -56,8 +56,8 @@ public class Settings {
         throw new RuntimeException();
     }
 
-//    public static KPI createKpiObject(String type) {
-//        return createKpiObject("", type);
+//    public static KPI getKPI(String type) {
+//        return getKPI("", type);
 //    }
 
     public static Employee getEmployee(String type, String title) {

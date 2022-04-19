@@ -72,7 +72,7 @@ public class BusinessFrame extends Frame {
                                 }
                             }
                         }
-//                        items.add(Settings.createKpiObject("", box.getLabel()));
+//                        items.add(Settings.getKPI("", box.getLabel()));
                     }
                 }
 

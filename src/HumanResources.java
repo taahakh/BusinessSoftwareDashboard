@@ -184,12 +184,12 @@ public class HumanResources extends Inventory implements Serializable {
     }
 
     @Override
-    String provideKeyMetric() {
+    public String provideKeyMetric() {
         return "Type: " + type +" \n" + super.provideKeyMetric();
     }
 
     @Override
-    Frame showKpi(boolean editable) {
+    public Frame showKpi(boolean editable) {
         KPIFrame f = (KPIFrame) super.showKpi(editable);
         f.setTitle(Conts.HUMAN_RESOURCES);
         if(editable) {

@@ -10,11 +10,17 @@ public class Analyst extends Employee{
         super(title, el, description);
     }
 
+
+    public Analyst(String title, String description) {
+        super(title, Conts.ANALYST, description);
+    }
+
     @Override
     void formLayout(Panel panel) {
         panel.add(viewFinances());
     }
 
+    // View finances of the business
     public Button viewFinances() {
         Finance type = new Finance("");
         for (Management m : Settings.getBusiness().getManagement()) {

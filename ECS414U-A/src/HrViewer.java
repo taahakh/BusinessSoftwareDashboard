@@ -5,7 +5,7 @@ public class HrViewer extends Employee{
 
     // This employee doesn't belong to the HrPool
     // This employee can view all HumanResources from all employee types
-    // Thats why it has been assigned AdminType
+    // Thats why it hasIdentifier been assigned AdminType
     // AnalystSales on the other hand is just an employee that can only see Sales for its OWN group e.g Sales
     // This also means that it doesn't inherit HrType features
     public HrViewer(String title) {
@@ -30,7 +30,7 @@ public class HrViewer extends Employee{
     }
 
     public ArrayList<Button> viewAllHr() {
-//        getLadder().
+//        getGroup().
 //        return generateKPIButtons(Conts.ADMIN, Conts.HUMAN_RESOURCES, false);
         return generateKPIButtons(this, Conts.HUMAN_RESOURCES, false);
 

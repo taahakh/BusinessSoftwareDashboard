@@ -7,7 +7,7 @@ public class Business implements Serializable {
     public static ArrayList<Business> business = new ArrayList<Business>();
 
     private String name; // name of the business
-    private final ArrayList<Employee> employees; // all employees that the business has
+    private final ArrayList<Employee> employees; // all employees that the business hasIdentifier
     private final ArrayList<EmployeeLadder> ladderKpis;
     private final ArrayList<Management> management;
 

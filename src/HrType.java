@@ -13,7 +13,7 @@ public class HrType extends KPIGroup {
 //    }
 
     @Override
-    boolean check(String kpi) {
+    public boolean check(String kpi) {
         return kpi.equals(Conts.MARKETING) || kpi.equals(Conts.HUMAN_RESOURCES);
     }
 }

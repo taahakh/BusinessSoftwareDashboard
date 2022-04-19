@@ -16,7 +16,7 @@ public class StandardType extends KPIGroup {
 //    }
 
     @Override
-    boolean check(String kpi) {
+    public boolean check(String kpi) {
         return true;
     }
 }

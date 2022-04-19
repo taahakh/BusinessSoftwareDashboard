@@ -2,19 +2,21 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+
 public abstract class Employee extends CompareRules implements Serializable {
 
     private Business business; // Which business they belong to. Each employee is tied to one business
-    private String title; // Job title
-    // Business position. Classes inherit KPIGroup and can access certain features regarding access to KPI's, creating/deleting users etc. At each rank, certain kpi's can be viewed and certain access rights can be shown
-    private KPIGroup rank;
+
+    private String title; // Job title. Assigned by the employee subclass
+    private KPIGroup group;
+
     private String description;
     private String username;
 
     public Employee() {}
 
     public Employee(KPIGroup type){
-        this.rank = type;
+        this.group = type;
     }
 
     public Employee(String title, KPIGroup type, String description){
@@ -30,9 +32,11 @@ public abstract class Employee extends CompareRules implements Serializable {
 
     private void assign(String title, KPIGroup type, String description) {
         this.title = title;
-        this.rank = type;
+        this.group = type;
         this.description = description;
     }
+
+    // --------------------------------------------------
 
     public String getTitle(){
         return this.title;
@@ -44,20 +48,35 @@ public abstract class Employee extends CompareRules implements Serializable {
 
     public void setBusiness(Business business) {
         this.business = business;
-        rank = business.assignType(rank);
+        group = business.assignType(group);
     }
 
     public Business getBusiness() {
         return business;
     }
 
-    public KPIGroup getLadder(){
-        return rank;
+    public KPIGroup getGroup(){
+        return group;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String description() {
+        return description;
+    }
+
+
+    // --------------------------------------------------
+
     public ArrayList<Button> showKPIButtons() {
-        if(rank.has(Identifier.VIEWER)){
-            if(rank.has(Identifier.EDITOR)){
+        if(group.hasIdentifier(Identifier.VIEWER)){
+            if(group.hasIdentifier(Identifier.EDITOR)){
                 return generateKPIButtons(true);
             }
             return generateKPIButtons(false);
@@ -67,48 +86,29 @@ public abstract class Employee extends CompareRules implements Serializable {
     }
 
     public Button showSettingsButton(){
-        return Operations.generateSettingsButton(rank.getAccess());
+        return Operations.generateSettingsButton(group.getAccess());
     }
 
-    public boolean hasIdentifier(Identifier iden) {
-        for (Identifier i : getIdentifiers()) {
-            if(iden == i){
-                return true;
-            }
-        }
+//    public boolean hasIdentifier(Identifier iden) {
+//        for (Identifier i : group.getAccess()) {
+//            if(iden == i){
+//                return true;
+//            }
+//        }
+//
+//        return false;
+//    }
 
-        return false;
-    }
-
-    private Identifier[] getIdentifiers() {
-        return rank.getAccess();
-    }
-
-    public String description() {
-        return description;
-    }
 
     public ArrayList<Button> generateKPIButtons(boolean editable) {
-        return Operations.generateKPIButtons(rank.getKpis(), editable);
+        return Operations.generateKPIButtons(group.getKpis(), editable);
     }
 
     public ArrayList<Button> generateKPIButtons(Employee e, String kpi, boolean editable) {
-//        return Operations.generateKPIButtons(business.getKPILadderList(e.getLadder()), kpi, editable);
-        return Operations.generateKPIButtons(e.getLadder().getKpis(), kpi, editable);
-
+        return Operations.generateKPIButtons(e.getGroup().getKpis(), kpi, editable);
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public boolean comparing(Object obj) {
-        return obj.getClass().equals(getClass());
-    }
+    // --------------------------------------------------
 
     abstract void formLayout(Panel panel);
 

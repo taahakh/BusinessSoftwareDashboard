@@ -28,7 +28,7 @@
 //
 //    public Button viewAnalysts() {
 //        Button b = new Button("View analysts");
-//        AnalystType at = (AnalystType) getLadder();
+//        AnalystType at = (AnalystType) getGroup();
 //        b.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
@@ -66,16 +66,6 @@ public class AnalystLeader extends Analyst {
         ), "More administrative control over the Analyst group. Have access to adding users, kpis etc");
     }
 
-//    @Override
-//    public boolean compare(Object obj) {
-//        return obj instanceof AnalystLeader;
-//    }
-
-//    @Override
-//    public boolean compare(Object obj) {
-//        return obj.getClass().equals(getClass());
-//    }
-
     @Override
     void formLayout(Panel panel) {
         super.formLayout(panel);
@@ -84,7 +74,7 @@ public class AnalystLeader extends Analyst {
 
     public Button viewAnalysts() {
         Button b = new Button("View analysts");
-        AnalystType at = (AnalystType) getLadder();
+        AnalystType at = (AnalystType) getGroup();
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

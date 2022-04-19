@@ -18,18 +18,10 @@ public class AdminType extends KPIGroup {
                 "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR","Has access to administrative permissions, all kpis and management tools");
     }
 
-//    @Override
-//    public boolean compare(Object obj) {
-//        return obj instanceof AdminType;
-//    }
 
-//    @Override
-//    public boolean compare(Object obj) {
-//        return obj.getClass().equals(AdminType.class);
-//    }
-
+    // No rules. Any KPI allowed
     @Override
-    boolean check(String kpi) {
+    public boolean check(String kpi) {
         return true;
     }
 

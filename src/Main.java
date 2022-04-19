@@ -7,6 +7,7 @@ public class Main {
 //        AnalystLeader al1 = new AnalystLeader("Hsaddsello");
 //        Analyst a = new Analyst("asdasd");
 //        System.out.println(al.comparing(a));
+//        Buttons ok = new
     }
 
 }

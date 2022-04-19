@@ -35,7 +35,7 @@ public class DashboardFrame extends Frame {
 //        layout.setLayout(new GridLayout(0,1));
         layout.setVisible(true);
 
-        area = new Label(em.getLadder().showInfoMetric());
+        area = new Label(em.getGroup().provideKeyMetric());
 
         System.out.println("Business list: " + Settings.getBusiness().getTotalKpis());
         System.out.println("Business name: "+ Settings.getBusiness().getName());
@@ -46,7 +46,7 @@ public class DashboardFrame extends Frame {
         System.out.println("-------------------");
 
         System.out.println("------------PERMISSIONS------------");
-        for (Identifier iden : Settings.getEmployee().getLadder().getAccess()) {
+        for (Identifier iden : Settings.getEmployee().getGroup().getAccess()) {
             System.out.print(iden +" ");
         }
         System.out.println("\n-----------------------------------");
@@ -60,9 +60,9 @@ public class DashboardFrame extends Frame {
         for(Button x: em.showKPIButtons()) {
             this.add(x);
         }
+        this.add(Operations.printDetails());
 
         em.formLayout(layout);
-
         this.add(logout);
         this.add(refresh);
 

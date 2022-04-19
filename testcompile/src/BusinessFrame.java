@@ -69,7 +69,7 @@ public class BusinessFrame extends Frame {
 //                            if(tf.getName().equals(kpiType)){
 //                                // if the name is not empty then we can add it
 //                                if(!(kpiName.isEmpty())){
-//                                    items.add(Settings.createKpiObject(kpiName, kpiType));
+//                                    items.add(Settings.getKPI(kpiName, kpiType));
 //                                } else {
 //                                    // boxes cannot be empty
 //                                    error.setText("The kpi name boxes cannot be empty");

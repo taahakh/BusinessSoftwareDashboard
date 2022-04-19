@@ -7,8 +7,8 @@ public class Settings {
     private static Employee employee;
     private static Business business;
 
-    private final static String EM_FILENAME = "em.obj";
-    private final static String BUS_FILENAME = "bus.obj";
+    public final static String EM_FILENAME = "em.obj";
+    public final static String BUS_FILENAME = "bus.obj";
     public  final static String USER_FILENAME = "user.obj";
 
 
@@ -37,7 +37,7 @@ public class Settings {
             Conts.ADMIN, Conts.ANALYST, Conts.HR, Conts.STANDARD
     };
 
-    public static KPI createKpiObject(String name, String type) {
+    public static KPI getKPI(String name, String type) {
         switch (type.toLowerCase()){
             case Conts.SALES:
                 return new Sales(name);
@@ -50,11 +50,11 @@ public class Settings {
             default:
                 break;
         }
-        throw new RuntimeException();
+        return null;
     }
 
     public static KPI getKPI(String type) {
-        return createKpiObject("", type);
+        return getKPI("", type);
     }
 
     public static Employee getEmployee(String type, String title) {

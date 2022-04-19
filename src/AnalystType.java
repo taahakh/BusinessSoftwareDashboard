@@ -22,13 +22,9 @@ public class AnalystType extends KPIGroup {
         super(access, DESC, METRIC);
     }
 
-//    @Override
-//    public boolean compare(Object obj) {
-//        return obj instanceof AnalystType;
-//    }
 
     @Override
-    boolean check(String kpi) {
+    public boolean check(String kpi) {
         return kpi.equals(Conts.MARKETING) || kpi.equals(Conts.SALES) || kpi.equals(Conts.INVENTORY);
     }
 

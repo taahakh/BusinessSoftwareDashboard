@@ -67,7 +67,7 @@ public class Sales extends KPI implements Serializable {
     }
 
     @Override
-    String provideKeyMetric() {
+    public String provideKeyMetric() {
         return "Name: " + getIndicatorName() + "\n" +
                 "Sales: " + sales + "\n" +
                 "Remaining units: " + unitsRemaining;

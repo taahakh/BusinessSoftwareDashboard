@@ -93,7 +93,7 @@ public class Marketing extends KPI implements Serializable {
                 x = Integer.parseInt(val);
                 y = Integer.parseInt(set.get(d));
             } catch (NumberFormatException e){
-                success.setText("There has been a conversion error");
+                success.setText("There hasIdentifier been a conversion error");
                 return;
             }
 
@@ -110,7 +110,7 @@ public class Marketing extends KPI implements Serializable {
     }
 
     @Override
-    String provideKeyMetric() {
+    public String provideKeyMetric() {
         return getIndicatorName() + "\n\nim: " + generatePKM(IMPRESSIONS) + "\n re: " + generatePKM(REACH);
     }
 

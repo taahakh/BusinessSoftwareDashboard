@@ -4,7 +4,11 @@ import java.awt.event.ActionListener;
 import java.io.Serializable;
 import java.util.HashMap;
 
-public abstract class KPI extends CompareRules implements Serializable {
+/*
+* Basic KPI template for sales, inventory etc..
+*/
+
+public abstract class KPI extends CompareRules implements Serializable, KPIRules {
 
     private final TextArea VISUAL = new TextArea();
     private final String CLASSNAME;
@@ -26,13 +30,15 @@ public abstract class KPI extends CompareRules implements Serializable {
         return this.CLASSNAME;
     }
 
+    public TextArea getVisual() {
+        return VISUAL;
+    }
+
     public String description() {
         return description;
     }
 
-    public TextArea getVisual() {
-        return VISUAL;
-    }
+    // ---------------------------------------------
 
     public Button viewPKM(String name) {
         Button p = new Button(name);
@@ -45,6 +51,7 @@ public abstract class KPI extends CompareRules implements Serializable {
         return p;
     }
 
+    // Generates and formats data from HashMap
     public <E, T> StringBuilder generatePKM (HashMap<E, T> set) {
         StringBuilder text = new StringBuilder();
         for (E item : set.keySet()){
@@ -53,6 +60,8 @@ public abstract class KPI extends CompareRules implements Serializable {
         return text;
     }
 
+    // Multiple subclasses deal with integers so this method handles any exceptions
+    // it works by returning if there was an exception or not
     public boolean handleNumberException(String val, Label success) {
         try {
             Integer.parseInt(val);
@@ -63,7 +72,9 @@ public abstract class KPI extends CompareRules implements Serializable {
         }
     }
 
-    abstract String provideKeyMetric();
+//    abstract String provideKeyMetric();
+
+    // ---------------------------------------------
 
     abstract Frame showKpi(boolean editable);
 

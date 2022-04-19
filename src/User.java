@@ -1,6 +1,12 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/*
+* Basic template for Users
+* Stores employees and credentials
+* NOTE: This model allows it so that you can be multiple employees to multiple businesses or in fact the same business
+* */
+
 public final class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -21,9 +27,23 @@ public final class User implements Serializable {
         return this.password.equals(password);
     }
 
+    public String getUsername(){
+        return this.username;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
     public ArrayList<Employee> getEmployee() {
         return employee;
     }
+
+    // -------------------------------------
 
     public Employee removeEmployeeWithBusiness(Business bus) {
         Employee temp = null;
@@ -39,22 +59,13 @@ public final class User implements Serializable {
 //        throw new RuntimeException();
     }
 
-    public String getUsername(){
-        return this.username;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
     public void addEmployee(Employee employee){
         this.employee.add(employee);
     }
 
+    // We check the employee type and the business name
+    // You can be multiple different employee types for the same business as well
+    // This makes sure that we are not adding the same employee type in the same business
     public boolean addEmployeeSafely(Employee em, String businessName){
         for(Employee x: employee) {
             if(x.compare(em) && x.getBusiness().getName().equals(businessName)){

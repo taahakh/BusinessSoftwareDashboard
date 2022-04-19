@@ -58,54 +58,10 @@ public class BusinessFrame extends Frame {
 
                 ArrayList<KPI> items = new ArrayList<KPI>();
 
-//                for(Checkbox box: boxes){
-//                    // Looking for selected boxed
-//                    if(box.getState()){
-//                        // checking for fields
-//                        for(TextField tf : fields){
-//                            // if the fields name is related to the box
-//                            String kpiName = tf.getText();
-//                            String kpiType = box.getLabel();
-//                            if(tf.getName().equals(kpiType)){
-//                                // if the name is not empty then we can add it
-//                                if(!(kpiName.isEmpty())){
-//                                    items.add(Settings.createKpiObject(kpiName, kpiType));
-//                                } else {
-//                                    // boxes cannot be empty
-//                                    error.setText("The kpi name boxes cannot be empty");
-//                                    return;
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-
                 if(!(addKPIs(boxes, fields, items, error))){
                     return;
                 }
 
-//                User usr = Login.getLoggedIn();
-//
-//                // Lets create the business first
-//                Business b = Business.createBusiness(name);
-//                // Lets create the new Employee of type Admin
-//                Admin a = new Admin(name);
-//                // Set title for Admin
-//                a.setTitle(Conts.ADMIN);
-//                // He himself is an employee of the business so we add him to the business
-//                b.addEmployee(a);
-//                // Lets link the type of admin to the list of KPI's
-////                b.linkLadderList(new AdminType(), items);
-//                b.linkLadderList(Conts.ADMIN, items);
-//                // Lets add business to admin
-//                a.setBusiness(b);
-//                // Lets now link the employee to the user
-//                usr.addEmployee(a);
-//
-//
-//                Settings.setEmployee(a); // Setting global variables
-//                Settings.setBusiness(b);
-//                Settings.save();
 
                 createAccount(name, items);
                 closeFrame();
@@ -138,7 +94,7 @@ public class BusinessFrame extends Frame {
                     if(tf.getName().equals(kpiType)){
                         // if the name is not empty then we can add it
                         if(!(kpiName.isEmpty())){
-                            items.add(Settings.createKpiObject(kpiName, kpiType));
+                            items.add(Settings.getKPI(kpiName, kpiType));
                         } else {
                             // boxes cannot be empty
                             error.setText("The kpi name boxes cannot be empty");

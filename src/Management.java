@@ -3,6 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 
+/*
+* Management Indicators. Similar to KPI's but they are heavily stripped down version
+* */
+
 public abstract class Management extends CompareRules implements Serializable {
     private final String name;
 
@@ -10,6 +14,7 @@ public abstract class Management extends CompareRules implements Serializable {
         this.name = name;
     }
 
+    // Button than summons frame
     public Button viewWindow() {
         Button b = new Button(name);
         b.addActionListener(new ActionListener() {
@@ -25,5 +30,5 @@ public abstract class Management extends CompareRules implements Serializable {
         return name;
     }
 
-    abstract MangementFrame window();
+    abstract Frame window();
 }

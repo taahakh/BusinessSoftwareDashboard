@@ -5,18 +5,8 @@ import java.awt.event.ActionListener;
 public class Admin extends Employee{
 
     public Admin(String title){
-        super(title, new AdminType(), "Complete access over the business and has access to all KPIs and Operations");
+        super(title, new AdminType(), "Complete access over the business and hasIdentifier access to all KPIs and Operations");
     }
-
-//    @Override
-//    public boolean compare(Object obj) {
-//        return obj instanceof Admin;
-//    }
-
-//    @Override
-//    public boolean compare(Object obj) {
-//        return obj.getClass().equals(Admin.class);
-//    }
 
     @Override
     void formLayout(Panel panel) {
@@ -42,15 +32,16 @@ public class Admin extends Employee{
     }
 
 
+    // Prints who belong to which group
     private String kpiGroups() {
         Business b = Settings.getBusiness();
         StringBuilder items = new StringBuilder();
         for (String ranks : Settings.getAvailableRanks()) {
-            KPIGroup el = Settings.getType(ranks);
-            if(el != null) {
+            KPIGroup group = Settings.getType(ranks);
+            if(group != null) {
                 items.append(ranks).append("\n");
                 for (Employee e : b.getEmployees()) {
-                    if(e.getLadder().compare(el)){
+                    if(e.getGroup().compare(group)){
                         items.append("--->").append(e.getUsername()).append("\n");
                     }
                 }
@@ -69,4 +60,5 @@ public class Admin extends Employee{
         }
         return items.toString();
     }
+
 }

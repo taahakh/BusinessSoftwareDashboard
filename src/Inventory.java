@@ -112,7 +112,7 @@ public class Inventory extends KPI implements Serializable {
     }
 
     @Override
-    String provideKeyMetric() {
+    public String provideKeyMetric() {
         return "Items -> \n" + generatePKM(ITEMS).toString();
     }
 

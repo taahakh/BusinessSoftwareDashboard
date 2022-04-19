@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 public class Admin extends Employee{
 
     public Admin(String title){
-        super(title, new AdminType(), "Complete access over the business and has access to all KPIs and Operations");
+        super(title, new AdminType(), "Complete access over the business and hasIdentifier access to all KPIs and Operations");
     }
 
     @Override
