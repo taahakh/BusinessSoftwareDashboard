@@ -35,7 +35,6 @@ public class LoginFrame extends Frame {
                     if(!Login.authenticate(username, password)){
                         notif.setText("Username/Password is wrong");
                     } else {
-                        System.out.println(Login.getLoggedIn().getUsername());
                         createPopup();
                     }
                 }
@@ -110,7 +109,6 @@ public class LoginFrame extends Frame {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String employee = ((Button) e.getSource()).getName();
-                    int pointer = Integer.parseInt(employee);
                     Settings.setEmployee(emp);
                     Settings.setBusiness(empBusiness);
                     isClosed = true;

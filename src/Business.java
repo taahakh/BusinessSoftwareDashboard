@@ -111,7 +111,6 @@ public class Business implements Serializable {
         // Linking employee rank with KPI
         if(hasLadderLink(group)) {
             if(!(appendKPI(new AdminType(), k))){
-                System.out.println("repat");
                 return;
             }
             appendKPI(group,k);

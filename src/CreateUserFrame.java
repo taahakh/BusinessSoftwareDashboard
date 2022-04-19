@@ -41,7 +41,6 @@ public class CreateUserFrame extends Frame {
                 } else {
                     if(Login.createUserInterface(username, password, n)){
                         closeFrame();
-                        System.out.println("Successfukl");
                         Popup p = new Popup();
                         p.setTitle("User created successfully");
                         p.add(business);

@@ -135,7 +135,7 @@ public class Login {
             os.close();
             fs.close();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e);
+
         }
 
         return obj;

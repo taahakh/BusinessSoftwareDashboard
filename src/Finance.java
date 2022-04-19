@@ -18,7 +18,6 @@ public class Finance extends Management{
 
     @Override
     ManagementFrame window() {
-        System.out.println(300/3);
         ManagementFrame mf = new ManagementFrame();
         mf.add(template("Withdraw","Enter value to withdraw from account", true));
         mf.add(template("Deposit","Enter value to deposit from account", false));

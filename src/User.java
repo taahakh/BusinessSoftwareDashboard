@@ -49,7 +49,6 @@ public final class User implements Serializable {
         Employee temp = null;
         for(Employee emp: employee){
             if(emp.getBusiness().getName().equals(bus.getName())){
-                System.out.println("remove success");
                 temp = emp;
                 employee.remove(emp);
                 return temp;
