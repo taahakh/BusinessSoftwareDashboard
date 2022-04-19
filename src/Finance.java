@@ -4,8 +4,9 @@ import java.awt.event.ActionListener;
 
 public class Finance extends Management{
 
+    private final int AVERAGE = 3;
     private int amount;
-    private final int[] track = new int[3];
+    private final int[] track = new int[AVERAGE];
     private int pointer;
     private boolean ready;
 
@@ -16,9 +17,9 @@ public class Finance extends Management{
     }
 
     @Override
-    MangementFrame window() {
+    ManagementFrame window() {
         System.out.println(300/3);
-        MangementFrame mf = new MangementFrame();
+        ManagementFrame mf = new ManagementFrame();
         mf.add(template("Withdraw","Enter value to withdraw from account", true));
         mf.add(template("Deposit","Enter value to deposit from account", false));
         mf.add(showMovingAverage());

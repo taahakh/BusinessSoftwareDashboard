@@ -3,6 +3,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.Serializable;
 
+/*
+* Track sales
+* */
+
 public class Sales extends KPI implements Serializable {
 
     private int sales;
@@ -78,7 +82,7 @@ public class Sales extends KPI implements Serializable {
 
         KPIFrame frame = new KPIFrame(provideKeyMetric(), getVisual());
         frame.setTitle(Conts.SALES);
-        frame.addButton(viewPKM("view KPM"));
+        frame.addButton(viewPKM());
         if(editable) {
             frame.addButton(create(Method.ADD, "Set sales", "Enter value to set sales", true));
             frame.addButton(create(Method.UPDATE, "update sales", "Enter value to set sales", true));

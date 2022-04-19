@@ -139,9 +139,6 @@ public class Business implements Serializable {
 
     private boolean append(ArrayList<KPI> list, KPI k) {
         for (KPI kpi: list) {
-//            if(x.getIndicatorName().equals(k.getIndicatorName()) && x.getClassName().equals(k.getClassName())){
-//                return false;
-//            }
             if(kpi.getIndicatorName().equals(k.getIndicatorName()) && kpi.compare(k)){
                 return false;
             }
@@ -149,21 +146,6 @@ public class Business implements Serializable {
         list.add(k);
         return true;
     }
-
-    public void printLinks() {
-        for(KPIGroup x: groups){
-            System.out.println("Ladder: " + x + " List: " + x.getKpis());
-        }
-    }
-
-//    public ArrayList<KPI> returnLadderKPI(KPIGroup ladder) {
-//        for (KPIGroup e : ladderKpis) {
-//            if(e.compare(ladder)){
-//                return e.getKpis();
-//            }
-//        }
-//        return null;
-//    }
 
     public ArrayList<KPI> returnLadderKPI(String item) {
         KPIGroup group = Settings.getType(item);
@@ -177,10 +159,8 @@ public class Business implements Serializable {
 
     public boolean removeKPI(String kpi, String kpiName) {
         KPI temp = null;
-//        ArrayList<KPI> list = returnLadderKPI(new AdminType());
         ArrayList<KPI> list = returnLadderKPI(Conts.ADMIN);
         for (KPI k : list) {
-//            if(k.getIndicatorName().equals(kpiName) && k.getClassName().equals(kpi)){
             if(k.getIndicatorName().equals(kpiName) && k.compare(kpi)){
                 temp = k;
                 list.remove(k);
@@ -196,8 +176,6 @@ public class Business implements Serializable {
         for (KPIGroup group : groups){
             group.getKpis().remove(temp);
         }
-
-        printLinks();
 
         Settings.save();
 

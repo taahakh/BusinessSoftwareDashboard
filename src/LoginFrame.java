@@ -4,12 +4,7 @@ import java.util.ArrayList;
 
 public class LoginFrame extends Frame {
 
-//    private void closeCurrentFrame() {
-//        this.dispose();
-//    }
-
     private boolean isClosed = false;
-
 
     public LoginFrame(){
         Panel layout = Panels.basicPanel();
@@ -75,7 +70,6 @@ public class LoginFrame extends Frame {
         User user = Login.getLoggedIn();
         if(user.getEmployee().size() == 0) {
             showNoEmployee();
-//            System.out.println(user.getEmployee());
         } else {
             Popup p = showEmployee(user.getEmployee());
             p.addWindowListener(new WindowAdapter() {
@@ -100,6 +94,7 @@ public class LoginFrame extends Frame {
         p.launch();
     }
 
+    // If you are linked to a business
     public Popup showEmployee(ArrayList<Employee> em) {
         Popup p = new Popup();
         p.setTitle("Select business");
@@ -116,9 +111,6 @@ public class LoginFrame extends Frame {
                 public void actionPerformed(ActionEvent e) {
                     String employee = ((Button) e.getSource()).getName();
                     int pointer = Integer.parseInt(employee);
-                    Employee emp = em.get(pointer);
-//                            System.out.println("x stat:" + emp);
-//                            System.out.println("x-bus stat:" + emp.getBusiness());
                     Settings.setEmployee(emp);
                     Settings.setBusiness(empBusiness);
                     isClosed = true;

@@ -4,13 +4,8 @@ public class HrType extends KPIGroup {
         super(new Identifier[]{
                 Identifier.VIEWER,
                 Identifier.EDITOR,
-        }, "description", "You can only add marketing and human resources to this group");
+        }, "HumanResources group. Access Hr kpis", "You can only add marketing and human resources to this group");
     }
-
-//    @Override
-//    public boolean compare(Object obj) {
-//        return obj instanceof HrType;
-//    }
 
     @Override
     public boolean check(String kpi) {

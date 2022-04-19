@@ -5,7 +5,6 @@ public class Login {
 
     private static User loggedIn;
     private static ArrayList<User> users = new ArrayList<>(3);
-//    private final static String fileLocation = "/Users/taaha/Documents/savedata/";
     private final static String fileLocation = "./savedata/";
 
     public static ArrayList<User> userList(){
@@ -44,9 +43,9 @@ public class Login {
             return false;
         }
 
-        for(User x: users){
-            if(x.getUsername().equals(username) && x.confirmPassword(password)){
-                setLoggedIn(x);
+        for(User usr: users){
+            if(usr.getUsername().equals(username) && x.confirmPassword(password)){
+                setLoggedIn(usr);
                 return true;
             }
         }
@@ -59,8 +58,8 @@ public class Login {
     }
 
     public static boolean checkUserExists(String username){
-        for(User x: users){
-            if(x.getUsername().equals(username)){
+        for(User usr: users){
+            if(usr.getUsername().equals(username)){
                 return true;
             }
         }
@@ -72,6 +71,7 @@ public class Login {
         userSave();
     }
 
+    // Creating user and setting variables up
     public static boolean createUserInterface(String username, String password, String name){
         try {
             readUserObject();

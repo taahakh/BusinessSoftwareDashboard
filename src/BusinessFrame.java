@@ -3,8 +3,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/*
+* This frame is where you decide which kpis to add and the name of the business
+* */
+
 public class BusinessFrame extends Frame {
 
+    // NOTE: This is an exact copy of the method in CreateUserFrame.
     public void closeFrame(){
         this.dispose();
     }

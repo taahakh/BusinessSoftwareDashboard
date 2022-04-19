@@ -1,3 +1,6 @@
+/*
+* Note we cannot minimise copied string text
+* */
 public class AdminType extends KPIGroup {
 
     public AdminType(){
@@ -9,13 +12,12 @@ public class AdminType extends KPIGroup {
                 Identifier.EDITOR,
         },
                 "Has access to administrative permissions, all kpis and management tools",
-                "this is admin type"
+                "You have access to ADMIN, USER, ROLE features"
                 );
     }
 
     public AdminType(Identifier[] iden) {
-        super(iden,"Type: ADMIN\n" +
-                "Access Rights: ADMIN, USER, ROLE, VIEWER, EDITOR","Has access to administrative permissions, all kpis and management tools");
+        super(iden,"Has access to administrative permissions, all kpis and management tools","You have access to ADMIN, USER, ROLE features");
     }
 
 

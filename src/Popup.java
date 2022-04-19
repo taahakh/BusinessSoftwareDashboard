@@ -2,6 +2,10 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/*
+* Simple Popup Frame
+* */
+
 public class Popup extends Frame {
     public Popup() {
         this.setLayout(new GridLayout(1,2));

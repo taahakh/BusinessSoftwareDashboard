@@ -76,12 +76,6 @@ public class Inventory extends KPI implements Serializable {
 
     private void update(String item, String value, Label success, Popup p) {
         int val;
-//        try {
-//            val = Integer.parseInt(value);
-//        } catch (NumberFormatException ignored){
-//            success.setText("Couldn't parse integer");
-//            return;
-//        }
         if(handleNumberException(value, success)){
             val = Integer.parseInt(value);
         } else {
@@ -121,7 +115,7 @@ public class Inventory extends KPI implements Serializable {
 
         KPIFrame f = new KPIFrame(provideKeyMetric(), getVisual());
         f.setTitle(Conts.INVENTORY);
-        f.addButton(viewPKM("view key metrics"));
+        f.addButton(viewPKM());
         if(editable) {
             f.addButton(create(Method.ADD, "Add item", "Enter the item you want to enter and number of item"));
             f.addButton(create(Method.UPDATE, "Update item",  "Enter the item and the corresponding value that you want to update"));
@@ -130,14 +124,6 @@ public class Inventory extends KPI implements Serializable {
         return f;
     }
 
-
-//    @Override
-//    public boolean compare(Object obj) {
-//        if(obj instanceof String){
-//            return obj.equals(Conts.INVENTORY);
-//        }
-//        return false;
-//    }
 
 
 }

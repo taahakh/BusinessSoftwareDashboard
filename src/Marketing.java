@@ -120,26 +120,19 @@ public class Marketing extends KPI implements Serializable {
         final String ADD = "Enter date (format: dd-MM-yyyy) and value";
         final String REMOVE = "Enter date to remove";
         final String UPDATE = "Enter date and value to update";
-        KPIFrame f = new KPIFrame(provideKeyMetric(), getVisual());
-        f.setTitle(Conts.MARKETING);
-        f.addButton(viewPKM("View key metrics"));
+        KPIFrame frame = new KPIFrame(provideKeyMetric(), getVisual());
+        frame.setTitle(Conts.MARKETING);
+        frame.addButton(viewPKM());
         if(editable) {
-            f.addButton(create(Method.ADD, "add Impressions", ADD, IMPRESSIONS));
-            f.addButton(create(Method.ADD,"add reach", ADD, REACH));
-            f.addButton(create(Method.REMOVE,"remove reach", REMOVE, REACH));
-            f.addButton(create(Method.REMOVE,"remove impressions", REMOVE, IMPRESSIONS));
-            f.addButton(create(Method.UPDATE,"update reach", UPDATE, REACH));
-            f.addButton(create(Method.UPDATE,"update impressions", UPDATE, IMPRESSIONS));
+            frame.addButton(create(Method.ADD, "add Impressions", ADD, IMPRESSIONS));
+            frame.addButton(create(Method.ADD,"add reach", ADD, REACH));
+            frame.addButton(create(Method.REMOVE,"remove reach", REMOVE, REACH));
+            frame.addButton(create(Method.REMOVE,"remove impressions", REMOVE, IMPRESSIONS));
+            frame.addButton(create(Method.UPDATE,"update reach", UPDATE, REACH));
+            frame.addButton(create(Method.UPDATE,"update impressions", UPDATE, IMPRESSIONS));
 
         }
-        return f;
+        return frame;
     }
 
-//    @Override
-//    public boolean compare(Object obj) {
-//        if(obj instanceof String){
-//            return obj.equals(Conts.MARKETING);
-//        }
-//        return false;
-//    }
 }

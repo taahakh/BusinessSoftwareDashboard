@@ -1,5 +1,9 @@
 import java.awt.*;
 
+/*
+* Frames for the KPIs
+* */
+
 public class KPIFrame extends Frame {
 
     private Panel buttons;

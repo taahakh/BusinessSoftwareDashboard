@@ -1,5 +1,9 @@
 import java.awt.*;
 
+/*
+* Quickly instantiate Panls and Frames
+* */
+
 public class Panels {
     public static Panel basicPanel() {
         Panel layout = new Panel();

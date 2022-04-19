@@ -79,9 +79,9 @@ public final class User implements Serializable {
     }
 
     public Boolean deleteEmployee(Business b) {
-        for(Employee e: employee){
-            if(e.getBusiness().equals(b)){
-                return employee.remove(e);
+        for(Employee em: employee){
+            if(em.getBusiness().equals(b)){
+                return employee.remove(em);
             }
         }
         return false;

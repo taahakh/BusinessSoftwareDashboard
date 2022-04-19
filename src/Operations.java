@@ -47,7 +47,6 @@ public class Operations {
                 // Linking business with employee
                 b.addEmployee(newEmployee);
                 Settings.save();
-//                usr.saveUser();
                 return true;
             }
         }
@@ -86,9 +85,6 @@ public class Operations {
     public static ArrayList<Button> generateKPIButtons(ArrayList<KPI> kpis, String kpi, boolean editable) {
         ArrayList<Button> buttons = new ArrayList<>();
         for(KPI k : kpis){
-//            if (k.compare(kpi)){
-//                buttons.add(generateKPIButton(k, editable));
-//            }
             if (k.compare(Settings.getKPI(kpi))){
                 buttons.add(generateKPIButton(k, editable));
             }
@@ -154,7 +150,6 @@ public class Operations {
         }
 
         b.addKpiToList(group, Settings.getKPI(kpiName, kpi));
-        b.printLinks();
         return true;
     }
 
@@ -210,7 +205,6 @@ public class Operations {
         p.add(new Label("However, with the naming conventions, it semantically means they belong to each other"));
         p.add(new Label("You can only add roles to the group you are linked to. e.g analystleader linked to analyst"));
         p.add(new Label("If you are linked to admin, you can add to any of these groups but KPI adding rules still apply"));
-        p.add(new Label("KPIs of the same class cannot have the same name but the same name can exist for different KPIs"));
         p.add(new Label("KPIs of the same class cannot have the same name but the same name can exist for different KPIs"));
         p.add(new Label());
         p.add(new Label("Copy the role type"));

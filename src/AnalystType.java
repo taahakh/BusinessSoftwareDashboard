@@ -1,11 +1,11 @@
+/*
+* Note that we cannot minimise the 4 text strings
+* */
 public class AnalystType extends KPIGroup {
 
     private final String[] links = {
             Conts.ANALYST, Conts.ANALYST_LEADER, Conts.ANALYST_SALES
     };
-
-    private static final String DESC = "You can only add Sales and Inventory to the analyst group";
-    private static final String METRIC = "Contains KPI types for Analysts";
 
     public AnalystType() {
         super(
@@ -13,13 +13,13 @@ public class AnalystType extends KPIGroup {
                         Identifier.VIEWER,
                         Identifier.EDITOR
                 },
-                DESC,
-                METRIC
+                "You can only add Sales and Inventory to the analyst group",
+                "Contains KPI types for Analysts"
         );
     }
 
     public AnalystType(Identifier[] access) {
-        super(access, DESC, METRIC);
+        super(access, "You can only add Sales and Inventory to the analyst group", "Contains KPI types for Analysts");
     }
 
 

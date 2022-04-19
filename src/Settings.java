@@ -1,7 +1,11 @@
 /* Tracks all the global variables for the user, business and employee class
+*  Four important (Employee, Business, User, Userlist) static variables have been used within the programs lifecycle to carry out functions
+*  These could have been encapsulated and been taken around within the program but then its becomes messy and hard to move these variables
+*  The rest of the globals are String CONSTANTS that are used throughout the program
 *  These methods automatically generate KPI's, employees etc. It is up to the
-*  developer to add their inclusion of their types of KPI's, employees etc.
+*  developer to add their inclusion of their types of KPI's, employees etc and update it here
 * */
+
 public class Settings {
 
     private static Employee employee;

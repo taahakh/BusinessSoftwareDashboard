@@ -40,8 +40,8 @@ public abstract class KPI extends Rules implements Serializable, KPIRules {
 
     // ---------------------------------------------
 
-    public Button viewPKM(String name) {
-        Button p = new Button(name);
+    public Button viewPKM() {
+        Button p = new Button("View Key Metrics");
         p.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

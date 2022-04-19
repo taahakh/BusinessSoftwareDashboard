@@ -36,10 +36,6 @@ public abstract class KPIGroup extends Rules implements Serializable, KPIRules {
         return DESCRIPTION;
     }
 
-//    public String showInfoMetric(){
-//        return METRIC;
-//    }
-
     public String provideKeyMetric(){
         return METRIC;
     }

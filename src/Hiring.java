@@ -12,14 +12,9 @@ public class Hiring extends Management {
         this.list = new ArrayList<>();
     }
 
-//    @Override
-//    public boolean compare(Object obj) {
-//        return obj instanceof Hiring;
-//    }
-
     @Override
-    MangementFrame window() {
-        MangementFrame mf = new MangementFrame();
+    ManagementFrame window() {
+        ManagementFrame mf = new ManagementFrame();
 
         TextArea tf = new TextArea(viewList());
         tf.setEditable(false);

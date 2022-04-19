@@ -30,6 +30,7 @@ public abstract class Employee extends Rules implements Serializable {
         }
     }
 
+    // For constructor use
     private void assign(String title, KPIGroup type, String description) {
         this.title = title;
         this.group = type;
@@ -88,16 +89,6 @@ public abstract class Employee extends Rules implements Serializable {
     public Button showSettingsButton(){
         return Operations.generateSettingsButton(group.getAccess());
     }
-
-//    public boolean hasIdentifier(Identifier iden) {
-//        for (Identifier i : group.getAccess()) {
-//            if(iden == i){
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
 
 
     public ArrayList<Button> generateKPIButtons(boolean editable) {

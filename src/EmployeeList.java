@@ -15,8 +15,8 @@ public class EmployeeList extends Hiring {
     }
 
     @Override
-    MangementFrame window() {
-        MangementFrame mf = new MangementFrame();
+    ManagementFrame window() {
+        ManagementFrame mf = new ManagementFrame();
         mf.add(visual);
         viewEmployeeList();
 

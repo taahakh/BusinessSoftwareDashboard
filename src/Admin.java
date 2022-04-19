@@ -21,11 +21,11 @@ public class Admin extends Employee{
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Popup p = new Popup();
+                Popup popup = new Popup();
                 TextArea area = new TextArea(val);
                 area.setEditable(false);
-                p.add(area);
-                p.launch();
+                popup.add(area);
+                popup.launch();
             }
         });
         return b;

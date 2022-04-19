@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 public class AnalystSales extends Analyst {
 
-    private final String description = "View all sales kpi's that belong to the analyst group";
-
     public AnalystSales(String title) {
         super(title,"View all sales kpi's that belong to the analyst group");
     }
@@ -27,7 +25,7 @@ public class AnalystSales extends Analyst {
             }
         });
         panel.add(b);
-        panel.add(new Label(description));
+        panel.add(new Label("View all sales kpi's that belong to the analyst group"));
     }
 
     public int printTotalSales() {

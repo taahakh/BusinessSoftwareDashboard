@@ -1,3 +1,7 @@
+/*
+* No rules define what KPI type can go through
+* */
+
 public class StandardType extends KPIGroup {
 
     public StandardType(){
@@ -9,11 +13,6 @@ public class StandardType extends KPIGroup {
                 "Standard type"
         );
     }
-
-//    @Override
-//    public boolean compare(Object obj) {
-//        return obj instanceof StandardType;
-//    }
 
     @Override
     public boolean check(String kpi) {

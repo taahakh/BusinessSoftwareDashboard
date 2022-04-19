@@ -1,5 +1,9 @@
 import java.awt.*;
 
+/*
+* Simple class that has no special rules or features
+* */
+
 public class Standard extends Employee{
 
     public Standard(String title) {

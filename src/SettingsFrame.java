@@ -2,6 +2,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+* Frame for the Settings panel for the program
+* Features for ADMIN, ROLE, USERS
+* */
+
 public class SettingsFrame extends Frame {
 
     private final Dimension textFieldDimensions = new Dimension(100, 30);
@@ -77,16 +82,13 @@ public class SettingsFrame extends Frame {
         Button addB;
 
         add = new Label("Add user to business");
-//        remove = new Label("Remove user from business");
         type = new Label("Enter user type");
         success = new Label("");
 
         addTF = new TextField();
-//        removeTF = new TextField();
         typeTF = new TextField();
 
         addB = new Button("Add user");
-//        removeB = new Button("Remove user");
 
         addB.addActionListener(new ActionListener() {
             @Override
@@ -105,19 +107,7 @@ public class SettingsFrame extends Frame {
             }
         });
 
-//        removeB.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (Operations.removeUser(removeTF.getText())) {
-//                    success.setText("Remove successful");
-//                } else {
-//                    success.setText("Remove failed :(");
-//                }
-//            }
-//        });
-
         addTF.setPreferredSize(textFieldDimensions);
-//        removeTF.setPreferredSize(textFieldDimensions);
         typeTF.setPreferredSize(textFieldDimensions);
 
         p.add(add);
@@ -125,9 +115,6 @@ public class SettingsFrame extends Frame {
         p.add(type);
         p.add(typeTF);
         p.add(addB);
-//        p.add(remove);
-//        p.add(removeTF);
-//        p.add(removeB);
         p.add(Operations.displayEmployeeTypes());
         p.add(success);
 
@@ -216,7 +203,6 @@ public class SettingsFrame extends Frame {
         p.add(kpiName);
         p.add(kpiNameTF);
         p.add(submit);
-//        p.add(removeKpiPanel(success));
         p.add(Operations.displayEmployeeRank());
         p.add(Operations.displayKPIs());
         p.add(success);
@@ -291,7 +277,6 @@ public class SettingsFrame extends Frame {
         p.add(desc);
         p.add(name);
         p.add(submit);
-//        p.add(success);
 
         return p;
     }
