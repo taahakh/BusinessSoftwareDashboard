@@ -1,4 +1,8 @@
-public class AnalystLeader extends Employee {
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class AnalystLeader extends Analyst {
 
     public AnalystLeader(String title){
         super(title, new AnalystType(
@@ -8,25 +12,34 @@ public class AnalystLeader extends Employee {
                         Identifier.ROLE,
                         Identifier.USER
                 }
-        ));
+
+        ), "More administrative control over the Analyst group. Have access to adding users, kpis etc");
     }
 
     @Override
-    boolean compareTo(Object obj) {
-        if(obj instanceof AnalystLeader) {
-            return true;
-        }
-        return false;
+    void formLayout(Panel panel) {
+        super.formLayout(panel);
+        panel.add(viewAnalysts());
     }
 
-    @Override
-    String whatType() {
-        return "analystleader";
-    }
+    public Button viewAnalysts() {
+        Button b = new Button("View analysts");
+        AnalystType at = (AnalystType) getGroup();
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Popup p = new Popup();
+                StringBuilder items = new StringBuilder();
+                for (String item : at.getLinks()) {
+                    items.append(Operations.viewEmployees(item)).append("\n");
+                }
+                TextArea ta = new TextArea(items.toString());
+                ta.setEditable(false);
+                p.add(ta);
+                p.launch();
+            }
+        });
 
-    @Override
-    String whatRank() {
-        return "analyst";
+        return b;
     }
-
 }

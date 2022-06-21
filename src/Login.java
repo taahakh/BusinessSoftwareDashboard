@@ -1,32 +1,23 @@
 import java.io.*;
 import java.util.ArrayList;
 
-class LoginExceptions extends RuntimeException {
-    public LoginExceptions(String msg) {
-        super(msg);
-    }
-}
-
 public class Login {
 
     private static User loggedIn;
-
-    private static ArrayList<User> users = new ArrayList<User>(3);
-
-    private final static String fileLocation = "/Users/taaha/Documents/savedata/";
+    private static ArrayList<User> users = new ArrayList<>(3);
+    private final static String fileLocation = "./savedata/";
 
     public static ArrayList<User> userList(){
         return users;
     }
 
     public static User getUser(String username) {
-        User temp = null;
         for (User usr: users) {
             if(usr.getUsername().equals(username)){
                 return usr;
             }
         }
-        return temp;
+        return null;
     }
 
     private static ArrayList<User> readUserObject() throws IOException {
@@ -38,13 +29,9 @@ public class Login {
         }
 
         if(users.size() == 0){
-            ArrayList<User> usr = (ArrayList<User>) loadObject(Settings.USER_FILENAME);
-            users = usr;
+            users = (ArrayList<User>) loadObject(Settings.USER_FILENAME);
         }
 
-        for (User x:  users){
-            System.out.println(x.getUsername());
-        }
         return users;
     }
 
@@ -52,13 +39,13 @@ public class Login {
 
         try {
             users = readUserObject();
-        }catch (IOException e) {
-            System.out.println(e);
+        } catch (IOException e) {
+            return false;
         }
 
-        for(User x: users){
-            if(x.getUsername().equals(username) && x.confirmPassword(password)){
-                setLoggedIn(x);
+        for(User usr: users){
+            if(usr.getUsername().equals(username) && usr.confirmPassword(password)){
+                setLoggedIn(usr);
                 return true;
             }
         }
@@ -70,24 +57,9 @@ public class Login {
         return new User(username, password);
     }
 
-    public static User loadUser(String username)  {
-        try {
-            for (User x: readUserObject()){
-                if(x.getUsername().equals(username)){
-                    System.out.println("1: "+ x);
-                    return x;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        throw new RuntimeException();
-    }
-
     public static boolean checkUserExists(String username){
-        for(User x: users){
-            if(x.getUsername().equals(username)){
+        for(User usr: users){
+            if(usr.getUsername().equals(username)){
                 return true;
             }
         }
@@ -99,10 +71,15 @@ public class Login {
         userSave();
     }
 
+    // Creating user and setting variables up
     public static boolean createUserInterface(String username, String password, String name){
-        try{
+        try {
             readUserObject();
         } catch (IOException e){}
+
+        if(checkUserExists(username)) {
+            return false;
+        }
 
         User usr = createUser(username, password);
         usr.setName(name);
@@ -124,12 +101,10 @@ public class Login {
             os.flush();
             os.close();
             fs.close();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        } catch (IOException e) {}
     }
 
-    public static void setLoggedIn(User loggedIn) {
+    private static void setLoggedIn(User loggedIn) {
         Login.loggedIn = loggedIn;
     }
 
@@ -145,13 +120,13 @@ public class Login {
             os.flush();
             os.close();
             fs.close();
-        } catch (IOException e) {
-            System.out.println(e);
-        }
+        } catch (IOException e) {}
     }
 
     //  Unsafe method. Bypasses any authentication processes where needed
-    public static <T extends Serializable> Object loadObject(String name) {
+    // NOTE: the object is not casted when loaded
+    // However we know what file belongs to which object
+    private static Object loadObject(String name) {
         Object obj = null;
         try {
             FileInputStream fs = new FileInputStream(fileLocation + name);
@@ -160,7 +135,7 @@ public class Login {
             os.close();
             fs.close();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println(e);
+
         }
 
         return obj;

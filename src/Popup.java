@@ -1,7 +1,10 @@
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+/*
+* Simple Popup Frame
+* */
 
 public class Popup extends Frame {
     public Popup() {
@@ -10,6 +13,11 @@ public class Popup extends Frame {
             @Override
             public void windowClosed(WindowEvent e) {
                 ((Frame) e.getSource()).dispose();
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                e.getWindow().dispose();
             }
         });
     }
@@ -22,5 +30,10 @@ public class Popup extends Frame {
         this.pack();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
+    }
+
+    public void close() {
+        this.dispose();
+        Settings.save();
     }
 }

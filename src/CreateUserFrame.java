@@ -10,15 +10,12 @@ public class CreateUserFrame extends Frame {
 
     public CreateUserFrame(){
 
-        Panel layout;
+        Panel layout = Panels.basicPanel();
         TextField usr, pwd, name;
         Label u, p, n, notif;
         Button submit, business, leave;
 
         this.setLayout(new FlowLayout());
-        layout = new Panel();
-        layout.setLayout(new GridLayout(0,1));
-        layout.setVisible(true);
 
         usr = new TextField();
         pwd = new TextField();
@@ -29,7 +26,7 @@ public class CreateUserFrame extends Frame {
         n = new Label("Name");
         notif = new Label("");
 
-        submit = new Button("Submit");
+        submit = new Button(Conts.SUBMIT);
         business = new Button("Create business");
         leave = new Button("Leave");
 
@@ -43,8 +40,9 @@ public class CreateUserFrame extends Frame {
                     notif.setText("These boxes cannot be empty");
                 } else {
                     if(Login.createUserInterface(username, password, n)){
-                        System.out.println("Successfukl");
+                        closeFrame();
                         Popup p = new Popup();
+                        p.setTitle("User created successfully");
                         p.add(business);
                         p.add(leave);
 
@@ -67,7 +65,9 @@ public class CreateUserFrame extends Frame {
                             }
                         });
 
+                        p.addWindowListener(new CompleteClose());
                         p.launch();
+
                     } else {
                         notif.setText("We couldn't create a user. Try again");
                     }
@@ -84,10 +84,11 @@ public class CreateUserFrame extends Frame {
         layout.add(n);
         layout.add(name);
         layout.add(submit);
+        layout.add(notif);
 
         this.add(layout);
 
-        this.addWindowListener(new WindowCloser());
+        this.addWindowListener(new CompleteClose());
         this.setSize(500,500);
         this.setLocationRelativeTo(null);
         this.setVisible(true);

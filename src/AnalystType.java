@@ -1,43 +1,34 @@
-import java.awt.*;
+/*
+* Note that we cannot minimise the 4 text strings
+* */
+public class AnalystType extends KPIGroup {
 
-public class AnalystType extends EmployeeLadder{
+    private final String[] links = {
+            Conts.ANALYST, Conts.ANALYST_LEADER, Conts.ANALYST_SALES
+    };
 
     public AnalystType() {
         super(
                 new Identifier[]{
                         Identifier.VIEWER,
                         Identifier.EDITOR
-                }
+                },
+                "You can only add Sales and Inventory to the analyst group",
+                "Contains KPI types for Analysts"
         );
     }
 
     public AnalystType(Identifier[] access) {
-        super(access);
+        super(access, "You can only add Sales and Inventory to the analyst group", "Contains KPI types for Analysts");
     }
 
-    @Override
-    boolean compareTo(Object obj) {
-        if (obj instanceof AnalystType){
-            return true;
-        }
-        return false;
-    }
 
     @Override
-    public Panel showRights() {
-        Panel p = Panels.basicPanel();
-        p.add(new Label("hello"));
-        return p;
+    public boolean check(String kpi) {
+        return kpi.equals(Conts.MARKETING) || kpi.equals(Conts.SALES) || kpi.equals(Conts.INVENTORY);
     }
 
-    @Override
-    public Frame showKpis() {
-        Frame f = Panels.basicWindow();
-        return f;
-    }
-
-    @Override
-    public String showInfoMetric() {
-        return "Analyst";
+    public String[] getLinks() {
+        return links;
     }
 }

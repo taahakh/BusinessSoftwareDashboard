@@ -1,5 +1,11 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.Serializable;
+
+/*
+* Track sales
+* */
 
 public class Sales extends KPI implements Serializable {
 
@@ -7,47 +13,89 @@ public class Sales extends KPI implements Serializable {
     private int unitsRemaining;
 
     public Sales(String identifier) {
-        super(identifier, "Sales");
+        super(identifier, Conts.SALES, "Track Sales");
     }
 
-    public int getSales() {
-        return sales;
+    // true = sales, false = unitsRemaining
+    public Button create(Method method, String name, String description, boolean either) {
+        Button b = new Button(name);
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Popup p = new Popup();
+                TextField tf = new TextField();
+                Button b = new Button(Conts.SUBMIT);
+                p.setLayout(new GridLayout(0,1));
+                p.add(new Label(description));
+                b.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(handleNumberException(tf.getText(), new Label())){
+                            int x = Integer.parseInt(tf.getText());
+                            switch (method) {
+                                case UPDATE:
+                                    update(either, x);
+                                    break;
+                                case ADD:
+                                    add(either, x);
+                                    break;
+                            }
+                            p.close();
+                        }
+
+                    }
+                });
+
+                p.add(tf);
+                p.add(b);
+                p.launch();
+            }
+        });
+        return b;
     }
 
-    public int getUnitsRemaining() {
-        return unitsRemaining;
+    private void update(boolean state, int x){
+        if (state){
+            sales += x;
+        } else {
+            unitsRemaining += x;
+        }
     }
 
-    public void setSales(int sales) {
-        this.sales = sales;
-    }
-
-    public void setUnitsRemaining(int unitsRemaining) {
-        this.unitsRemaining = unitsRemaining;
-    }
-
-    public void updateSales(int update){
-        this.sales += update;
-    }
-
-    public void updateUnitsRemaining(int update){
-        this.sales = update;
+    private void add(boolean state, int x){
+        if (state){
+            sales = x;
+        } else {
+            unitsRemaining = x;
+        }
     }
 
     @Override
-    String provideKeyMetric() {
-        return null;
-    }
-
-    @Override
-    KPI returnSameClass() {
-        return new Sales("");
+    public String provideKeyMetric() {
+        return "Name: " + getIndicatorName() + "\n" +
+                "Sales: " + sales + "\n" +
+                "Remaining units: " + unitsRemaining;
     }
 
     @Override
     Frame showKpi(boolean editable) {
-        Frame f = Panels.basicWindow();
-        return f;
+
+        KPIFrame frame = new KPIFrame(provideKeyMetric(), getVisual());
+        frame.setTitle(Conts.SALES);
+        frame.addButton(viewPKM());
+        if(editable) {
+            frame.addButton(create(Method.ADD, "Set sales", "Enter value to set sales", true));
+            frame.addButton(create(Method.UPDATE, "update sales", "Enter value to set sales", true));
+            frame.addButton(create(Method.ADD, "Set units", "Enter value to set sales", false));
+            frame.addButton(create(Method.UPDATE, "update units", "Enter value to set sales", false));
+
+        }
+        return frame;
+    }
+
+
+    public int getSales(){
+        return sales;
     }
 
 }

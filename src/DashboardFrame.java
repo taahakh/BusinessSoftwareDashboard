@@ -1,18 +1,19 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Set;
+
+/*
+* Can only work if the user is logged in and the employee has been set
+* Loads KPI's and Settings
+* */
 
 public class DashboardFrame extends Frame {
 
     public DashboardFrame() {
-        User user = Login.getLoggedIn();
-        Business b = Settings.getBusiness();
         Employee em = Settings.getEmployee();
 
         Panel layout;
         Button logout, refresh;
-        Button[] buttons;
         Label area;
 
         logout = new Button("Logout");
@@ -36,24 +37,10 @@ public class DashboardFrame extends Frame {
 
         this.setLayout(new FlowLayout());
         layout = new Panel();
-        layout.setLayout(new GridLayout(0,1));
         layout.setVisible(true);
 
-        area = new Label(em.getLadder().showInfoMetric());
+        this.setTitle(em.getUsername() + ": " + em.getTitle());
 
-        System.out.println("Business list: " + Settings.getBusiness().getTotalKpis());
-        System.out.println("Business name: "+ Settings.getBusiness().getName());
-//        Settings.save();
-        Settings.getBusiness().printLinks();
-
-        System.out.println("-------------------");
-        System.out.println(Settings.getBusiness().getEmployees().toString());
-        /*for (Employee e : Settings.getBusiness().getEmployees()) {
-//            System.out.println(e.());
-        }*/
-        System.out.println("-------------------");
-
-        layout.add(area);
 
         this.add(layout);
         // Settings
@@ -62,10 +49,14 @@ public class DashboardFrame extends Frame {
         for(Button x: em.showKPIButtons()) {
             this.add(x);
         }
+        
+        this.add(Operations.printDetails());
+
+        em.formLayout(layout);
         this.add(logout);
         this.add(refresh);
 
-        this.addWindowListener(new WindowCloser());
+        this.addWindowListener(new CompleteClose());
         this.setSize(700,700);
         this.setLocationRelativeTo(null);
         this.setVisible(true);

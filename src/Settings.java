@@ -1,17 +1,20 @@
-import java.awt.*;
-
 /* Tracks all the global variables for the user, business and employee class
+*  Four important (Employee, Business, User, Userlist) static variables have been used within the programs lifecycle to carry out functions
+*  These could have been encapsulated and been taken around within the program but then its becomes messy and hard to move these variables
+*  The rest of the globals are String CONSTANTS that are used throughout the program
 *  These methods automatically generate KPI's, employees etc. It is up to the
-*  developer to add their inclusion of their types of KPI's, employees etc.
+*  developer to add their inclusion of their types of KPI's, employees etc and update it here
 * */
+
 public class Settings {
 
     private static Employee employee;
     private static Business business;
 
-    public final static String EM_FILENAME = "em.txt";
-    public final static String BUS_FILENAME = "bus.txt";
-    public final static String USER_FILENAME = "user.txt";
+    public final static String EM_FILENAME = "em.obj";
+    public final static String BUS_FILENAME = "bus.obj";
+    public  final static String USER_FILENAME = "user.obj";
+
 
     public static void save(){
         Login.saveObjects(employee, EM_FILENAME);
@@ -26,45 +29,75 @@ public class Settings {
         Login.resetLoggedIn();
     }
 
-    public static String [] availableKpis = new String[]{
-            "Sales", "Inventory",
+    private static final String [] availableKpis = new String[]{
+            Conts.SALES, Conts.INVENTORY, Conts.MARKETING, Conts.HUMAN_RESOURCES,
     };
 
-    public static KPI createKpiObject(String name, String type) {
-        switch (type){
-            case "Sales":
+    private static final String [] availableEmployees = new String[] {
+            Conts.ADMIN, Conts.ANALYST, Conts.ANALYST_LEADER, Conts.ANALYST_SALES, Conts.HR_MANAGER, Conts.HR_VIWER, Conts.STANDARD
+    };
+
+    private static final String [] availableRanks = new String[] {
+            Conts.ADMIN, Conts.ANALYST, Conts.HR, Conts.STANDARD
+    };
+
+    public static KPI getKPI(String name, String type) {
+        switch (type.toLowerCase()){
+            case Conts.SALES:
                 return new Sales(name);
-            case "Inventory":
+            case Conts.INVENTORY:
                 return new Inventory(name);
+            case Conts.MARKETING:
+                return new Marketing(name);
+            case Conts.HUMAN_RESOURCES:
+                return new HumanResources(name);
             default:
                 break;
         }
-        throw new RuntimeException();
-//        return new DefaultKPI();
+        return null;
     }
 
-    public static Employee castEmployees(Employee em, String type) {
-        switch (type){
-            case "admin":
-                return (Admin) em;
-            case "analyst":
-                return (Analyst) em;
-            case "analystleader":
-                return (AnalystLeader) em;
+    public static KPI getKPI(String type) {
+        return getKPI("", type);
+    }
+
+    public static Employee getEmployee(String type, String title) {
+        switch (type.toLowerCase()){
+            case Conts.ADMIN:
+                return new Admin(title);
+            case Conts.ANALYST:
+                return new Analyst(title);
+            case Conts.ANALYST_LEADER:
+                return new AnalystLeader(title);
+            case Conts.ANALYST_SALES:
+                return new AnalystSales(title);
+            case Conts.HR_MANAGER:
+                return new HrManager(title);
+            case Conts.HR_VIWER:
+                return new HrViewer(title);
+            case Conts.STANDARD:
+                return new Standard(title);
         }
-        return em;
+
+        return null;
     }
 
-    public static EmployeeLadder getType(String type) {
-        switch (type){
-            case "admin":
+    public static Employee getEmployee(String type) {
+        return getEmployee(type, "");
+    }
+
+    public static KPIGroup getType(String type) {
+        switch (type.toLowerCase()){
+            case Conts.ADMIN:
                 return new AdminType();
-            case "analyst":
+            case Conts.ANALYST:
                 return new AnalystType();
-//            case "default":
+            case Conts.HR:
+                return new HrType();
+            case Conts.STANDARD:
+                return new StandardType();
         }
-        throw new RuntimeException("ok");
-//        return em;
+        return null;
     }
 
     public static Employee getEmployee(){
@@ -81,6 +114,18 @@ public class Settings {
 
     public static void setBusiness(Business b){
         business = b;
+    }
+
+    public static String[] getAvailableKpis() {
+        return availableKpis;
+    }
+
+    public static String[] getAvailableEmployees() {
+        return availableEmployees;
+    }
+
+    public static String[] getAvailableRanks() {
+        return availableRanks;
     }
 
 }

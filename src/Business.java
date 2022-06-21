@@ -1,32 +1,27 @@
 import java.io.Serializable;
 import java.util.*;
 
+/*
+* Stores all employees. KPIgroups, and management indicators
+* Adding/Deleting employees, KPIGroup and Management manipulation occurs here as well as Class Operation
+* */
+
 public class Business implements Serializable {
 
     private static final long serialVersionUID = 1L;
     public static ArrayList<Business> business = new ArrayList<Business>();
 
     private String name; // name of the business
-    private ArrayList<Employee> employees; // all employees that the business has
-    private HashMap<EmployeeLadder, ArrayList<KPI>> ladderKpis;
+    private final ArrayList<Employee> employees; // all employees that the business hasIdentifier
+    private final ArrayList<KPIGroup> groups;
+    private final ArrayList<Management> management;
 
     public Business(String name) {
         this.name = name;
-        this.employees = new ArrayList<Employee>();
-        this.ladderKpis = new HashMap<EmployeeLadder, ArrayList<KPI>>();
-    }
-
-    public Business(String name, ArrayList<KPI> indicators, ArrayList<Employee> employees) {
-        this.name = name;
-        this.employees = employees;
-        this.ladderKpis = new HashMap<EmployeeLadder, ArrayList<KPI>>();
-    }
-
-    public static Business createBusiness(String name, ArrayList<KPI> indicators, ArrayList<Employee> employees) {
-        Business temp = new Business(name, indicators, employees);
-        business.add(temp);
-        Settings.setBusiness(temp);
-        return Settings.getBusiness();
+        this.employees = new ArrayList<>();
+        this.groups = new ArrayList<>();
+        this.management = new ArrayList<>();
+        addManagementButtons();
     }
 
     public static Business createBusiness(String name) {
@@ -34,6 +29,12 @@ public class Business implements Serializable {
         business.add(temp);
         Settings.setBusiness(temp);
         return Settings.getBusiness();
+    }
+
+    private void addManagementButtons(){
+        management.add(new Hiring("Hiring List"));
+        management.add(new EmployeeList("Employee List"));
+        management.add(new Finance("Finances"));
     }
 
     public String getName(){
@@ -48,10 +49,6 @@ public class Business implements Serializable {
         employees.remove(em);
     }
 
-    public void save(){
-        Login.saveObjects(this, Settings.BUS_FILENAME);
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -60,18 +57,16 @@ public class Business implements Serializable {
         return employees;
     }
 
-    public Map<EmployeeLadder, ArrayList<KPI>> getLadderKpis() {
-        return ladderKpis;
+    public ArrayList<Management> getManagement(){
+        return management;
     }
 
-    public void setLadderKpis(HashMap <EmployeeLadder, ArrayList<KPI>> ladderKpis) {
-        this.ladderKpis = ladderKpis;
-    }
+    // ----------------------------------------------
 
-    public ArrayList<KPI> compareTo(EmployeeLadder type) {
-        for(EmployeeLadder k: ladderKpis.keySet()){
-            if(type.compareTo(k)){
-                return ladderKpis.get(k);
+    private ArrayList<KPI> compareGroup(KPIGroup type) {
+        for(KPIGroup k: groups){
+            if(type.compare(k)){
+                return k.getKpis();
             }
         }
 
@@ -79,16 +74,32 @@ public class Business implements Serializable {
     }
 
     public ArrayList<KPI> getTotalKpis() {
-        return compareTo(new AdminType());
+        return compareGroup(new AdminType());
     }
 
-    public void linkLadderList(EmployeeLadder e, ArrayList<KPI> k) {
-        ladderKpis.put(e,k);
+    public void linkLadderList(KPIGroup group, ArrayList<KPI> kpis) {
+        group.setKpis(kpis);
+        groups.add(group);
     }
 
-    public boolean hasLadderLink(EmployeeLadder e) {
-        for (EmployeeLadder x: ladderKpis.keySet()){
-            if(e.compareTo(x)){
+    public void linkLadderList(String type, ArrayList<KPI> kpis) {
+        KPIGroup group = Settings.getType(type);
+        group.setKpis(kpis);
+        groups.add(group);
+    }
+
+    public void linkLadderList() {
+        for (String type : Settings.getAvailableRanks()) {
+            KPIGroup el = Settings.getType(type);
+            if(!hasLadderLink(el)){
+                groups.add(el);
+            }
+        }
+    }
+
+    public boolean hasLadderLink(KPIGroup group) {
+        for (KPIGroup x: groups){
+            if(group.compare(x)){
                 return true;
             }
         }
@@ -96,26 +107,29 @@ public class Business implements Serializable {
         return false;
     }
 
-    public void addKpiToList(EmployeeLadder e, KPI k) {
+    public void addKpiToList(KPIGroup group, KPI k) {
         // Linking employee rank with KPI
-        if(hasLadderLink(e) == true) {
-            appendKPI(e,k);
+        if(hasLadderLink(group)) {
+            if(!(appendKPI(new AdminType(), k))){
+                return;
+            }
+            appendKPI(group,k);
         } else {
-            // no ladders exists so we need to create a new link
+            // if no ladders exists, we need to create a new link
             ArrayList<KPI> list = new ArrayList<KPI>();
             list.add(k);
-            linkLadderList(e, list);
+            linkLadderList(group, list);
         }
         // We link admin employee with all kpis
         appendKPI(new AdminType(), k);
         Settings.save();
     }
 
-    private boolean appendKPI (EmployeeLadder e, KPI k) {
+    private boolean appendKPI (KPIGroup group, KPI k) {
         // checks for any ladders that exists
-        for (EmployeeLadder x: ladderKpis.keySet()){
-            if(e.compareTo(x)){
-                return append(ladderKpis.get(x), k);
+        for (KPIGroup x: groups){
+            if(group.compare(x)){
+                return append(x.getKpis(), k);
             }
         }
 
@@ -123,8 +137,8 @@ public class Business implements Serializable {
     }
 
     private boolean append(ArrayList<KPI> list, KPI k) {
-        for (KPI x: list) {
-            if(x.getIndicatorName().equals(k.getIndicatorName())){
+        for (KPI kpi: list) {
+            if(kpi.getIndicatorName().equals(k.getIndicatorName()) && kpi.compare(k)){
                 return false;
             }
         }
@@ -132,51 +146,55 @@ public class Business implements Serializable {
         return true;
     }
 
-    public void printLinks() {
-        for(EmployeeLadder x: ladderKpis.keySet()){
-            System.out.println("Ladder: " + x + " List: " + ladderKpis.get(x));
-        }
-    }
-
-    public ArrayList<KPI> getKPILadderList(EmployeeLadder e) {
-        for (EmployeeLadder x: ladderKpis.keySet()) {
-            if(x.compareTo(e)){
-                return ladderKpis.get(x);
+    public ArrayList<KPI> returnLadderKPI(String item) {
+        KPIGroup group = Settings.getType(item);
+        for (KPIGroup e : groups) {
+            if(e.compare(group)){
+                return e.getKpis();
             }
         }
-
-        return new ArrayList<KPI>();
-//        throw new RuntimeException("OH NO");
+        return null;
     }
 
-    public ArrayList<KPI> returnLadderKPI(EmployeeLadder ladder) {
-        ArrayList<KPI> temp = null;
-        for (EmployeeLadder e : ladderKpis.keySet()) {
-            if(e.compareTo(ladder)){
-                return ladderKpis.get(e);
-            }
-        }
-        return temp;
-    }
-
-    public void removeKPI(String kpi, String kpiName) {
+    public boolean removeKPI(String kpi, String kpiName) {
         KPI temp = null;
-        ArrayList<KPI> list = returnLadderKPI(new AdminType());
+        ArrayList<KPI> list = returnLadderKPI(Conts.ADMIN);
         for (KPI k : list) {
-            if(k.getIndicatorName().equals(kpiName) && k.getClassName().equals(kpi)){
+            if(k.getIndicatorName().equals(kpiName) && k.compare(kpi)){
                 temp = k;
                 list.remove(k);
                 break;
             }
         }
 
-        for (EmployeeLadder e : ladderKpis.keySet()){
-            ladderKpis.get(e).remove(temp);
+        if(temp == null){
+            return false;
         }
 
-        printLinks();
+        //Removing KPI from all groups
+        for (KPIGroup group : groups){
+            group.getKpis().remove(temp);
+        }
 
         Settings.save();
+
+        return true;
+    }
+
+    // We assign KPIGroups kpis to our employees KPIGroups
+    // Sounds confusing but essentially linking the group to the employee account
+    public KPIGroup assignType(KPIGroup group) {
+        for (KPIGroup x: groups){
+            if(group.compare(x)){
+                group.setKpis(x.getKpis());
+                return group;
+            }
+        }
+
+        groups.add(group);
+        Settings.save();
+
+        return group;
     }
 
 }

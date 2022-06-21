@@ -1,58 +1,30 @@
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class User implements Serializable {
+/*
+* Basic template for Users
+* Stores employees and credentials
+* NOTE: This model allows it so that you can be multiple employees to multiple businesses or in fact the same business
+* */
+
+public final class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String username; // Login information
-    private String password;
+    // Note: there is no current functionality to change username/password so it's set to final
+    private final String username; // Login information
+    private final String password;
 
     private String name; // Name identification
-    private ArrayList<Employee> employee; // Account access to businesses
+    private final ArrayList<Employee> employee; // Account access to businesses
 
     public User(String username, String password) {
-        this.username= username;
-        this.password= password;
-        this.name = "";
-        this.employee = new ArrayList<Employee>(0);
-    }
-
-    public User(String username, String password, String name) {
-        this.username= username;
-        this.password= password;
-        this.name = name;
+        this.username = username;
+        this.password = password;
         this.employee = new ArrayList<Employee>(0);
     }
 
     public boolean confirmPassword(String password){
         return this.password.equals(password);
-    }
-
-    public void saveUser(){
-//        Login.userSave(this);
-        Settings.save();
-    }
-
-    public ArrayList<Employee> getEmployee() {
-        return employee;
-    }
-
-    public void deleteEmployee(Employee em) {
-        employee.remove(em);
-    }
-
-    public Employee removeEmployeeWithBusiness(Business bus) {
-        Employee temp = null;
-        for(Employee emp: employee){
-            if(emp.getBusiness().getName().equals(bus.getName())){
-                System.out.println("remove success");
-                temp = emp;
-                employee.remove(emp);
-                return temp;
-            }
-        }
-        return temp;
-//        throw new RuntimeException();
     }
 
     public String getUsername(){
@@ -67,17 +39,35 @@ public class User implements Serializable {
         return this.name;
     }
 
+    public ArrayList<Employee> getEmployee() {
+        return employee;
+    }
+
+    // -------------------------------------
+
+    public Employee removeEmployeeWithBusiness(Business bus) {
+        Employee temp = null;
+        for(Employee emp: employee){
+            if(emp.getBusiness().getName().equals(bus.getName())){
+                temp = emp;
+                employee.remove(emp);
+                return temp;
+            }
+        }
+        return temp;
+//        throw new RuntimeException();
+    }
+
     public void addEmployee(Employee employee){
         this.employee.add(employee);
     }
 
-    // Check if the user is already added to the business
-    // We check if the business name matches and their rank matches
-    // NOTE: we can add multiple ranks for each business. It is safe
-    // but not intended.
+    // We check the employee type and the business name
+    // You can be multiple different employee types for the same business as well
+    // This makes sure that we are not adding the same employee type in the same business
     public boolean addEmployeeSafely(Employee em, String businessName){
         for(Employee x: employee) {
-            if(x.whatType().equals(em.whatType()) && x.getBusiness().getName().equals(businessName)){
+            if(x.compare(em) && x.getBusiness().getName().equals(businessName)){
                 return false;
             }
         }
@@ -88,9 +78,9 @@ public class User implements Serializable {
     }
 
     public Boolean deleteEmployee(Business b) {
-        for(Employee e: employee){
-            if(e.getBusiness().equals(b)){
-                return employee.remove(e);
+        for(Employee em: employee){
+            if(em.getBusiness().equals(b)){
+                return employee.remove(em);
             }
         }
         return false;
