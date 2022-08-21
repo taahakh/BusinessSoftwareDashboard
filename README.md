@@ -9,7 +9,7 @@ Enter the src folder in a terminal of choice and compile Main.java
 ### Setup
 
 <code>
-javac Main.java
+javac Main.java    
 <br />
 java Main
 </code>
