@@ -10,6 +10,6 @@ Enter the src folder in a terminal of choice and compile Main.java
 
 <code>
 javac Main.java    
-<br />
-      java Main
 </code>
+
+<code>java Main</code>
