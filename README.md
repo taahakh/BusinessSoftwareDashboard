@@ -8,6 +8,6 @@ Enter the src folder in a terminal of choice and compile Main.java
 
 ### Setup
 
-javac Main.java
+javac Main.java\
 java Main
 
